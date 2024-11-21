@@ -9,5 +9,6 @@ public record ProductDto(
         UUID id,
         String productName,
         String productDescription,
+        String ean,
         byte[] labelImage
 ) {}
