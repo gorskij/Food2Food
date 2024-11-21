@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 webapp/yarn.lock
+
+/src/main/resources/keys/private_key.pem
+/src/main/resources/keys/public_key.pem
