@@ -1,10 +1,11 @@
 import { useGetProducts } from "@/data/products/useGetProducts";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ChevronsLeft,
   ChevronsRight,
   Ellipsis,
+  FilterX,
   Plus,
   Search,
 } from "lucide-react";
@@ -18,20 +19,39 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { NavLink } from "react-router-dom";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
+import { Input } from "@/components/ui/input";
 
 const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchName, setSearchName] = useState("");
+  const [pendingSearch, setPendingSearch] = useState("");
+
   const { data, isLoading, isError } = useGetProducts({
     pageNumber: currentPage,
     pageSize: 10,
+    name: searchName,
   });
+
+  useEffect(() => {
+    if (pendingSearch === "") {
+      handleSearch(); // Trigger search when `pendingSearch` is cleared
+    }
+  }, [pendingSearch]);
+
+  const handleSearch = () => {
+    setSearchName(pendingSearch);
+    setCurrentPage(0);
+  };
+
+  const handleClearFilters = () => {
+    setPendingSearch("");
+  };
 
   const breadcrumbs = useBreadcrumbs([
     { title: "Strona Główna", path: "/" },
     { title: "Lista Produktów", path: "/products" },
   ]);
 
-  // Placeholder image URL
   const placeholderImg = "https://via.placeholder.com/150";
 
   if (isLoading) return <LoadingData />;
@@ -44,9 +64,35 @@ const ProductsPage = () => {
     );
 
   return (
-    <div className="max-w-full">
-      <div className="text-center text-3xl font-bold">Lista Produktów</div>
+    <div className="min-w-full">
+      <div className="text-center text-3xl font-bold my-5">Lista Produktów</div>
       {breadcrumbs}
+      <div className="flex justify-end mr-6">
+        <div className="flex w-full max-w-sm items-center mt-4">
+          <Input
+            type="text"
+            placeholder="Szukaj produktów..."
+            value={pendingSearch}
+            onChange={(e) => setPendingSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+          />
+          <Button
+            onClick={handleSearch}
+            variant="ghost"
+            size="icon"
+            className="mx-1"
+          >
+            <Search />
+          </Button>
+          <Button onClick={handleClearFilters} variant="ghost" size="icon">
+            <FilterX />
+          </Button>
+        </div>
+      </div>
       <div className="flex justify-center items-center mt-4">
         <Button
           variant="outline"
@@ -56,7 +102,8 @@ const ProductsPage = () => {
           <ChevronsLeft />
         </Button>
         <span>
-          Strona {currentPage + 1} z {data?.totalPages}
+          Strona {data?.totalPages === 0 ? 0 : currentPage + 1} z{" "}
+          {data?.totalPages}
         </span>
         <Button
           variant="outline"
@@ -96,7 +143,7 @@ const ProductsPage = () => {
                         className="flex items-center space-x-2 w-full"
                       >
                         <Search className="mr-2" />
-                        Sczegóły&nbsp;Produktu
+                        Szczegóły&nbsp;Produktu
                       </NavLink>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
@@ -110,7 +157,7 @@ const ProductsPage = () => {
                 <img
                   src={productImg}
                   alt={product.productName}
-                  className="w-full h-48 object-cover rounded"
+                  className="w-full max-h-48 object-contain rounded"
                 />
                 <h3 className="mt-2 text-lg font-bold text-center">
                   {product.productName}
