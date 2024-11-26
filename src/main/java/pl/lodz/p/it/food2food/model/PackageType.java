@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "package_type")
-public class PackageType extends ReadOnlyEntity {
+public class PackageType extends AbstractEntity {
 
     @Column(name = "name")
     private String name;

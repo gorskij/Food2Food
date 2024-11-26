@@ -15,27 +15,8 @@ import java.util.Objects;
 @ToString
 @Entity
 @Table(name = "product_index")
-public class ProductIndex extends ReadOnlyEntity {
+public class ProductIndex extends AbstractEntity {
     private String indexName;
 
     private Integer indexValue;
-
-//    @Override
-//    public final boolean equals(Object o) {
-//        if (this == o) {
-//            return true;
-//        }
-//        if (!(o instanceof ProductIndex that)) {
-//            return false;
-//        }
-//
-//        return Objects.equals(getIndexName(), that.getIndexName()) && Objects.equals(getIndexValue(), that.getIndexValue());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = Objects.hashCode(getIndexName());
-//        result = 31 * result + Objects.hashCode(getIndexValue());
-//        return result;
-//    }
 }

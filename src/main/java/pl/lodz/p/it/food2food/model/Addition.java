@@ -9,7 +9,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Addition extends ReadOnlyEntity {
+public class Addition extends AbstractEntity {
 
     private Integer addition_number;
 }

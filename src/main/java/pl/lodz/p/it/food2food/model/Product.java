@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Product extends ReadOnlyEntity {
+public class Product extends AbstractEntity {
 
     @Size(max = 13)
     private String ean;

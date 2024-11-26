@@ -2,8 +2,8 @@ package pl.lodz.p.it.food2food.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.lodz.p.it.food2food.dto.ProductDto;
-import pl.lodz.p.it.food2food.dto.ProductDetailsDto;
+import pl.lodz.p.it.food2food.dto.responses.ProductDto;
+import pl.lodz.p.it.food2food.dto.responses.ProductDetailsDto;
 import pl.lodz.p.it.food2food.model.Product;
 
 @Mapper(componentModel = "spring", uses = {

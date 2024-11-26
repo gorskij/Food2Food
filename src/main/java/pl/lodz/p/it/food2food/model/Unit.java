@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Unit extends ReadOnlyEntity {
+public class Unit extends AbstractEntity {
 
     @NotNull
     private String name;

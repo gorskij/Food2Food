@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Composition extends ReadOnlyEntity {
+public class Composition extends AbstractEntity {
 
     @ManyToMany
     @JoinTable(

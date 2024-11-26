@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Flavour extends ReadOnlyEntity {
+public class Flavour extends AbstractEntity {
 
     @NotNull
     private String name;

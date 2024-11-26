@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import pl.lodz.p.it.food2food.dto.ProductDto;
+import pl.lodz.p.it.food2food.dto.responses.ProductDto;
 import pl.lodz.p.it.food2food.mappers.ProductMapper;
 import pl.lodz.p.it.food2food.model.Product;
 import pl.lodz.p.it.food2food.repositories.ProductRepository;
-import pl.lodz.p.it.food2food.dto.ProductDetailsDto;
+import pl.lodz.p.it.food2food.dto.responses.ProductDetailsDto;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -19,9 +19,14 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public Page<ProductDto> getAllProducts(Pageable pageable) {
-        return productRepository.findAll(pageable)
-                .map(productMapper::toProductDto);
+    public Page<ProductDto> getAllProducts(String name, Pageable pageable) {
+        if (name != null && !name.isEmpty()) {
+            return productRepository.findByProductNameContainingIgnoreCase(name, pageable)
+                    .map(productMapper::toProductDto);
+        } else {
+            return productRepository.findAll(pageable)
+                    .map(productMapper::toProductDto);
+        }
     }
 
     public ProductDetailsDto getProduct(UUID id) {

@@ -11,7 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Label extends ReadOnlyEntity {
+public class Label extends AbstractEntity {
 
     @ManyToMany
     @JoinTable(

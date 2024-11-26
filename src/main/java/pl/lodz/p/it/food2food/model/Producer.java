@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Producer extends ReadOnlyEntity {
+public class Producer extends AbstractEntity {
 
     @NotNull
     private String name;

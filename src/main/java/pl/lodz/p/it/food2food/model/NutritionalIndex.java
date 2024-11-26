@@ -14,7 +14,7 @@ import java.util.Objects;
 @ToString
 @Entity
 @Table(name = "nutritional_index")
-public class NutritionalIndex extends ReadOnlyEntity {
+public class NutritionalIndex extends AbstractEntity {
 
     @Column(name = "index_value")
     private Integer indexValue;

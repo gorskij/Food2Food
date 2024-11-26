@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "nutritional_value_name")
-public class NutritionalValueName extends ReadOnlyEntity {
+public class NutritionalValueName extends AbstractEntity {
 
     @ManyToOne
     private NutritionalValueGroup group;
