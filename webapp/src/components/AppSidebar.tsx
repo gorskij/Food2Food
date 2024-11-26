@@ -2,7 +2,6 @@ import {
   Utensils,
   UtensilsCrossed,
   Home,
-  Apple,
   User2,
   ChevronsUpDown,
   Settings,
@@ -15,7 +14,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -27,8 +25,6 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { NavLink } from "react-router-dom";
-import { ModeToggle } from "./ui/mode-toggle";
-import LanguageSelector from "./LanguageSelector";
 
 const items = [
   {
@@ -53,12 +49,6 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="flex items-center gap-2 text-2xl font-extrabold">
-            Food2Food
-            <Apple className="w-4 h-4 text-green-500" />
-            <ModeToggle />
-            <LanguageSelector />
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

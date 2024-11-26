@@ -13,11 +13,8 @@ const LanguageSelector: FC = () => {
   // const { setLanguage } = useLanguageStore();
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        className="absolute right-1 top-1 w-fit self-end"
-        asChild
-      >
-        <Button variant="ghost">
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon">
           <Languages />
         </Button>
       </DropdownMenuTrigger>
