@@ -28,9 +28,14 @@ type Addition = {
   addition_number: number;
 };
 
+type Ingredient = {
+  id: string;
+  name: string;
+};
+
 type Composition = {
   id: string;
-  ingredients: Array<{ id: string; name: string }>;
+  ingredients: Ingredient[];
   additions: Addition[];
   flavour: string | null;
 };
@@ -86,6 +91,7 @@ type NutritionalValue = {
 };
 
 export type ProductDetails = {
+  id: string;
   ean: string;
   productName: string;
   productDescription: string;

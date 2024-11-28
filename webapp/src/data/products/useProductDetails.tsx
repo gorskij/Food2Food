@@ -5,7 +5,7 @@ import { ProductDetails } from "@/types/ProductDetails";
 
 export const useGetProductDetails = (id: string) => {
   return useQuery({
-    queryKey: ["localDetailsForAdmin", id],
+    queryKey: ["productDetails", id],
     queryFn: async () => {
       try {
         const response = await api.get<ProductDetails>(`/products/${id}`);
