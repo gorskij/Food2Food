@@ -1,8 +1,17 @@
 import DataField from "@/components/DataField";
+import FatSaturationChart from "@/components/FatSaturationChart";
 import { LoadingData } from "@/components/LoadingData";
+import NutritionalChart from "@/components/NutritionalChart";
+import ProductAllergens from "@/components/ProductAllergens";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
+import SugarContentChart from "@/components/SugarContentChart";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetProductDetails } from "@/data/products/useProductDetails";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { FC } from "react";
@@ -24,181 +33,142 @@ const ProductDetailsPage: FC = () => {
     return (
       <div>
         Wystąpił błąd przy wczytywaniu danych.
-        <RefreshQueryButton queryKeys={["products"]} />
+        <RefreshQueryButton queryKeys={["productDetails"]} />
       </div>
     );
 
   return (
-    <div className="flex flex-col gap-2 max-w-max">
+    <div className="flex flex-col gap-2 min-w-full">
+      <div className="text-center text-3xl font-bold my-4">
+        Szczegóły Produktu
+      </div>
       {breadcrumbs}
 
       {data && (
-        <>
-          <Card className="mt-2">
-            <CardHeader>
-              <CardTitle className="text-center">
-                {data.data.productName}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex justify-center">
-              <div className="grid w-2/3 grid-cols-2 gap-2">
-                <DataField label="EAN" value={data.data.ean} />
-                <DataField label="Opis" value={data.data.productDescription} />
-                <DataField
-                  label="Ilość"
-                  value={`${data.data.productQuantity.toString()} ${
-                    data.data.unit.name
-                  }`}
-                />
-
-                <DataField label="Kraj" value={data.data.country} />
-                <DataField
-                  label="Typ Opakowania"
-                  value={data.data.packageType.name}
-                />
-
-                <p className="col-span-2 text-xl font-semibold">Producent</p>
-                <DataField label="Nazwa" value={data.data.producer.name} />
-                <DataField label="Adres" value={data.data.producer.address} />
-                <DataField label="NIP" value={data.data.producer.NIP} />
-                <DataField label="Kontakt" value={data.data.producer.contact} />
-
-                <p className="col-span-2 text-xl font-semibold">
-                  Wartości odżywcze
-                </p>
-                {(() => {
-                  const displayedLabels = new Set<string>();
-                  return data.data.nutritionalValues.map((nv) => {
-                    const uniqueLabel = `${nv.nutritionalValueName.group.groupName} : ${nv.nutritionalValueName.name}`;
-                    if (!displayedLabels.has(uniqueLabel)) {
-                      displayedLabels.add(uniqueLabel);
-                      return (
-                        <DataField
-                          key={nv.id}
-                          label={uniqueLabel}
-                          value={`${nv.quantity} ${nv.unit.name}`}
-                        />
-                      );
-                    }
-                    return null;
-                  });
-                })()}
-
-                <p className="col-span-2 text-xl font-semibold">Skład</p>
-                {data.data.composition.ingredients.map((ingredient) => (
-                  <DataField
-                    key={ingredient.id}
-                    label="Składnik"
-                    value={ingredient.name}
-                  />
-                ))}
-
-                <p className="col-span-2 text-xl font-semibold">Etykieta</p>
-                <DataField
-                  label="Przechowywanie"
-                  value={data.data.label.storage}
-                />
-                <DataField
-                  label="Trwałość"
-                  value={data.data.label.durability ?? "Brak danych"}
-                />
-                <DataField
-                  label="Instrukcje po otwarciu"
-                  value={
-                    data.data.label.instructionsAfterOpening ?? "Brak danych"
+        <div className="mx-10">
+          <div className="flex flex-wrap justify-between gap-4 mt-4">
+            <Card className="flex-1 min-w-[725px] max-w-full">
+              <CardHeader>
+                <CardTitle className="text-center">
+                  {data.data.productName ?? "Brak danych"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex justify-start">
+                <img
+                  src={
+                    data.data.label.image
+                      ? `data:image/jpeg;base64,${data.data.label.image}`
+                      : placeholderImg
                   }
+                  alt="Obrazek produktu"
+                  className="w-40 h-40 object-cover m-10"
                 />
-                <DataField
-                  label="Przygotowanie"
-                  value={data.data.label.preparation ?? "Brak danych"}
-                />
-
-                {/* Obrazek */}
-                <div className="col-span-2 flex justify-center">
-                  <img
-                    src={
-                      data.data.label.image
-                        ? `data:image/jpeg;base64,${data.data.label.image}`
-                        : placeholderImg
+                <div className="flex-1 justify-center flex-col">
+                  <DataField
+                    label="Opis :"
+                    value={data.data.productDescription ?? "Brak danych"}
+                    className="border-b py-1 my-1"
+                  />
+                  <DataField
+                    label="Kod EAN :"
+                    value={data.data.ean ?? "Brak danych"}
+                    className="my-2"
+                  />
+                  <DataField
+                    label="Ilość :"
+                    value={
+                      data.data.productQuantity && data.data.unit?.name
+                        ? `${data.data.productQuantity.toString()} ${
+                            data.data.unit.name
+                          }`
+                        : "Brak danych"
                     }
-                    alt="Obrazek produktu"
-                    className="w-40 h-40 object-cover"
+                    className="my-2"
+                  />
+                  <DataField
+                    label="Kraj pochodzenia :"
+                    value={data.data.country ?? "Brak danych"}
+                    className="my-2"
+                  />
+                  <DataField
+                    label="Typ Opakowania :"
+                    value={data.data.packageType?.name ?? "Brak danych"}
+                    className="my-2"
                   />
                 </div>
-              </div>
+              </CardContent>
+            </Card>
+            <Card className="flex-1 min-w-[525px] max-w-full">
+              <CardHeader>
+                <CardTitle className="text-left">
+                  Informacje o producencie
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex justify-center flex-col">
+                <DataField
+                  label="Producent :"
+                  value={data.data.producer?.name ?? "Brak danych"}
+                  className="border-b py-1 my-1"
+                />
+                <DataField
+                  label="Adres :"
+                  value={data.data.producer.address ?? "Brak danych"}
+                  className="my-2"
+                />
+                <DataField
+                  label="Kod wewnętrzny kraju :"
+                  value={
+                    data.data.producer.countryCode?.toString() ?? "Brak danych"
+                  }
+                  className="my-2"
+                />
+                <DataField
+                  label="NIP :"
+                  value={data.data.producer.NIP ?? "Brak danych"}
+                  className="my-2"
+                />
+                <DataField
+                  label="Kontakt :"
+                  value={data.data.producer.contact ?? "Brak danych"}
+                  className="my-2"
+                />
+              </CardContent>
+            </Card>
+          </div>
+          <ProductAllergens productDetails={data.data} />
+          <Card className="flex-1 max-w-full mt-4">
+            <CardHeader>
+              <CardTitle className="text-left">Wartość odżywcza</CardTitle>
+            </CardHeader>
+            <CardContent className="flex justify-center">
+              <Accordion
+                type="single"
+                collapsible
+                className="min-w-full"
+                defaultValue="item-1"
+              >
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Podstawowe</AccordionTrigger>
+                  <AccordionContent className="flex flex-col gap-4">
+                    <div className="flex flex-row min-w-full gap-4 flex-wrap">
+                      <NutritionalChart productDetails={data.data} />
+                    </div>
+                    <div className="flex flex-row min-w-full gap-4 flex-wrap">
+                      <FatSaturationChart productDetails={data.data} />
+                      <SugarContentChart productDetails={data.data} />
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>Dodatkowe</AccordionTrigger>
+                  <AccordionContent>
+                    Yes. It adheres to the WAI-ARIA design pattern.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </CardContent>
           </Card>
-
-          <Tabs defaultValue="details" className="mt-4">
-            <TabsList>
-              <TabsTrigger value="details">Szczegóły</TabsTrigger>
-              <TabsTrigger value="ratings">Parametry</TabsTrigger>
-              <TabsTrigger value="indexes">Indeksy</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="details">
-              <Card className="mt-4">
-                <CardHeader>
-                  <CardTitle className="text-center">
-                    Informacje o Produkcie
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <DataField
-                    label="Flavour"
-                    value={
-                      data.data.composition.flavour ?? "Brak dodatków smakowych"
-                    }
-                  />
-                  {data.data.label.allergens.length > 0 ? (
-                    <div>
-                      <p className="font-semibold">Alergeny:</p>
-                      {data.data.label.allergens.map((allergen) => (
-                        <span key={allergen.id}>{allergen.name}, </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <DataField label="Alergeny" value="Brak alergenów" />
-                  )}
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="ratings">
-              <Card className="mt-4">
-                <CardHeader>
-                  <CardTitle className="text-center">Parametry</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {data.data.ratings.map((rating) => (
-                    <DataField
-                      key={rating.id}
-                      label={rating.groupName}
-                      value={rating.name}
-                    />
-                  ))}
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="indexes">
-              <Card className="mt-4">
-                <CardHeader>
-                  <CardTitle className="text-center">Indeksy</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {data.data.productIndexes.map((index) => (
-                    <DataField
-                      key={index.id}
-                      label={index.indexName}
-                      value={index.indexValue.toString()}
-                    />
-                  ))}
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </>
+        </div>
       )}
     </div>
   );
