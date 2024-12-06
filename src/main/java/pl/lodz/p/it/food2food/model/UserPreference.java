@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -16,14 +17,20 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-public class FoodPreference extends AbstractEntity {
+public class UserPreference extends AbstractEntity {
     @ManyToMany
     @JoinTable(
-            name = "food_preference_allergen",
-            joinColumns = @JoinColumn(name = "food_preference_id"),
+            name = "user_preference_allergen",
+            joinColumns = @JoinColumn(name = "user_preference_id"),
             inverseJoinColumns = @JoinColumn(name = "allergen_id")
     )
     private Set<Allergen> allergens;
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "user_preference_rating",
+            joinColumns = @JoinColumn(name = "user_preference_id"),
+            inverseJoinColumns = @JoinColumn(name = "rating_id")
+    )
+    private Set<Rating> ratings = new HashSet<>();
 }
