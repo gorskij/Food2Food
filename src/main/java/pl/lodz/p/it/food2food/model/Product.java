@@ -1,10 +1,10 @@
 package pl.lodz.p.it.food2food.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -29,6 +29,12 @@ public class Product extends AbstractEntity {
 
     @Column(name = "product_quantity")
     private Integer productQuantity;
+
+    @Setter
+    @Min(value = 0, message = "The value must be positive")
+    @NotNull
+    @Column(name = "favorite_count", nullable = false)
+    private Integer favoriteCount;
 
     @ManyToOne
     private Unit unit;

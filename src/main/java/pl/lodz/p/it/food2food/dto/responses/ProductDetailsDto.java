@@ -14,6 +14,7 @@ public record ProductDetailsDto (
         String productName,
         String productDescription,
         Integer productQuantity,
+        Integer favoriteCount,
         String country,
         ProducerDto producer,
         UnitDto unit,

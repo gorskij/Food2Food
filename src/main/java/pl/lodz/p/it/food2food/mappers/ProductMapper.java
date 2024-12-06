@@ -7,16 +7,16 @@ import pl.lodz.p.it.food2food.dto.responses.ProductDetailsDto;
 import pl.lodz.p.it.food2food.model.Product;
 
 @Mapper(componentModel = "spring", uses = {
-        ProducerMapper.class,
-        UnitMapper.class,
-        PackageTypeMapper.class,
-        CompositionMapper.class,
-        NutritionalIndexMapper.class,
-        ProductIndexMapper.class,
-        LabelMapper.class,
-        PortionMapper.class,
-        RatingMapper.class,
-        NutritionalValueMapper.class
+//        ProducerMapper.class,
+//        UnitMapper.class,
+//        PackageTypeMapper.class,
+//        CompositionMapper.class,
+//        NutritionalIndexMapper.class,
+//        ProductIndexMapper.class,
+//        LabelMapper.class,
+//        PortionMapper.class,
+//        RatingMapper.class,
+//        NutritionalValueMapper.class
 })
 public interface ProductMapper {
 
