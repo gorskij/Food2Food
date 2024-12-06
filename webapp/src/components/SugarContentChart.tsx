@@ -56,6 +56,13 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
 
   const isCarbohydrateAbsent = totalCarbohydrates === 0;
 
+  const sugarLevelInfo =
+    sugarContent < 5
+      ? "Niska zawartość cukru w produkcie"
+      : sugarContent >= 15
+      ? "Wysoka zawartość cukru w produkcie"
+      : "Umiarkowana zawartość cukru w produkcie";
+
   return (
     <Card
       className={`flex-1 flex-col min-w-[400px] ${
@@ -68,19 +75,19 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         {isCarbohydrateAbsent ? (
-          <p className="flex-1 p-10 text-center text-xl text-muted-foreground">
+          <p className="flex-1 text-center justify-center text-xl text-muted-foreground">
             Brak węglowodanów w produkcie
           </p>
         ) : (
           <ChartContainer
             config={sugarContentChartConfig}
-            className="mx-auto aspect-square w-full max-w-[250px]"
+            className="mx-auto w-full max-w-[400px] h-full min-h-[240px]"
           >
             <RadialBarChart
               data={sugarContentChartData}
               endAngle={180}
-              innerRadius={90}
-              outerRadius={hoveredIndex !== null ? 150 : 140}
+              innerRadius={110}
+              outerRadius={hoveredIndex !== null ? 165 : 155}
             >
               <ChartTooltip
                 cursor={false}
@@ -97,10 +104,12 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
                             y={(viewBox.cy || 0) - 5}
                             className="fill-foreground text-2xl font-bold"
                           >
-                            {sugarContent.toLocaleString() +
+                            {(
+                              sugarContent.toLocaleString() +
                               " g/ " +
                               totalCarbohydrates +
-                              " g"}
+                              " g"
+                            ).replace(",", ".")}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
@@ -108,6 +117,13 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
                             className="fill-muted-foreground"
                           >
                             zawartość cukru / total węglowodany
+                          </tspan>
+                          <tspan
+                            x={viewBox.cx}
+                            y={(viewBox.cy || 0) + 75}
+                            className="text-sm text-muted-foreground"
+                          >
+                            {sugarLevelInfo}
                           </tspan>
                         </text>
                       );

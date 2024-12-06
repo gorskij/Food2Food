@@ -33,11 +33,16 @@ type Ingredient = {
   name: string;
 };
 
+type Flavour = {
+  id: string;
+  name: string;
+};
+
 type Composition = {
   id: string;
   ingredients: Ingredient[];
   additions: Addition[];
-  flavour: string | null;
+  flavour: Flavour | null;
 };
 
 type NutritionalIndex = {
@@ -96,6 +101,7 @@ export type ProductDetails = {
   productName: string;
   productDescription: string;
   productQuantity: number;
+  favoriteCount: number;
   country: string;
   producer: Producer;
   unit: Unit;

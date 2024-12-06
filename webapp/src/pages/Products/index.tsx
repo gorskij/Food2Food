@@ -6,6 +6,7 @@ import {
   ChevronsRight,
   Ellipsis,
   FilterX,
+  Heart,
   Plus,
   Search,
 } from "lucide-react";
@@ -34,7 +35,7 @@ const ProductsPage = () => {
 
   useEffect(() => {
     if (pendingSearch === "") {
-      handleSearch(); // Trigger search when `pendingSearch` is cleared
+      handleSearch();
     }
   }, [pendingSearch]);
 
@@ -102,15 +103,15 @@ const ProductsPage = () => {
           <ChevronsLeft />
         </Button>
         <span>
-          Strona {data?.totalPages === 0 ? 0 : currentPage + 1} z{" "}
-          {data?.totalPages}
+          Strona {data?.page.totalPages === 0 ? 0 : currentPage + 1} z{" "}
+          {data?.page.totalPages}
         </span>
         <Button
           variant="outline"
           className="mx-6"
           onClick={() =>
             setCurrentPage((prev) =>
-              Math.min(prev + 1, (data?.totalPages || 1) - 1)
+              Math.min(prev + 1, (data?.page.totalPages || 1) - 1)
             )
           }
         >
@@ -150,6 +151,12 @@ const ProductsPage = () => {
                       <span className="flex items-center space-x-2 w-full">
                         <Plus className="mr-2" />
                         Dodaj do porównania
+                      </span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <span className="flex items-center space-x-2 w-full">
+                        <Heart className="mr-2" />
+                        Dodaj do ulubionych
                       </span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>

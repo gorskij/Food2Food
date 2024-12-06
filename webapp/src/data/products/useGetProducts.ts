@@ -22,10 +22,12 @@ interface ProductsRequest {
 
 interface ProductsResponse {
   content: Product[];
-  totalPages: number;
-  totalElements: number;
-  number: number;
-  size: number;
+  page: {
+    totalPages: number;
+    totalElements: number;
+    number: number;
+    size: number;
+  };
 }
 
 export const useGetProducts = (request: ProductsRequest) => {

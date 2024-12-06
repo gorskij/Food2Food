@@ -1,7 +1,10 @@
 import DataField from "@/components/DataField";
 import FatSaturationChart from "@/components/FatSaturationChart";
 import { LoadingData } from "@/components/LoadingData";
+import MineralsTable from "@/components/MineralsTable";
 import NutritionalChart from "@/components/NutritionalChart";
+import Omega3Table from "@/components/Omega3Table";
+import VitaminsTable from "@/components/VitaminsTable";
 import ProductAllergens from "@/components/ProductAllergens";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
 import SugarContentChart from "@/components/SugarContentChart";
@@ -16,6 +19,17 @@ import { useGetProductDetails } from "@/data/products/useProductDetails";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
+import SaltAndFiberTable from "@/components/SaltAndFiberTable";
+import ProductIngredientsList from "@/components/ProductIngredientsList";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Ellipsis, Plus, Heart } from "lucide-react";
+import FavoriteInfo from "@/components/FavoriteInfo";
 
 const ProductDetailsPage: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -46,7 +60,28 @@ const ProductDetailsPage: FC = () => {
 
       {data && (
         <div className="mx-10">
-          <div className="flex flex-wrap justify-between gap-4 mt-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="ml-auto pb-2 px-4">
+                <Ellipsis />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="bottom" className="w-30">
+              <DropdownMenuItem>
+                <span className="flex items-center space-x-2 w-full">
+                  <Plus className="mr-2" />
+                  Dodaj do porównania
+                </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span className="flex items-center space-x-2 w-full">
+                  <Heart className="mr-2" />
+                  Dodaj do ulubionych
+                </span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <div className="flex flex-wrap justify-between gap-4">
             <Card className="flex-1 min-w-[725px] max-w-full">
               <CardHeader>
                 <CardTitle className="text-center">
@@ -67,7 +102,6 @@ const ProductDetailsPage: FC = () => {
                   <DataField
                     label="Opis :"
                     value={data.data.productDescription ?? "Brak danych"}
-                    className="border-b py-1 my-1"
                   />
                   <DataField
                     label="Kod EAN :"
@@ -96,6 +130,9 @@ const ProductDetailsPage: FC = () => {
                     className="my-2"
                   />
                 </div>
+                <div>
+                  <FavoriteInfo favoriteCount={data.data.favoriteCount} />
+                </div>
               </CardContent>
             </Card>
             <Card className="flex-1 min-w-[525px] max-w-full">
@@ -116,13 +153,6 @@ const ProductDetailsPage: FC = () => {
                   className="my-2"
                 />
                 <DataField
-                  label="Kod wewnętrzny kraju :"
-                  value={
-                    data.data.producer.countryCode?.toString() ?? "Brak danych"
-                  }
-                  className="my-2"
-                />
-                <DataField
                   label="NIP :"
                   value={data.data.producer.NIP ?? "Brak danych"}
                   className="my-2"
@@ -135,7 +165,9 @@ const ProductDetailsPage: FC = () => {
               </CardContent>
             </Card>
           </div>
-          <ProductAllergens productDetails={data.data} />
+          <div className="flex flex-row min-w-full gap-4 flex-wrap">
+            <ProductAllergens productDetails={data.data} />
+          </div>
           <Card className="flex-1 max-w-full mt-4">
             <CardHeader>
               <CardTitle className="text-left">Wartość odżywcza</CardTitle>
@@ -152,6 +184,7 @@ const ProductDetailsPage: FC = () => {
                   <AccordionContent className="flex flex-col gap-4">
                     <div className="flex flex-row min-w-full gap-4 flex-wrap">
                       <NutritionalChart productDetails={data.data} />
+                      <SaltAndFiberTable productDetails={data.data} />
                     </div>
                     <div className="flex flex-row min-w-full gap-4 flex-wrap">
                       <FatSaturationChart productDetails={data.data} />
@@ -160,14 +193,31 @@ const ProductDetailsPage: FC = () => {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                  <AccordionTrigger>Dodatkowe</AccordionTrigger>
+                  <AccordionTrigger>Witaminy</AccordionTrigger>
                   <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
+                    <VitaminsTable productDetails={data.data} />
                   </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>Minerały</AccordionTrigger>
+                  <AccordionContent>
+                    <MineralsTable productDetails={data.data} />
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-4">
+                  <AccordionTrigger>Kwasy Omega-3</AccordionTrigger>
+                  <AccordionContent>
+                    <Omega3Table productDetails={data.data} />
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-5">
+                  <AccordionTrigger>Dodatkowe</AccordionTrigger>
+                  <AccordionContent>item-5</AccordionContent>
                 </AccordionItem>
               </Accordion>
             </CardContent>
           </Card>
+          <ProductIngredientsList productDetails={data.data} />
         </div>
       )}
     </div>

@@ -59,6 +59,13 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
   const isFatAbsent = totalFat === 0;
   const isSaturatedAbsent = saturatedFat === 0;
 
+  const fatLevelInfo =
+    saturatedFat < 1.5
+      ? "Niska zawartość tłuszczów nasyconych w produkcie"
+      : saturatedFat >= 5
+      ? "Wysoka zawartość tłuszczów nasyconych w produkcie"
+      : "Umiarkowana zawartość tłuszczów nasyconych w produkcie";
+
   return (
     <Card
       className={`flex-1 flex-col min-w-[400px] ${
@@ -71,19 +78,19 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         {isFatAbsent ? (
-          <p className="flex-1 text-center text-xl text-muted-foreground p-10 ">
+          <p className="flex-1 text-center justify-center text-xl text-muted-foreground">
             Brak tłuszczu w produkcie
           </p>
         ) : (
           <ChartContainer
             config={fatSaturationChartConfig}
-            className="mx-auto aspect-square w-full max-w-[250px]"
+            className="mx-auto w-full max-w-[400px] h-full min-h-[240px]"
           >
             <RadialBarChart
               data={fatSaturationChartData}
               endAngle={180}
-              innerRadius={90}
-              outerRadius={hoveredIndex !== null ? 150 : 140}
+              innerRadius={110}
+              outerRadius={hoveredIndex !== null ? 165 : 155}
             >
               <ChartTooltip
                 cursor={false}
@@ -100,10 +107,12 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
                             y={(viewBox.cy || 0) - 5}
                             className="fill-foreground text-2xl font-bold"
                           >
-                            {saturatedFat.toLocaleString() +
+                            {(
+                              saturatedFat.toLocaleString() +
                               " g/ " +
                               totalFat +
-                              " g"}
+                              " g"
+                            ).replace(",", ".")}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
@@ -111,6 +120,13 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
                             className="fill-muted-foreground"
                           >
                             nasycone kwasy tłuszczowe / total tłuszcze
+                          </tspan>
+                          <tspan
+                            x={viewBox.cx}
+                            y={(viewBox.cy || 0) + 75}
+                            className="text-sm text-muted-foreground"
+                          >
+                            {fatLevelInfo}
                           </tspan>
                         </text>
                       );

@@ -88,7 +88,7 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
     <Card className="flex-1 flex-col min-w-[400px]">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-center">Podstawowe makroskładniki</CardTitle>
-        <CardDescription>na 100g produktu</CardDescription>
+        <CardDescription>na 100 g produktu</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -139,7 +139,7 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {energyValue.value.toLocaleString()}
+                          {energyValue.value.toLocaleString().replace(",", ".")}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
