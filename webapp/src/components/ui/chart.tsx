@@ -241,7 +241,7 @@ const ChartTooltipContent = React.forwardRef<
                       {item.value && (
                         <span className="font-mono font-medium tabular-nums text-foreground">
                           <span className="ml-2">
-                            {item.value.toLocaleString()}
+                            {item.value.toLocaleString().replace(",", ".")}
                           </span>
                           {unit && ` ${unit}`} {/* Append unit if provided */}
                         </span>
