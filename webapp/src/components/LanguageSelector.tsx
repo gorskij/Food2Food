@@ -6,11 +6,11 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-// import { useLanguageStore } from "@/i18n/languageStore";
 import { Languages } from "lucide-react";
+import { useLanguageStore } from "@/store/languageStore";
 
 const LanguageSelector: FC = () => {
-  // const { setLanguage } = useLanguageStore();
+  const { setLanguage } = useLanguageStore();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,14 +21,14 @@ const LanguageSelector: FC = () => {
       <DropdownMenuContent>
         <DropdownMenuItem
           onClick={() => {
-            // setLanguage("en");
+            setLanguage("en");
           }}
         >
           English
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            // setLanguage("pl");
+            setLanguage("pl");
           }}
         >
           Polski
