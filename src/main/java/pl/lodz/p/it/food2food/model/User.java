@@ -7,7 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
@@ -37,13 +39,20 @@ public class User extends AbstractEntity {
     private List<AccessLevel> accessLevels = new ArrayList<>();
 
     @OneToOne
-    private FoodPreference foodPreference;
+    private UserPreference userPreference;
+
+    @Setter
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorite_product",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> favoriteProducts = new HashSet<>();
 
     @Setter
     @ManyToOne
     private Theme theme;
-
-
 
     public User(String username,
                 String email) {
@@ -51,14 +60,4 @@ public class User extends AbstractEntity {
         this.email = email;
         this.password = "";
     }
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "language", nullable = false)
-//    private Language language = Language.EN;
-
-//    @Setter
-//    @Column(name = "verified", nullable = false)
-//    private boolean verified = false;
-
-//    @Setter
-//    private UserPreference userPreference;
 }

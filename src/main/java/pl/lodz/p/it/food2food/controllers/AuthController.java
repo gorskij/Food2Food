@@ -6,10 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.it.food2food.dto.PasswordHolder;
 import pl.lodz.p.it.food2food.dto.requests.UserCreateDto;
 import pl.lodz.p.it.food2food.dto.requests.UserLoginDto;
@@ -20,8 +20,8 @@ import pl.lodz.p.it.food2food.services.UserService;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/auth")
+@RestController
+@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthController {
     private final UserService userService;
