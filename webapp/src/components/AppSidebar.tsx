@@ -9,7 +9,6 @@ import {
   Heart,
   ChevronRight,
   NotebookPen,
-  LogIn,
   Carrot,
 } from "lucide-react";
 
@@ -30,7 +29,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   Collapsible,
   CollapsibleContent,
@@ -39,6 +38,8 @@ import {
 import { Sheet, SheetTrigger } from "./ui/sheet";
 import NutritionalProfileSheet from "./NutritionalProfileSheet";
 import { useUserStore } from "@/store/userStore";
+import SignInGoogleButton from "./SignInGoogleButton";
+import SignInGithubButton from "./SignInGithubButton";
 
 const items = [
   {
@@ -59,15 +60,10 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const navigate = useNavigate();
   const { isAuthenticated, username, clearToken } = useUserStore();
 
   const handleLogout = () => {
     clearToken();
-  };
-
-  const handleLoginNavigation = () => {
-    navigate("/login");
   };
 
   return (
@@ -149,10 +145,10 @@ export function AppSidebar() {
                   ) : (
                     <>
                       <SidebarMenuItem>
-                        <SidebarMenuButton onClick={handleLoginNavigation}>
-                          <LogIn />
-                          Zaloguj się
-                        </SidebarMenuButton>
+                        <SignInGoogleButton />
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SignInGithubButton />
                       </SidebarMenuItem>
                     </>
                   )}

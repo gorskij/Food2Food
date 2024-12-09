@@ -5,6 +5,8 @@ type JwtPayload = {
   sub: string;
   exp: number;
   iat: number;
+  username: string;
+  id: string;
   authorities: string[];
 };
 

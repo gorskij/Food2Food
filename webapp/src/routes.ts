@@ -5,7 +5,8 @@ import HomePage from "./pages/HomePage";
 import ProductDetailsPage from "./pages/ProductDetails";
 import ComparePage from "./pages/Compare";
 import FavouriteProductsPage from "./pages/FavoriteProducts";
-import LoginPage from "./pages/Login";
+import GoogleCallback from "./pages/GoogleCallback";
+import GithubCallback from "./pages/GithubCallback";
 
 export const routes = [
   {
@@ -17,7 +18,8 @@ export const routes = [
       { path: "/products/:id", Component: ProductDetailsPage },
       { path: "/compare", Component: ComparePage },
       { path: "/favorite-products", Component: FavouriteProductsPage },
-      { path: "/login", Component: LoginPage },
+      { path: "/auth/google/callback", Component: GoogleCallback },
+      { path: "/auth/github/callback", Component: GithubCallback },
     ],
   },
 ] satisfies RouteObject[];

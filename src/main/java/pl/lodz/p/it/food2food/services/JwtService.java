@@ -13,7 +13,6 @@ import pl.lodz.p.it.food2food.repositories.UserRepository;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 

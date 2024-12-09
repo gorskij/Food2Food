@@ -16,15 +16,16 @@ const decodedLSToken = LSToken === null ? undefined : decodeJwt(LSToken!);
 
 export const useUserStore = create<UserStore>((set) => ({
   token: LSToken === null ? undefined : LSToken,
-  id: LSToken === null ? undefined : decodedLSToken!.sub,
+  id: decodedLSToken?.id || undefined,
+  username: decodedLSToken?.username || undefined,
   setToken: (token: string) =>
     set(() => {
       const payload = decodeJwt(token);
       localStorage.setItem("token", token);
       return {
         token,
-        id: payload.sub,
-        username: payload.sub,
+        id: payload.id,
+        username: payload.username,
       };
     }),
   clearToken: () =>

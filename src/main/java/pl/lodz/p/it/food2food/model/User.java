@@ -13,27 +13,26 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "users")
 @SecondaryTable(name = "personal_data", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@SecondaryTable(name = "google_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@SecondaryTable(name = "github_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 public class User extends AbstractEntity {
     @Setter
-    @Column(name = "email", table = "personal_data", nullable = false, unique = true, length = 50)
-    private String email;
+    @Column(name = "google_id", table = "google_auth", unique = true)
+    private String googleId;
+
+    @Column(name = "github_id", table = "github_auth", unique = true)
+    private String githubId;
 
     @Setter
-    @Column(name = "temp_email", table = "personal_data", length = 50)
-    private String temporaryEmail;
+    @Column(name = "email", table = "personal_data", nullable = false, length = 50)
+    private String email;
 
     @Setter
     @Column(name = "username", nullable = false, updatable = false, unique = true, length = 50)
     private String username;
-
-    @Setter
-    @Column(name = "password", length = 64)
-    @ToString.Exclude
-    private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AccessLevel> accessLevels = new ArrayList<>();
@@ -58,6 +57,13 @@ public class User extends AbstractEntity {
                 String email) {
         this.username = username;
         this.email = email;
-        this.password = "";
+    }
+
+    public User(String username,
+                String email, String googleId, String githubId) {
+        this.username = username;
+        this.email = email;
+        this.googleId = googleId;
+        this.githubId = githubId;
     }
 }
