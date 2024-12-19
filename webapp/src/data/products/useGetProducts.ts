@@ -2,6 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 // import useAxiosPrivate from "../useAxiosPrivate";
 import { AxiosError } from "axios";
 import { api } from "../api";
+import { ErrorCode } from "@/types/ErrorCode";
+import { toast } from "@/hooks/use-toast";
+import { t } from "i18next";
 // import { toast } from "@/components/ui/use-toast";
 // import { t } from "i18next";
 // import { ErrorCode } from "@/@types/errorCode";
@@ -45,6 +48,13 @@ export const useGetProducts = (request: ProductsRequest) => {
         return response.data;
       } catch (error) {
         const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: t("error.baseTitle"),
+          description: t(
+            `errors.${(axiosError.response!.data as ErrorCode).exceptionCode}`
+          ),
+        });
         return Promise.reject(axiosError);
       }
     },

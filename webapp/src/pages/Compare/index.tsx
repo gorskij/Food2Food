@@ -1,7 +1,7 @@
 import DataField from "@/components/DataField";
 import FatSaturationChart from "@/components/FatSaturationChart";
 import { LoadingData } from "@/components/LoadingData";
-import MineralsTable from "@/components/MineralsTable";
+import MineralsInformation from "@/components/MineralsInformation";
 import NutritionalChart from "@/components/NutritionalChart";
 import Omega3Table from "@/components/Omega3Table";
 import ProductAllergens from "@/components/ProductAllergens";
@@ -28,7 +28,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import VitaminsTable from "@/components/VitaminsTable";
+import VitaminsInformation from "@/components/VitaminsInformation";
 import { useGetProductDetails } from "@/data/products/useProductDetails";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { Swords } from "lucide-react";
@@ -50,6 +50,11 @@ const ComparePage: FC = () => {
     isLoading: isLoading2,
     isError: isError2,
   } = useGetProductDetails(product2Id);
+
+  const breadcrumbs = useBreadcrumbs([
+    { title: "Strona Główna", path: "/" },
+    { title: "Porównanie Produktów", path: "/compare" },
+  ]);
 
   if (isLoading1 || isLoading2) return <LoadingData />;
   if (isError1 || isError2)
@@ -78,11 +83,6 @@ const ComparePage: FC = () => {
       color: "hsl(var(--chart-2))",
     },
   } satisfies ChartConfig;
-
-  const breadcrumbs = useBreadcrumbs([
-    { title: "Strona Główna", path: "/" },
-    { title: "Porównanie Produktów", path: "/compare" },
-  ]);
 
   return (
     <div className="flex flex-col gap-2 min-w-full">
@@ -207,28 +207,30 @@ const ComparePage: FC = () => {
 
             {/* Vitamins */}
             <AccordionItem value="item-3">
-              <AccordionTrigger>Witaminy</AccordionTrigger>
+              <AccordionTrigger>Witaminy i minerały</AccordionTrigger>
               <AccordionContent>
-                <div className="grid grid-cols-2 gap-4">
-                  <VitaminsTable productDetails={product1Data.data} />
-                  <VitaminsTable productDetails={product2Data.data} />
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex-1 min-w-[450px]">
+                    <VitaminsInformation productDetails={product1Data.data} />
+                  </div>
+                  <div className="flex-1 min-w-[450px]">
+                    <VitaminsInformation productDetails={product2Data.data} />
+                  </div>
                 </div>
-              </AccordionContent>
-            </AccordionItem>
 
-            {/* Minerals */}
-            <AccordionItem value="item-4">
-              <AccordionTrigger>Minerały</AccordionTrigger>
-              <AccordionContent>
-                <div className="grid grid-cols-2 gap-4">
-                  <MineralsTable productDetails={product1Data.data} />
-                  <MineralsTable productDetails={product2Data.data} />
+                <div className="flex flex-wrap gap-4 mt-4">
+                  <div className="flex-1 min-w-[450px]">
+                    <MineralsInformation productDetails={product1Data.data} />
+                  </div>
+                  <div className="flex-1 min-w-[450px]">
+                    <MineralsInformation productDetails={product2Data.data} />
+                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
             {/* Omega-3 */}
-            <AccordionItem value="item-5">
+            <AccordionItem value="item-4">
               <AccordionTrigger>Kwasy Omega-3</AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2 gap-4">
@@ -237,53 +239,13 @@ const ComparePage: FC = () => {
                 </div>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-6">
+            <AccordionItem value="item-5">
               <AccordionTrigger>Skład</AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2 gap-4">
                   <ProductIngredientsList productDetails={product1Data.data} />
                   <ProductIngredientsList productDetails={product2Data.data} />
                 </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-7">
-              <AccordionTrigger>Oceny Użytkowników</AccordionTrigger>
-              <AccordionContent>
-                <Card>
-                  <CardHeader className="items-center pb-4">
-                    <CardTitle>Oceny Użytkowników</CardTitle>
-                    <CardDescription>
-                      Średnia ocen dla każdej kategorii obu produktów
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ChartContainer
-                      config={chartConfig}
-                      className="mx-auto aspect-square max-h-[500px]"
-                    >
-                      <RadarChart
-                        data={chartData}
-                        margin={{
-                          top: -40,
-                          bottom: -10,
-                        }}
-                      >
-                        <ChartTooltip
-                          cursor={false}
-                          content={<ChartTooltipContent indicator="line" />}
-                        />
-                        <PolarAngleAxis dataKey="ratingCategory" />
-                        <PolarGrid />
-                        <Radar
-                          dataKey="produkt1"
-                          fill="var(--color-prod1)"
-                          fillOpacity={0.6}
-                        />
-                        <Radar dataKey="produkt2" fill="var(--color-prod2)" />
-                      </RadarChart>
-                    </ChartContainer>
-                  </CardContent>
-                </Card>
               </AccordionContent>
             </AccordionItem>
           </Accordion>

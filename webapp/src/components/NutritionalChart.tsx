@@ -88,7 +88,9 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
     <Card className="flex-1 flex-col min-w-[400px]">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-center">Podstawowe makroskładniki</CardTitle>
-        <CardDescription>na 100 g produktu</CardDescription>
+        <CardDescription>
+          na 100 {productDetails.unit.name} produktu
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer

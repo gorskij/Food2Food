@@ -71,7 +71,9 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
     >
       <CardHeader className="items-center pb-0">
         <CardTitle>Węglowodany</CardTitle>
-        <CardDescription>na 100 g produktu</CardDescription>
+        <CardDescription>
+          na 100 {productDetails.unit.name} produktu
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         {isCarbohydrateAbsent ? (

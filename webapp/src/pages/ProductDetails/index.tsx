@@ -1,10 +1,10 @@
 import DataField from "@/components/DataField";
 import FatSaturationChart from "@/components/FatSaturationChart";
 import { LoadingData } from "@/components/LoadingData";
-import MineralsTable from "@/components/MineralsTable";
+import MineralsInformation from "@/components/MineralsInformation";
 import NutritionalChart from "@/components/NutritionalChart";
 import Omega3Table from "@/components/Omega3Table";
-import VitaminsTable from "@/components/VitaminsTable";
+import VitaminsInformation from "@/components/VitaminsInformation";
 import ProductAllergens from "@/components/ProductAllergens";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
 import SugarContentChart from "@/components/SugarContentChart";
@@ -35,7 +35,6 @@ const ProductDetailsPage: FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError } = useGetProductDetails(id!);
   const placeholderImg = "https://via.placeholder.com/150";
-
   const breadcrumbs = useBreadcrumbs([
     { title: "Strona Główna", path: "/" },
     { title: "Lista Produktów", path: "/products" },
@@ -73,12 +72,6 @@ const ProductDetailsPage: FC = () => {
                   Dodaj do porównania
                 </span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <span className="flex items-center space-x-2 w-full">
-                  <Heart className="mr-2" />
-                  Dodaj do ulubionych
-                </span>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="flex flex-wrap justify-between gap-4">
@@ -95,7 +88,6 @@ const ProductDetailsPage: FC = () => {
                       ? `data:image/jpeg;base64,${data.data.label.image}`
                       : placeholderImg
                   }
-                  alt="Obrazek produktu"
                   className="w-40 h-40 object-cover m-10"
                 />
                 <div className="flex-1 justify-center flex-col">
@@ -131,7 +123,10 @@ const ProductDetailsPage: FC = () => {
                   />
                 </div>
                 <div>
-                  <FavoriteInfo favoriteCount={data.data.favoriteCount} />
+                  <FavoriteInfo
+                    favoriteCount={data.data.favoriteCount}
+                    id={id}
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -193,24 +188,25 @@ const ProductDetailsPage: FC = () => {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                  <AccordionTrigger>Witaminy</AccordionTrigger>
+                  <AccordionTrigger>Witaminy i minerały</AccordionTrigger>
                   <AccordionContent>
-                    <VitaminsTable productDetails={data.data} />
+                    <div className="flex flex-wrap gap-4">
+                      <div className="flex-1 min-w-[450px]">
+                        <VitaminsInformation productDetails={data.data} />
+                      </div>
+                      <div className="flex-1 min-w-[450px]">
+                        <MineralsInformation productDetails={data.data} />
+                      </div>
+                    </div>
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
-                  <AccordionTrigger>Minerały</AccordionTrigger>
-                  <AccordionContent>
-                    <MineralsTable productDetails={data.data} />
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-4">
                   <AccordionTrigger>Kwasy Omega-3</AccordionTrigger>
                   <AccordionContent>
                     <Omega3Table productDetails={data.data} />
                   </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value="item-5">
+                <AccordionItem value="item-4">
                   <AccordionTrigger>Dodatkowe</AccordionTrigger>
                   <AccordionContent>item-5</AccordionContent>
                 </AccordionItem>
