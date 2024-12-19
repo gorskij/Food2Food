@@ -15,34 +15,37 @@ const GithubCallback: FC = () => {
 
   useEffect(() => {
     (async () => {
-      if (!token) {
-        try {
-          if (called.current) {
-            return;
-          }
-          called.current = true;
-          const result = await api.get<AuthenticateResponse>(
-            `auth/github-oauth/token/${window.location.search}`
-          );
+      try {
+        if (called.current) {
+          return;
+        }
+        called.current = true;
+        const result = await api.get<AuthenticateResponse>(
+          `auth/github-oauth/token/${window.location.search}`
+        );
 
-          if (result.status === 201) {
-            toast({
-              variant: "default",
-              title: t("loginPage.acountCreated"),
-              description: t("loginPage.acountCreatedDescription"),
-            });
-          }
+        setToken(result.data.token);
 
-          setToken(result.data.token);
-        } catch (err) {
+        if (result.status === 201) {
           toast({
-            variant: "destructive",
-            title: t("loginPage.loginError"),
-            description: t("loginPage.tryAgain"),
+            variant: "success",
+            title: t("login.acountCreated"),
+            description: t("login.acountCreatedDescription"),
+          });
+        } else if (result.status === 200) {
+          toast({
+            variant: "success",
+            title: t("login.loggedIn"),
+            description: t("login.loggedInDescription"),
           });
         }
-      } else {
         navigate("/");
+      } catch (err) {
+        toast({
+          variant: "destructive",
+          title: t("login.loginError"),
+          description: t("login.tryAgain"),
+        });
       }
     })();
   }, [navigate, token]);
