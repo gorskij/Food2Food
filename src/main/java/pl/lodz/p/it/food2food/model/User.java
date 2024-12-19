@@ -23,6 +23,7 @@ public class User extends AbstractEntity {
     @Column(name = "google_id", table = "google_auth", unique = true)
     private String googleId;
 
+    @Setter
     @Column(name = "github_id", table = "github_auth", unique = true)
     private String githubId;
 
@@ -57,13 +58,5 @@ public class User extends AbstractEntity {
                 String email) {
         this.username = username;
         this.email = email;
-    }
-
-    public User(String username,
-                String email, String googleId, String githubId) {
-        this.username = username;
-        this.email = email;
-        this.googleId = googleId;
-        this.githubId = githubId;
     }
 }

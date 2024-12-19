@@ -3,8 +3,9 @@ package pl.lodz.p.it.food2food.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import pl.lodz.p.it.food2food.dto.GithubOAuth2TokenPayload;
-import pl.lodz.p.it.food2food.dto.GoogleOAuth2TokenPayload;
+import pl.lodz.p.it.food2food.dto.auth.GithubOAuth2TokenPayload;
+import pl.lodz.p.it.food2food.dto.auth.GoogleOAuth2TokenPayload;
+import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.model.User;
 
 import java.util.Map;
@@ -27,15 +28,15 @@ public class AuthService {
 //                    "theme", theme
             );
 
-        } catch (RuntimeException e) {
+        } catch (NotFoundException e) {
             String email = payload.email();
             String username = email.split("@")[0];
             User newUser = new User(
                     username,
-                    email,
-                    payload.sub(),
-                    null
+                    email
             );
+
+            newUser.setGoogleId(payload.sub());
 
             User user = userService.createUser(newUser);
             String userToken = jwtService.createToken(user);
@@ -56,7 +57,7 @@ public class AuthService {
             return Map.of(
                     "token", userToken
             );
-        } catch (RuntimeException e) {
+        } catch (NotFoundException e) {
             String email = payload.email();
             String username = (payload.username() != null && !payload.username().isEmpty())
                     ? payload.username()
@@ -64,10 +65,9 @@ public class AuthService {
 
             User newUser = new User(
                     username,
-                    email,
-                    null,
-                    payload.id()
+                    email
             );
+            newUser.setGithubId(payload.id());
 
             User user = userService.createUser(newUser);
             String userToken = jwtService.createToken(user);

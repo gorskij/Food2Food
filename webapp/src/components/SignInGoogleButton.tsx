@@ -9,14 +9,14 @@ const GoogleLoginButton: FC = () => {
   const { oAuthUrl } = useOAuthGoogleUrl();
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       type="button"
       onClick={() => {
         window.location.href = oAuthUrl?.url || "";
       }}
     >
       <FaGoogle className="mr-2 h-4 w-4" />
-      {t("loginPage.googleLoginButton")}
+      {t("loginButton.googleLoginButton")}
     </Button>
   );
 };

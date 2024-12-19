@@ -3,16 +3,12 @@ import { useEffect } from "react";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "@/store/userStore";
-import { t } from "i18next";
-import {toast} from "@/hooks/use-toast.ts";
+import { toast } from "@/hooks/use-toast.ts";
+import { useTranslation } from "react-i18next";
 
 const useAxiosPrivate = () => {
-  const {
-    token,
-    setToken,
-    clearToken,
-  } = useUserStore();
-
+  const { token, setToken, clearToken } = useUserStore();
+  const { t } = useTranslation();
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -36,10 +32,10 @@ const useAxiosPrivate = () => {
 
         if (error.response?.status === 401) {
           clearToken();
-          navigation("/login");
           toast({
-            title: t("sessionExpired"),
-            description: t("sessionExpiredDescription"),
+            variant: "destructive",
+            title: t("axiosPrivate.unauthorized"),
+            description: t("axiosPrivate.unauthorizedDescription"),
           });
         }
 

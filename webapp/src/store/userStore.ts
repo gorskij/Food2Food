@@ -11,7 +11,6 @@ type UserStore = {
 };
 
 const LSToken = localStorage.getItem("token");
-
 const decodedLSToken = LSToken === null ? undefined : decodeJwt(LSToken!);
 
 export const useUserStore = create<UserStore>((set) => ({

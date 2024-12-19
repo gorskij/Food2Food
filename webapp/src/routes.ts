@@ -8,18 +8,37 @@ import FavouriteProductsPage from "./pages/FavoriteProducts";
 import GoogleCallback from "./pages/GoogleCallback";
 import GithubCallback from "./pages/GithubCallback";
 
-export const routes = [
+export const UnprotectedRoutes: RouteObject[] = [
   {
     path: "/",
     Component: BaseLayout,
     children: [
-      { path: "/", Component: HomePage },
-      { path: "/products", Component: ProductsPage },
-      { path: "/products/:id", Component: ProductDetailsPage },
-      { path: "/compare", Component: ComparePage },
-      { path: "/favorite-products", Component: FavouriteProductsPage },
-      { path: "/auth/google/callback", Component: GoogleCallback },
-      { path: "/auth/github/callback", Component: GithubCallback },
+      { index: true, Component: HomePage },
+      { path: "products", Component: ProductsPage },
+      { path: "products/:id", Component: ProductDetailsPage },
+      { path: "compare", Component: ComparePage },
+      { path: "auth/google/callback", Component: GoogleCallback },
+      { path: "auth/github/callback", Component: GithubCallback },
     ],
   },
-] satisfies RouteObject[];
+];
+
+const UserRoutes: RouteObject[] = [
+  { index: true, Component: HomePage },
+  { path: "favorite-products", Component: FavouriteProductsPage },
+];
+
+const AdminRoutes: RouteObject[] = [{ index: true, Component: HomePage }];
+
+export const ProtectedRoutes: RouteObject[] = [
+  {
+    path: "user",
+    Component: BaseLayout,
+    children: UserRoutes,
+  },
+  {
+    path: "admin",
+    Component: BaseLayout,
+    children: AdminRoutes,
+  },
+];

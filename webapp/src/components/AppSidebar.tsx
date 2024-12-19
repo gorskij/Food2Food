@@ -2,12 +2,7 @@ import {
   Utensils,
   UtensilsCrossed,
   Home,
-  User2,
-  ChevronsUpDown,
-  Settings,
-  LogOut,
   Heart,
-  ChevronRight,
   NotebookPen,
   Carrot,
 } from "lucide-react";
@@ -23,23 +18,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 import { NavLink } from "react-router-dom";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "./ui/collapsible";
 import { Sheet, SheetTrigger } from "./ui/sheet";
 import NutritionalProfileSheet from "./NutritionalProfileSheet";
 import { useUserStore } from "@/store/userStore";
-import SignInGoogleButton from "./SignInGoogleButton";
-import SignInGithubButton from "./SignInGithubButton";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 const items = [
   {
@@ -60,11 +43,7 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const { isAuthenticated, username, clearToken } = useUserStore();
-
-  const handleLogout = () => {
-    clearToken();
-  };
+  const { isAuthenticated } = useUserStore();
 
   return (
     <Sidebar collapsible="icon">
@@ -85,78 +64,38 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <Collapsible defaultOpen className="group/collapsible">
+        {isAuthenticated() ? (
           <SidebarGroup>
-            <SidebarGroupLabel asChild>
-              <CollapsibleTrigger>
-                Twoje
-                <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-              </CollapsibleTrigger>
+            <SidebarGroupLabel>
+              Twoje <Separator />
             </SidebarGroupLabel>
-            <CollapsibleContent>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {isAuthenticated() ? (
-                    <>
-                      <SidebarMenuItem>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <SidebarMenuButton>
-                              <User2 />
-                              {username}
-                              <ChevronsUpDown className="ml-auto" />
-                            </SidebarMenuButton>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent
-                            side="top"
-                            className="w-[--radix-popper-anchor-width]"
-                          >
-                            <DropdownMenuItem>
-                              <Settings />
-                              <span>Opcje Użytkownika</span>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleLogout}>
-                              <LogOut />
-                              <span>Wyloguj</span>
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </SidebarMenuItem>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
-                          <NavLink to="/favorite-products">
-                            <Heart />
-                            Ulubione Produkty
-                          </NavLink>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                      <SidebarMenuItem>
-                        <Sheet>
-                          <SidebarMenuButton asChild>
-                            <SheetTrigger>
-                              <NotebookPen />
-                              Edytuj Preferencje Żywieniowe
-                            </SheetTrigger>
-                          </SidebarMenuButton>
-                          <NutritionalProfileSheet />
-                        </Sheet>
-                      </SidebarMenuItem>
-                    </>
-                  ) : (
-                    <>
-                      <SidebarMenuItem>
-                        <SignInGoogleButton />
-                      </SidebarMenuItem>
-                      <SidebarMenuItem>
-                        <SignInGithubButton />
-                      </SidebarMenuItem>
-                    </>
-                  )}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </CollapsibleContent>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <NavLink to="/user/favorite-products">
+                      <Heart />
+                      Ulubione Produkty
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <Sheet>
+                    <SidebarMenuButton asChild>
+                      <SheetTrigger>
+                        <NotebookPen />
+                        Edytuj Preferencje Żywieniowe
+                      </SheetTrigger>
+                    </SidebarMenuButton>
+                    <NutritionalProfileSheet />
+                  </Sheet>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
           </SidebarGroup>
-        </Collapsible>
+        ) : (
+          <></>
+        )}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>

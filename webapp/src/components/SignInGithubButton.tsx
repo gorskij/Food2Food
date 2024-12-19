@@ -9,14 +9,14 @@ const GithubLoginButton: FC = () => {
   const { oAuthUrl } = useOAuthGithubUrl();
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       type="button"
       onClick={() => {
         window.location.href = oAuthUrl?.url || "";
       }}
     >
       <FaGithub className="mr-2 h-4 w-4" />
-      {t("loginPage.githubLoginButton")}
+      {t("loginButton.githubLoginButton")}
     </Button>
   );
 };

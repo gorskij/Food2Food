@@ -1,4 +1,4 @@
-package pl.lodz.p.it.food2food.dto;
+package pl.lodz.p.it.food2food.dto.auth;
 
 public record GoogleOAuth2TokenResponse(
         String access_token,

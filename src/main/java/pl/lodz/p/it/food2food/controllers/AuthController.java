@@ -10,9 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.lodz.p.it.food2food.dto.*;
+import pl.lodz.p.it.food2food.dto.auth.*;
 import pl.lodz.p.it.food2food.services.AuthService;
-
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -187,5 +186,4 @@ public class AuthController {
 
         return ResponseEntity.ok(response);
     }
-
 }

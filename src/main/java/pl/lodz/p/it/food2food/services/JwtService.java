@@ -24,7 +24,7 @@ public class JwtService {
 
     public String createToken(User user) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime validity = now.plusHours(12);
+        LocalDateTime validity = now.plusHours(1);
 
         return JWT.create()
                 .withSubject(user.getUsername())

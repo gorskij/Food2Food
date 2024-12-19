@@ -1,4 +1,4 @@
-package pl.lodz.p.it.food2food.dto;
+package pl.lodz.p.it.food2food.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
