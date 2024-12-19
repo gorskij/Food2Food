@@ -153,12 +153,6 @@ const ProductsPage = () => {
                         Dodaj do porównania
                       </span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <span className="flex items-center space-x-2 w-full">
-                        <Heart className="mr-2" />
-                        Dodaj do ulubionych
-                      </span>
-                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <img

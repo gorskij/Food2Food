@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import pl.lodz.p.it.food2food.dto.responses.ProductDto;
+import pl.lodz.p.it.food2food.exceptions.NotFoundException;
+import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
+import pl.lodz.p.it.food2food.exceptions.messages.ExceptionMessages;
+import pl.lodz.p.it.food2food.exceptions.messages.UserExceptionMessages;
 import pl.lodz.p.it.food2food.mappers.ProductMapper;
+import pl.lodz.p.it.food2food.model.Product;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.repositories.ProductRepository;
 import pl.lodz.p.it.food2food.repositories.UserRepository;
@@ -22,9 +27,8 @@ public class FavoriteProductsService {
     private final UserRepository userRepository;
     private final ProductMapper productMapper;
 
-    public Page<ProductDto> getFavoriteProducts(UUID userId, String name, Pageable pageable) {
-//        UUID id = UUID.fromString("03a8eb75-bfc0-4b77-a6b0-f9b3e26ebb64");
-        User user = userRepository.findById(userId).get();
+    public Page<ProductDto> getFavoriteProducts(UUID userId, String name, Pageable pageable) throws NotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         if (name != null && !name.isEmpty()) {
             return productRepository.findFavoriteProductsByUserIdAndName(userId, name, pageable)
                     .map(productMapper::toProductDto);
@@ -34,23 +38,25 @@ public class FavoriteProductsService {
         }
     }
 
-    @Transactional
-    @Retryable(maxAttempts = 5)
-    public void addFavoriteProduct(UUID userId, UUID productId) {
-        UUID id = UUID.fromString("03a8eb75-bfc0-4b77-a6b0-f9b3e26ebb64");
-        User user = userRepository.findById(id).get();
-        if(user.getFavoriteProducts().add(productRepository.findById(productId).get())) {
+    public boolean isFavorite(UUID userId, UUID productId) throws NotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));
+        return user.getFavoriteProducts().contains(product);
+    }
+
+    public void addFavoriteProduct(UUID userId, UUID productId) throws NotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));
+        if(user.getFavoriteProducts().add(product)) {
             productRepository.incrementFavoriteCount(productId);
             userRepository.save(user);
         }
     }
 
-    @Transactional
-    @Retryable(maxAttempts = 5)
-    public void removeFavoriteProduct(UUID userId, UUID productId) {
-        UUID id = UUID.fromString("03a8eb75-bfc0-4b77-a6b0-f9b3e26ebb64");
-        User user = userRepository.findById(id).get();
-        if(user.getFavoriteProducts().remove(productRepository.findById(productId).get())) {
+    public void removeFavoriteProduct(UUID userId, UUID productId) throws NotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));
+        if(user.getFavoriteProducts().remove(product)) {
             productRepository.decrementFavoriteCount(productId);
             userRepository.save(user);
         }

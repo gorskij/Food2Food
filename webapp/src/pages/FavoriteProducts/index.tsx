@@ -10,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { useGetFavoriteProducts } from "@/data/products/useGetFavoriteProducts";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
-import { useUserStore } from "@/store/userStore";
 import {
   ChevronsLeft,
   ChevronsRight,
@@ -27,9 +26,6 @@ const FavouriteProductsPage: FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchName, setSearchName] = useState("");
   const [pendingSearch, setPendingSearch] = useState("");
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWQiOiIwM2E4ZWI3NS1iZmMwLTRiNzctYTZiMC1mOWIzZTI2ZWJiNjQiLCJleHAiOjE3MzMzNTQ2NzgsImlhdCI6MTczMzMxMTQ3OH0.ShnNaPvhvqBqJ6ngH7MbCazqAwsi-fBHpDa_1PNEe3o";
-  const { setToken } = useUserStore();
   const { data, isLoading, isError } = useGetFavoriteProducts({
     pageNumber: currentPage,
     pageSize: 10,
@@ -38,9 +34,9 @@ const FavouriteProductsPage: FC = () => {
 
   useEffect(() => {
     if (pendingSearch === "") {
-      handleSearch(); // Trigger search when `pendingSearch` is cleared
+      handleSearch();
     }
-  }, [pendingSearch]);
+  });
 
   const handleSearch = () => {
     setSearchName(pendingSearch);
@@ -156,12 +152,6 @@ const FavouriteProductsPage: FC = () => {
                       <span className="flex items-center space-x-2 w-full">
                         <Plus className="mr-2" />
                         Dodaj do porównania
-                      </span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <span className="flex items-center space-x-2 w-full">
-                        <Heart className="mr-2" />
-                        Dodaj do ulubionych
                       </span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
