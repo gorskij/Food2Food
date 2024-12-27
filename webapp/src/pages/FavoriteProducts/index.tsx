@@ -1,28 +1,21 @@
 import { LoadingData } from "@/components/LoadingData";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { useGetFavoriteProducts } from "@/data/products/useGetFavoriteProducts";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import {
   ChevronsLeft,
   ChevronsRight,
-  Ellipsis,
   FilterX,
-  Heart,
-  Plus,
   Search,
 } from "lucide-react";
 import { FC, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import ProductCard from "@/components/ProductCard";
 
 const FavouriteProductsPage: FC = () => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(0);
   const [searchName, setSearchName] = useState("");
   const [pendingSearch, setPendingSearch] = useState("");
@@ -36,7 +29,7 @@ const FavouriteProductsPage: FC = () => {
     if (pendingSearch === "") {
       handleSearch();
     }
-  });
+  }, [pendingSearch]);
 
   const handleSearch = () => {
     setSearchName(pendingSearch);
@@ -48,32 +41,30 @@ const FavouriteProductsPage: FC = () => {
   };
 
   const breadcrumbs = useBreadcrumbs([
-    { title: "Strona Główna", path: "/" },
-    { title: "Lista Ulubionych Produktów", path: "/favorite-products" },
+    { title: t("favouriteProducts.breadcrumbs.home"), path: "/" },
+    { title: t("favouriteProducts.breadcrumbs.list"), path: "/favorite-products" },
   ]);
-
-  const placeholderImg = "https://via.placeholder.com/150";
 
   if (isLoading) return <LoadingData />;
   if (isError)
     return (
       <div>
-        Wystąpił błąd przy wczytywaniu danych.
+        {t("error.loadingError")}
         <RefreshQueryButton queryKeys={["products"]} />
       </div>
     );
 
   return (
     <div className="min-w-full">
-      <div className="text-center text-3xl font-bold my-5">
-        Lista Ulubionych Produktów
+      <div className="text-center text-3xl font-bold mt-5 mb-2">
+        {t("favouriteProducts.title")}
       </div>
       {breadcrumbs}
       <div className="flex justify-end mr-6">
         <div className="flex w-full max-w-sm items-center mt-4">
           <Input
             type="text"
-            placeholder="Szukaj produktów..."
+            placeholder={t("favouriteProducts.searchPlaceholder")}
             value={pendingSearch}
             onChange={(e) => setPendingSearch(e.target.value)}
             onKeyDown={(e) => {
@@ -104,8 +95,10 @@ const FavouriteProductsPage: FC = () => {
           <ChevronsLeft />
         </Button>
         <span>
-          Strona {data?.page.totalPages === 0 ? 0 : currentPage + 1} z{" "}
-          {data?.page.totalPages}
+          {t("favouriteProducts.pageIndicator", {
+            currentPage: data?.page.totalPages === 0 ? 0 : currentPage + 1,
+            totalPages: data?.page.totalPages,
+          })}
         </span>
         <Button
           variant="outline"
@@ -121,58 +114,9 @@ const FavouriteProductsPage: FC = () => {
       </div>
       <div className="relative mt-1 flex flex-col justify-center align-content mr-4">
         <div className="flex flex-wrap justify-center gap-4">
-          {data?.content.map((product) => {
-            const productImg = product.labelImage
-              ? `data:image/jpeg;base64,${product.labelImage}`
-              : placeholderImg;
-
-            return (
-              <div
-                key={product.id}
-                className="flex flex-col items-center p-4 border rounded shadow-md"
-                style={{ width: "400px" }}
-              >
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="ml-auto py-2 px-4">
-                      <Ellipsis />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent side="bottom" className="w-30">
-                    <DropdownMenuItem>
-                      <NavLink
-                        to={`/products/${product.id}`}
-                        className="flex items-center space-x-2 w-full"
-                      >
-                        <Search className="mr-2" />
-                        Szczegóły&nbsp;Produktu
-                      </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <span className="flex items-center space-x-2 w-full">
-                        <Plus className="mr-2" />
-                        Dodaj do porównania
-                      </span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <img
-                  src={productImg}
-                  alt={product.productName}
-                  className="w-full max-h-48 object-contain rounded"
-                />
-                <h3 className="mt-2 text-lg font-bold text-center">
-                  {product.productName}
-                </h3>
-                <span className="text-sm text-center">
-                  {product.productDescription}
-                </span>
-                <span className="text-sm text-left">
-                  Kod EAN:&nbsp;{product.ean}
-                </span>
-              </div>
-            );
-          })}
+          {data?.content.map((product) => (
+            <ProductCard product={product} />
+          ))}
         </div>
       </div>
     </div>

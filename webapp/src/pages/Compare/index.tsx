@@ -18,24 +18,18 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 import VitaminsInformation from "@/components/VitaminsInformation";
 import { useGetProductDetails } from "@/data/products/useProductDetails";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { Swords } from "lucide-react";
 import { FC } from "react";
-import { RadarChart, PolarAngleAxis, PolarGrid, Radar } from "recharts";
+import { useTranslation } from "react-i18next";
 
 const ComparePage: FC = () => {
+   const { t } = useTranslation();
   const product1Id = "578db518-581b-4801-8613-4d09b12ed366";
   const product2Id = "56cb13e0-de6c-4b21-8674-bed8bde850af";
   const placeholderImg = "https://via.placeholder.com/150";
@@ -60,29 +54,10 @@ const ComparePage: FC = () => {
   if (isError1 || isError2)
     return (
       <div>
-        Wystąpił błąd przy wczytywaniu danych.
+        {t("error.loadingError")}
         <RefreshQueryButton queryKeys={["productDetails"]} />
       </div>
     );
-
-  const chartData = [
-    { ratingCategory: "Smak", produkt1: 33, produkt2: 40 },
-    { ratingCategory: "Jakość", produkt1: 40, produkt2: 35 },
-    { ratingCategory: "Uniwersalność", produkt1: 20, produkt2: 25 },
-    { ratingCategory: "Dostępność", produkt1: 15, produkt2: 20 },
-    { ratingCategory: "Trwałość", produkt1: 45, produkt2: 14 },
-  ];
-
-  const chartConfig = {
-    prod1: {
-      label: "produkt1",
-      color: "hsl(var(--chart-1))",
-    },
-    prod2: {
-      label: "product2",
-      color: "hsl(var(--chart-2))",
-    },
-  } satisfies ChartConfig;
 
   return (
     <div className="flex flex-col gap-2 min-w-full">

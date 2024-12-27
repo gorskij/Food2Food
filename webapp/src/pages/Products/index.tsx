@@ -4,23 +4,15 @@ import { useEffect, useState } from "react";
 import {
   ChevronsLeft,
   ChevronsRight,
-  Ellipsis,
   FilterX,
-  Plus,
   Search,
 } from "lucide-react";
 import { LoadingData } from "@/components/LoadingData";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { NavLink } from "react-router-dom";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "react-i18next";
+import ProductCard from "@/components/ProductCard";
 
 const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -54,8 +46,6 @@ const ProductsPage = () => {
     { title: t("productsPage.breadcrumbs.list"), path: "/products" },
   ]);
 
-  const placeholderImg = "https://via.placeholder.com/150";
-
   if (isLoading) return <LoadingData />;
   if (isError)
     return (
@@ -67,7 +57,7 @@ const ProductsPage = () => {
 
   return (
     <div className="min-w-full">
-      <div className="text-center text-3xl font-bold my-5">
+      <div className="text-center text-3xl font-bold mt-5 mb-2">
         {t("productsPage.title")}
       </div>
       {breadcrumbs}
@@ -125,58 +115,9 @@ const ProductsPage = () => {
       </div>
       <div className="relative mt-1 flex flex-col justify-center align-content mr-4">
         <div className="flex flex-wrap justify-center gap-4">
-          {data?.content.map((product) => {
-            const productImg = product.labelImage
-              ? `data:image/jpeg;base64,${product.labelImage}`
-              : placeholderImg;
-
-            return (
-              <div
-                key={product.id}
-                className="flex flex-col items-center p-4 border rounded shadow-md"
-                style={{ width: "400px" }}
-              >
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="ml-auto py-2 px-4">
-                      <Ellipsis />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent side="bottom" className="w-30">
-                    <DropdownMenuItem>
-                      <NavLink
-                        to={`/products/${product.id}`}
-                        className="flex items-center space-x-2 w-full"
-                      >
-                        <Search className="mr-2" />
-                        {t("productsPage.dropdown.details")}
-                      </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <span className="flex items-center space-x-2 w-full">
-                        <Plus className="mr-2" />
-                        {t("productsPage.dropdown.addToComparison")}
-                      </span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <img
-                  src={productImg}
-                  alt={product.productName}
-                  className="w-full max-h-48 object-contain rounded"
-                />
-                <h3 className="mt-2 text-lg font-bold text-center">
-                  {product.productName}
-                </h3>
-                <span className="text-sm text-center">
-                  {product.productDescription}
-                </span>
-                <span className="text-sm text-left">
-                  {t("productsPage.eanCode", { ean: product.ean })}
-                </span>
-              </div>
-            );
-          })}
+          {data?.content.map((product) => (
+            <ProductCard product={product} />
+          ))}
         </div>
       </div>
     </div>
@@ -184,3 +125,4 @@ const ProductsPage = () => {
 };
 
 export default ProductsPage;
+

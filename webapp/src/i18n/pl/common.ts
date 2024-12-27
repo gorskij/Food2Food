@@ -179,11 +179,6 @@ const productsPage = {
   clearFiltersButton: "Wyczyść filtry",
   pageIndicator: "Strona {{currentPage}} z {{totalPages}}",
   noProducts: "Brak dostępnych produktów.",
-  dropdown: {
-    details: "Szczegóły Produktu",
-    addToComparison: "Dodaj do porównania",
-  },
-  eanCode: "Kod EAN: {{ean}}",
   breadcrumbs: {
     home: "Strona Główna",
     list: "Lista Produktów",
@@ -222,7 +217,30 @@ const notFound = {
   homeLink: "Wróć do strony głównej"
 };
 
+const productCard = {
+  dropdown: {
+    details: "Szczegóły Produktu",
+    addToComparison: "Dodaj do porównania",
+  },
+  eanCode: "Kod EAN: {{ean}}",
+}
+
+const favouriteProducts = {
+  title: "Lista Ulubionych Produktów",
+  searchPlaceholder: "Szukaj ulubionych produktów...",
+  searchButton: "Szukaj",
+  clearFiltersButton: "Wyczyść filtry",
+  pageIndicator: "Strona {{currentPage}} z {{totalPages}}",
+  noProducts: "Brak dostępnych ulubionych produktów.",
+  breadcrumbs: {
+    home: "Strona Główna",
+    list: "Lista Ulubionych Produktów",
+  },
+};
+
 export default {
+  favouriteProducts,
+  productCard,
   notFound,
   productDetails,
   productsPage,
