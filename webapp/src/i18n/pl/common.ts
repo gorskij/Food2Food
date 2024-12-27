@@ -1,4 +1,5 @@
 import { ExceptionCode } from "@/types/ErrorCode";
+import { Description } from "@radix-ui/react-toast";
 
 const error = {
   loadingError: "Wystąpił błąd przy wczytywaniu danych.",
@@ -215,7 +216,14 @@ const productDetails = {
   loadingError: "Błąd ładowania danych"
 };
 
+const notFound = {
+  title: "Nie znaleziono strony",
+  description: "Przepraszamy, nie mogliśmy znaleźć strony, której szukasz.",
+  homeLink: "Wróć do strony głównej"
+};
+
 export default {
+  notFound,
   productDetails,
   productsPage,
   addFavoriteProduct,

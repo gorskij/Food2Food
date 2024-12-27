@@ -212,8 +212,14 @@ const productDetails = {
   additional: "Additional",
   loadingError: "Error loading data"
 };
+const notFound = {
+  title: "Page not found",
+  description: "Sorry, we couldn't find the page you were looking for.",
+  homeLink: "Return to Home"
+};
 
 export default {
+  notFound,
   productDetails,
   productsPage,
   addFavoriteProduct,

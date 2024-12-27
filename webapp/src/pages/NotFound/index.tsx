@@ -12,15 +12,15 @@ const NotFound: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle className="text-center text-4xl">
-            {t("notFoundPage.title")}
+            {t("notFound.title")}
           </CardTitle>
         </CardHeader>
         <CardContent className="flex-grow text-xl">
-          {t("notFoundPage.description")}
+          {t("notFound.description")}
           <div className="flex justify-around pt-3">
             <Button variant="outline" asChild>
               <NavLink to={"/"} replace>
-                {t("notFoundPage.homeLink")}
+                {t("notFound.homeLink")}
               </NavLink>
             </Button>
           </div>
