@@ -243,7 +243,68 @@ const nutritionalChart = {
   protein: "Protein",
 };
 
+const fatSaturation = {
+  title: "Fats",
+  description: "per 100 {{unit}} of the product",
+  noFat: "No fat in the product",
+  saturatedFatLabel: "Saturated Fatty Acids",
+  unsaturatedFatLabel: "Unsaturated Fats",
+  saturated: "Saturated Fatty Acids",
+  chartLabel: "saturated fatty acids / total fats",
+  lowSaturatedFat: "Low saturated fat content in the product",
+  highSaturatedFat: "High saturated fat content in the product",
+  moderateSaturatedFat: "Moderate saturated fat content in the product",
+};
+
+const ingredients = {
+  title: "Composition",
+  noData: "No data available about ingredients and additions.",
+  ingredientsHeader: "Ingredients",
+  additionsHeader: "Additive Numbers",
+};
+
+const allergens = {
+  title: "Allergens",
+  noData: "No allergens present",
+};
+
+const sugarChart = {
+  title: "Carbohydrates",
+  description: "per 100 {{unit}} of the product",
+  labels: {
+    sugar: "Sugar Content",
+    nonSugarCarbs: "Other Carbohydrates",
+  },
+  info: {
+    lowSugar: "Low sugar content",
+    moderateSugar: "Moderate sugar content",
+    highSugar: "High sugar content",
+  },
+  noCarbs: "No carbohydrates in the product",
+  tooltip: "sugar / total carbohydrates",
+};
+
+const appSidebar = {
+  home: "Home",
+  productList: "Product List",
+  compareProducts: "Compare Products",
+  yourSection: "Your Section",
+  favorites: "Favorite Products",
+  editPreferences: "Edit Nutritional Preferences",
+};
+
+const userAuth = {
+  settings: "User\u00A0options",
+  logout: "Sign out",
+}
+
 export default {
+  userAuth,
+  appSidebar,
+  sugarChart,
+  allergens,
+  ingredients,
+  fatSaturation,
   nutritionalChart,
   favouriteProducts,
   productCard,

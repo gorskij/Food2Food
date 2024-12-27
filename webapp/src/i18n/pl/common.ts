@@ -1,5 +1,6 @@
 import { ExceptionCode } from "@/types/ErrorCode";
 import { Description } from "@radix-ui/react-toast";
+import { Settings } from "lucide-react";
 
 const error = {
   loadingError: "Wystąpił błąd przy wczytywaniu danych.",
@@ -248,7 +249,67 @@ const nutritionalChart = {
   protein: "Białko",
 };
 
+const fatSaturation = {
+  title: "Tłuszcze",
+  description: "na 100 {{unit}} produktu",
+  noFat: "Brak tłuszczu w produkcie",
+  saturatedFatLabel: "Nasycone Kwasy Tłuszczowe",
+  unsaturatedFatLabel: "Pozostałe tłuszcze",
+  chartLabel: "nasycone kwasy tłuszczowe / total tłuszcze",
+  lowSaturatedFat: "Niska zawartość tłuszczów nasyconych w produkcie",
+  highSaturatedFat: "Wysoka zawartość tłuszczów nasyconych w produkcie",
+  moderateSaturatedFat: "Umiarkowana zawartość tłuszczów nasyconych w produkcie",
+};
+
+const ingredients = {
+  title: "Skład",
+  noData: "Brak dostępnych danych dotyczących składników oraz dodatków.",
+  ingredientsHeader: "Składniki",
+  additionsHeader: "Numery Dodatków",
+};
+
+const allergens = {
+  title: "Alergeny",
+  noData: "Brak alergenów",
+};
+
+const sugarChart = {
+  title: "Węglowodany",
+  description: "na 100 {{unit}} produktu",
+  labels: {
+    sugar: "Zawartość Cukru",
+    nonSugarCarbs: "Pozostałe węglowodany",
+  },
+  info: {
+    lowSugar: "Niska zawartość cukru w produkcie",
+    moderateSugar: "Umiarkowana zawartość cukru w produkcie",
+    highSugar: "Wysoka zawartość cukru w produkcie",
+  },
+  noCarbs: "Brak węglowodanów w produkcie",
+  tooltip: "zawartość cukru / total węglowodany",
+};
+
+const appSidebar = {
+  home: "Strona Główna",
+  productList: "Lista Produktów",
+  compareProducts: "Porównaj Produkty",
+  yourSection: "Twoja sekcja",
+  favorites: "Ulubione Produkty",
+  editPreferences: "Edytuj Preferencje Żywieniowe",
+};
+
+const userAuth = {
+  settings: "Opcje\u00A0użytkownika",
+  logout: "Wyloguj",
+}
+
 export default {
+  userAuth,
+  appSidebar,
+  sugarChart,
+  allergens,
+  ingredients,
+  fatSaturation,
   nutritionalChart,
   favouriteProducts,
   productCard,

@@ -14,21 +14,23 @@ import {
   ChartTooltipContent,
 } from "./ui/chart";
 import { ProductDetails } from "@/types/ProductDetails";
+import { useTranslation } from "react-i18next";
 
 interface SugarContentChartProps {
   productDetails: ProductDetails;
 }
 
 const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
+  const { t } = useTranslation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const sugarContentChartConfig = {
     sugarContent: {
-      label: "Zawartość Cukru",
+      label: t("sugarChart.labels.sugar"),
       color: "hsl(var(--chart-red))",
     },
     nonSugarCarbohydrates: {
-      label: "Pozostałe węglowodany",
+      label: t("sugarChart.labels.nonSugarCarbs"),
       color: "hsl(var(--chart-yellow))",
     },
   } satisfies ChartConfig;
@@ -53,15 +55,15 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
       nonSugarCarbohydrates: nonSugarCarbohydrates,
     },
   ];
-
+  
   const isCarbohydrateAbsent = totalCarbohydrates === 0;
 
   const sugarLevelInfo =
     sugarContent < 5
-      ? "Niska zawartość cukru w produkcie"
+      ? t("sugarChart.info.lowSugar")
       : sugarContent >= 15
-      ? "Wysoka zawartość cukru w produkcie"
-      : "Umiarkowana zawartość cukru w produkcie";
+      ? t("sugarChart.info.highSugar")
+      : t("sugarChart.info.moderateSugar");
 
   return (
     <Card
@@ -70,15 +72,15 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
       }`}
     >
       <CardHeader className="items-center pb-0">
-        <CardTitle>Węglowodany</CardTitle>
+        <CardTitle>{t("sugarChart.title")}</CardTitle>
         <CardDescription>
-          na 100 {productDetails.unit.name} produktu
+          {t("sugarChart.description", { unit: productDetails.unit.name })}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         {isCarbohydrateAbsent ? (
           <p className="flex-1 text-center justify-center text-xl text-muted-foreground">
-            Brak węglowodanów w produkcie
+            {t("sugarChart.noCarbs")}
           </p>
         ) : (
           <ChartContainer
@@ -118,7 +120,10 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
                             y={(viewBox.cy || 0) + 25}
                             className="fill-muted-foreground"
                           >
-                            zawartość cukru / total węglowodany
+                            {t("sugarChart.tooltip", {
+                              sugarContent,
+                              totalCarbohydrates,
+                            })}
                           </tspan>
                           <tspan
                             x={viewBox.cx}

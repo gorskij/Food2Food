@@ -1,12 +1,14 @@
 import { ProductDetails } from "@/types/ProductDetails";
 import { FC } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { useTranslation } from "react-i18next";
 
 interface ProductAllergensProps {
   productDetails: ProductDetails;
 }
 
 const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
+  const { t } = useTranslation();
   const allergens = productDetails.label.allergens;
   const areAllergensAbsent = allergens.length === 0;
 
@@ -17,7 +19,7 @@ const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
       }`}
     >
       <CardHeader>
-        <CardTitle className="text-left">Alergeny</CardTitle>
+        <CardTitle className="text-left">{t("allergens.title")}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-wrap gap-2">
         {allergens.length > 0 ? (
@@ -31,7 +33,7 @@ const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
           ))
         ) : (
           <p className="flex-1 text-center text-xl text-muted-foreground">
-            Brak alergenów
+            {t("allergens.noData")}
           </p>
         )}
       </CardContent>

@@ -15,13 +15,11 @@ interface Omega3TableProps {
 }
 
 const Omega3Table: FC<Omega3TableProps> = ({ productDetails }) => {
-  // Nazwy składników Omega-3
   const omega3Names = [
     { name: "ALA", label: "Omega-3 ALA" },
     { name: "EPA+DHA", label: "Omega-3 EPA+DHA" },
   ];
 
-  // Funkcja, która wyszukuje wartości Omega-3
   const getOmega3Value = (omega3Name: string) => {
     const omega3 = productDetails.nutritionalValues.find(
       (item) => item.nutritionalValueName.name === omega3Name
@@ -34,7 +32,6 @@ const Omega3Table: FC<Omega3TableProps> = ({ productDetails }) => {
       : { quantity: "Brak danych", unit: "" };
   };
 
-  // Przekształcamy dane na format tabeli
   const omega3Data = omega3Names.map((omega3) => {
     const { quantity, unit } = getOmega3Value(omega3.name);
     return { name: omega3.label, quantity, unit };

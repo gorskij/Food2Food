@@ -14,6 +14,7 @@ import {
   ChartTooltipContent,
 } from "./ui/chart";
 import { ProductDetails } from "@/types/ProductDetails";
+import { useTranslation } from "react-i18next";
 
 interface FatSaturationChartProps {
   productDetails: ProductDetails;
@@ -22,6 +23,7 @@ interface FatSaturationChartProps {
 const FatSaturationChart: FC<FatSaturationChartProps> = ({
   productDetails,
 }) => {
+  const { t } = useTranslation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const saturatedFat =
@@ -47,11 +49,11 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
 
   const fatSaturationChartConfig = {
     saturated: {
-      label: "Nasycone Kwasy Tłuszczowe",
+      label: t("fatSaturation.saturatedFatLabel"),
       color: "hsl(var(--chart-red))",
     },
     unsaturated: {
-      label: "Pozostałe tłuszcze",
+      label: t("fatSaturation.unsaturatedFatLabel"),
       color: "hsl(var(--chart-yellow))",
     },
   } satisfies ChartConfig;
@@ -61,10 +63,10 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
 
   const fatLevelInfo =
     saturatedFat < 1.5
-      ? "Niska zawartość tłuszczów nasyconych w produkcie"
+      ? t("fatSaturation.lowSaturatedFat")
       : saturatedFat >= 5
-      ? "Wysoka zawartość tłuszczów nasyconych w produkcie"
-      : "Umiarkowana zawartość tłuszczów nasyconych w produkcie";
+      ? t("fatSaturation.highSaturatedFat")
+      : t("fatSaturation.moderateSaturatedFat");
 
   return (
     <Card
@@ -73,15 +75,17 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
       }`}
     >
       <CardHeader className="items-center pb-0">
-        <CardTitle>Tłuszcz</CardTitle>
+        <CardTitle>{t("fatSaturation.title")}</CardTitle>
         <CardDescription>
-          na 100 {productDetails.unit.name} produktu
+          {t("fatSaturation.description", {
+            unit: productDetails.unit.name,
+          })}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         {isFatAbsent ? (
           <p className="flex-1 text-center justify-center text-xl text-muted-foreground">
-            Brak tłuszczu w produkcie
+            {t("fatSaturation.noFat")}
           </p>
         ) : (
           <ChartContainer
@@ -109,19 +113,14 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
                             y={(viewBox.cy || 0) - 5}
                             className="fill-foreground text-2xl font-bold"
                           >
-                            {(
-                              saturatedFat.toLocaleString() +
-                              " g/ " +
-                              totalFat +
-                              " g"
-                            ).replace(",", ".")}
+                            {`${saturatedFat.toLocaleString()} g / ${totalFat} g`.replace(",", ".")}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) + 25}
                             className="fill-muted-foreground"
                           >
-                            nasycone kwasy tłuszczowe / total tłuszcze
+                            {t("fatSaturation.chartLabel")}
                           </tspan>
                           <tspan
                             x={viewBox.cx}

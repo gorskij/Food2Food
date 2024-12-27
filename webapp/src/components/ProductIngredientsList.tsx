@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import { useTranslation } from "react-i18next";
 
 interface ProductIngredientsListProps {
   productDetails: ProductDetails;
@@ -17,6 +18,8 @@ interface ProductIngredientsListProps {
 const ProductIngredientsList: FC<ProductIngredientsListProps> = ({
   productDetails,
 }) => {
+  const { t } = useTranslation();
+
   const ingredients = productDetails.composition.ingredients.filter(
     (ingredient) => ingredient.name !== null
   );
@@ -28,20 +31,21 @@ const ProductIngredientsList: FC<ProductIngredientsListProps> = ({
   return (
     <Card className="flex-1 max-w-full mt-4 min-w-[400px]">
       <CardHeader>
-        <CardTitle className="text-left">Skład</CardTitle>
+        <CardTitle className="text-left">
+          {t("ingredients.title")}
+        </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-wrap gap-2">
         {noData ? (
-          <p>Brak dostępnych danych dotyczących składników oraz dodatków.</p>
+          <p>{t("ingredients.noData")}</p>
         ) : (
           <div className="flex-1 flex-col">
-            {/* Ingredients Table */}
             {ingredients.length > 0 && (
               <div className="mb-4">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Składniki</TableHead>
+                      <TableHead>{t("ingredients.ingredientsHeader")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -54,19 +58,17 @@ const ProductIngredientsList: FC<ProductIngredientsListProps> = ({
                 </Table>
               </div>
             )}
-
-            {/* Additions Table */}
             {additions.length > 0 && (
               <div className="mb-4">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Numery Dodatków</TableHead>
+                      <TableHead>{t("ingredients.additionsHeader")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {additions.map((addition, index) => (
-                      <TableRow key={index} className="bg-red-100">
+                      <TableRow key={index}>
                         <TableCell>{addition.addition_number}</TableCell>
                       </TableRow>
                     ))}
