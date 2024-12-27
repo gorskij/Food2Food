@@ -234,7 +234,17 @@ const favouriteProducts = {
   },
 };
 
+const nutritionalChart = {
+  title: "Basic Macronutrients",
+  description: "per 100 {{unit}} of the product",
+  energyUnit: "kcal",
+  carbohydrates: "Carbohydrates",
+  fat: "Fat",
+  protein: "Protein",
+};
+
 export default {
+  nutritionalChart,
   favouriteProducts,
   productCard,
   notFound,

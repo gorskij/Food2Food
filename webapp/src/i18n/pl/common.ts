@@ -238,7 +238,18 @@ const favouriteProducts = {
   },
 };
 
+const nutritionalChart = {
+  title: "Podstawowe makroskładniki",
+  description: "na 100 {{unit}} produktu",
+  energyUnit: "kcal",
+  carbohydrates: "Węglowodany",
+  fat: "Tłuszcz",
+  fatName: "Total",
+  protein: "Białko",
+};
+
 export default {
+  nutritionalChart,
   favouriteProducts,
   productCard,
   notFound,

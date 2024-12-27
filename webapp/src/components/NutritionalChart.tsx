@@ -16,12 +16,14 @@ import {
   ChartLegend,
   CustomLegend,
 } from "./ui/chart";
+import { useTranslation } from "react-i18next";
 
 interface NutritionalChartProps {
   productDetails: ProductDetails;
 }
 
 const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const onPieEnter = (_, index) => {
@@ -30,15 +32,15 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
 
   const chartConfig = {
     carbohydrates: {
-      label: "Węglowodany",
+      label: t("nutritionalChart.carbohydrates"),
       color: "hsl(var(--chart-7))",
     },
     fat: {
-      label: "Tłuszcz",
+      label: t("nutritionalChart.fat"),
       color: "hsl(var(--chart-yellow))",
     },
     protein: {
-      label: "Białko",
+      label: t("nutritionalChart.protein"),
       color: "hsl(var(--chart-6))",
     },
   } satisfies ChartConfig;
@@ -84,12 +86,16 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
     })
     .filter(Boolean);
 
-  return (
+   return (
     <Card className="flex-1 flex-col min-w-[400px]">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-center">Podstawowe makroskładniki</CardTitle>
+        <CardTitle className="text-center">
+          {t("nutritionalChart.title")}
+        </CardTitle>
         <CardDescription>
-          na 100 {productDetails.unit.name} produktu
+          {t("nutritionalChart.description", {
+            unit: productDetails.unit.name,
+          })}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -141,14 +147,16 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {energyValue.value.toLocaleString().replace(",", ".")}
+                          {energyValue.value
+                            .toLocaleString()
+                            .replace(",", ".")}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          kcal
+                          {t("nutritionalChart.energyUnit")}
                         </tspan>
                       </text>
                     );
