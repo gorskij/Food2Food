@@ -1,13 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-// import useAxiosPrivate from "../useAxiosPrivate";
 import { AxiosError } from "axios";
 import { api } from "../api";
 import { ErrorCode } from "@/types/ErrorCode";
 import { toast } from "@/hooks/use-toast";
 import { t } from "i18next";
-// import { toast } from "@/components/ui/use-toast";
-// import { t } from "i18next";
-// import { ErrorCode } from "@/@types/errorCode";
 
 interface Product {
   id: string;
