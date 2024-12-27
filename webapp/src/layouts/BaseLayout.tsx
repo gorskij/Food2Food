@@ -4,35 +4,14 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Apple, ChevronsUpDown, LogOut, Settings, User2 } from "lucide-react";
+import { Apple } from "lucide-react";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import LanguageSelector from "@/components/LanguageSelector";
-import { useUserStore } from "@/store/userStore";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import SignInGoogleButton from "@/components/SignInGoogleButton";
-import SignInGithubButton from "@/components/SignInGithubButton";
+import UserAuth from "@/components/UserAuth";
 import SessionExpiredDialog from "@/components/SessionExpiredDialog";
-import { toast } from "@/hooks/use-toast";
-import { t } from "i18next";
 
 const BaseLayout: FC = () => {
   const [open, setOpen] = React.useState(true);
-  const { isAuthenticated, username, clearToken } = useUserStore();
-
-  const handleLogout = () => {
-    toast({
-      variant: "success",
-      title: t("logout.successTitle"),
-      description: t("logout.successDescription"),
-    });
-    clearToken();
-  };
 
   return (
     <div className="flex w-full min-h-screen flex-col">
@@ -42,37 +21,7 @@ const BaseLayout: FC = () => {
           <Apple className="w-6 h-6 text-background ml-2" />
         </span>
         <div className=" flex items-center">
-          {isAuthenticated() ? (
-            <>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost">
-                    <User2 />
-                    {username}
-                    <ChevronsUpDown className="ml-auto" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="top"
-                  className="w-[--radix-popper-anchor-width]"
-                >
-                  <DropdownMenuItem>
-                    <Settings />
-                    <span>Opcje Użytkownika</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleLogout}>
-                    <LogOut />
-                    <span>Wyloguj</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </>
-          ) : (
-            <>
-              <SignInGoogleButton />
-              <SignInGithubButton />
-            </>
-          )}
+          <UserAuth />
           <ModeToggle />
           <LanguageSelector />
         </div>

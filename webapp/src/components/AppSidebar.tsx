@@ -23,27 +23,29 @@ import { Sheet, SheetTrigger } from "./ui/sheet";
 import NutritionalProfileSheet from "./NutritionalProfileSheet";
 import { useUserStore } from "@/store/userStore";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-
-const items = [
-  {
-    title: "Strona Główna",
-    url: "/",
-    icon: Home,
-  },
-  {
-    title: "Lista Produktów",
-    url: "/products",
-    icon: Utensils,
-  },
-  {
-    title: "Porównaj Produkty",
-    url: "/compare",
-    icon: UtensilsCrossed,
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export function AppSidebar() {
+  const { t } = useTranslation();
   const { isAuthenticated } = useUserStore();
+
+  const items = [
+    {
+      title: t("appSidebar.home"),
+      url: "/",
+      icon: Home,
+    },
+    {
+      title: t("appSidebar.productList"),
+      url: "/products",
+      icon: Utensils,
+    },
+    {
+      title: t("appSidebar.compareProducts"),
+      url: "/compare",
+      icon: UtensilsCrossed,
+    },
+  ];
 
   return (
     <Sidebar collapsible="icon">
@@ -67,7 +69,7 @@ export function AppSidebar() {
         {isAuthenticated() ? (
           <SidebarGroup>
             <SidebarGroupLabel>
-              Twoje <Separator />
+            {t("appSidebar.yourSection")} <Separator />
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
@@ -75,7 +77,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink to="/user/favorite-products">
                       <Heart />
-                      Ulubione Produkty
+                      {t("appSidebar.favorites")}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -84,7 +86,7 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <SheetTrigger>
                         <NotebookPen />
-                        Edytuj Preferencje Żywieniowe
+                        {t("appSidebar.editPreferences")}
                       </SheetTrigger>
                     </SidebarMenuButton>
                     <NutritionalProfileSheet />
