@@ -7,6 +7,7 @@ const validation = {
 };
 
 const error = {
+  loadingError: "An error occurred while loading data.",
   baseTitle: "Error occurred",
   baseDescription: "Something went wrong...",
   userBlocked: "Your account is blocked",
@@ -168,7 +169,53 @@ const favoriteInfo = {
   countFavorites: "{{count}} users have added this product to their favorites.",
 };
 
+const productsPage = {
+  title: "Product List",
+  searchPlaceholder: "Search products...",
+  searchButton: "Search",
+  clearFiltersButton: "Clear filters",
+  pageIndicator: "Page {{currentPage}} of {{totalPages}}",
+  noProducts: "No available products.",
+  dropdown: {
+    details: "Product Details",
+    addToComparison: "Add to Comparison",
+  },
+  eanCode: "EAN Code: {{ean}}",
+  breadcrumbs: {
+    home: "Home",
+    list: "Product List",
+  },
+};
+
+const productDetails = {
+  title: "Product Details",
+  breadcrumbs: {
+    home: "Home",
+    productList: "Product List"
+  },
+  noData: "No data available",
+  description: "Description",
+  eanCode: "EAN Code",
+  quantity: "Quantity",
+  countryOfOrigin: "Country of Origin",
+  packageType: "Package Type",
+  addToCompare: "Add to Compare",
+  producerInfo: "Producer Information",
+  producer: "Producer",
+  address: "Address",
+  nip: "NIP",
+  contact: "Contact",
+  nutritionalValue: "Nutritional Value",
+  basic: "Basic",
+  vitaminsAndMinerals: "Vitamins and Minerals",
+  omega3: "Omega 3",
+  additional: "Additional",
+  loadingError: "Error loading data"
+};
+
 export default {
+  productDetails,
+  productsPage,
   addFavoriteProduct,
   removeFavoriteProduct,
   favoriteInfo,

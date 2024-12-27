@@ -1,6 +1,7 @@
 import { ExceptionCode } from "@/types/ErrorCode";
 
 const error = {
+  loadingError: "Wystąpił błąd przy wczytywaniu danych.",
   baseTitle: "Wystąpił błąd",
   baseDescription: "Coś poszło nie tak...",
   userBlocked: "Twoje konto jest zablokowane",
@@ -170,7 +171,53 @@ const favoriteInfo = {
   countFavorites: "{{count}} użytkowników dodało ten produkt do ulubionych.",
 };
 
+const productsPage = {
+  title: "Lista Produktów",
+  searchPlaceholder: "Szukaj produktów...",
+  searchButton: "Szukaj",
+  clearFiltersButton: "Wyczyść filtry",
+  pageIndicator: "Strona {{currentPage}} z {{totalPages}}",
+  noProducts: "Brak dostępnych produktów.",
+  dropdown: {
+    details: "Szczegóły Produktu",
+    addToComparison: "Dodaj do porównania",
+  },
+  eanCode: "Kod EAN: {{ean}}",
+  breadcrumbs: {
+    home: "Strona Główna",
+    list: "Lista Produktów",
+  },
+};
+
+const productDetails = {
+  title: "Szczegóły Produktu",
+  breadcrumbs: {
+    home: "Strona Główna",
+    productList: "Lista Produktów"
+  },
+  noData: "Brak danych",
+  description: "Opis",
+  eanCode: "Kod EAN",
+  quantity: "Ilość",
+  countryOfOrigin: "Kraj Pochodzenia",
+  packageType: "Typ Opakowania",
+  addToCompare: "Dodaj do porównania",
+  producerInfo: "Informacje o producencie",
+  producer: "Producent",
+  address: "Adres",
+  nip: "NIP",
+  contact: "Kontakt",
+  nutritionalValue: "Wartość Odżywcza",
+  basic: "Podstawowe",
+  vitaminsAndMinerals: "Witaminy i Minerały",
+  omega3: "Omega 3",
+  additional: "Dodatkowe",
+  loadingError: "Błąd ładowania danych"
+};
+
 export default {
+  productDetails,
+  productsPage,
   addFavoriteProduct,
   removeFavoriteProduct,
   favoriteInfo,

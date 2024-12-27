@@ -6,7 +6,6 @@ import {
   ChevronsRight,
   Ellipsis,
   FilterX,
-  Heart,
   Plus,
   Search,
 } from "lucide-react";
@@ -21,11 +20,13 @@ import {
 import { NavLink } from "react-router-dom";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { Input } from "@/components/ui/input";
+import { useTranslation } from "react-i18next";
 
 const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchName, setSearchName] = useState("");
   const [pendingSearch, setPendingSearch] = useState("");
+  const { t } = useTranslation();
 
   const { data, isLoading, isError } = useGetProducts({
     pageNumber: currentPage,
@@ -49,8 +50,8 @@ const ProductsPage = () => {
   };
 
   const breadcrumbs = useBreadcrumbs([
-    { title: "Strona Główna", path: "/" },
-    { title: "Lista Produktów", path: "/products" },
+    { title: t("productsPage.breadcrumbs.home"), path: "/" },
+    { title: t("productsPage.breadcrumbs.list"), path: "/products" },
   ]);
 
   const placeholderImg = "https://via.placeholder.com/150";
@@ -59,20 +60,22 @@ const ProductsPage = () => {
   if (isError)
     return (
       <div>
-        Wystąpił błąd przy wczytywaniu danych.
+        {t("error.loadingError")}
         <RefreshQueryButton queryKeys={["products"]} />
       </div>
     );
 
   return (
     <div className="min-w-full">
-      <div className="text-center text-3xl font-bold my-5">Lista Produktów</div>
+      <div className="text-center text-3xl font-bold my-5">
+        {t("productsPage.title")}
+      </div>
       {breadcrumbs}
       <div className="flex justify-end mr-6">
         <div className="flex w-full max-w-sm items-center mt-4">
           <Input
             type="text"
-            placeholder="Szukaj produktów..."
+            placeholder={t("productsPage.searchPlaceholder")}
             value={pendingSearch}
             onChange={(e) => setPendingSearch(e.target.value)}
             onKeyDown={(e) => {
@@ -103,8 +106,10 @@ const ProductsPage = () => {
           <ChevronsLeft />
         </Button>
         <span>
-          Strona {data?.page.totalPages === 0 ? 0 : currentPage + 1} z{" "}
-          {data?.page.totalPages}
+          {t("productsPage.pageIndicator", {
+            currentPage: data?.page.totalPages === 0 ? 0 : currentPage + 1,
+            totalPages: data?.page.totalPages,
+          })}
         </span>
         <Button
           variant="outline"
@@ -144,13 +149,13 @@ const ProductsPage = () => {
                         className="flex items-center space-x-2 w-full"
                       >
                         <Search className="mr-2" />
-                        Szczegóły&nbsp;Produktu
+                        {t("productsPage.dropdown.details")}
                       </NavLink>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <span className="flex items-center space-x-2 w-full">
                         <Plus className="mr-2" />
-                        Dodaj do porównania
+                        {t("productsPage.dropdown.addToComparison")}
                       </span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -167,7 +172,7 @@ const ProductsPage = () => {
                   {product.productDescription}
                 </span>
                 <span className="text-sm text-left">
-                  Kod EAN:&nbsp;{product.ean}
+                  {t("productsPage.eanCode", { ean: product.ean })}
                 </span>
               </div>
             );

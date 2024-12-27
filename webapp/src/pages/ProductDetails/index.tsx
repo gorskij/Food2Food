@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import DataField from "@/components/DataField";
 import FatSaturationChart from "@/components/FatSaturationChart";
 import { LoadingData } from "@/components/LoadingData";
@@ -28,16 +29,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Ellipsis, Plus, Heart } from "lucide-react";
+import { Ellipsis, Plus } from "lucide-react";
 import FavoriteInfo from "@/components/FavoriteInfo";
 
 const ProductDetailsPage: FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError } = useGetProductDetails(id!);
   const placeholderImg = "https://via.placeholder.com/150";
   const breadcrumbs = useBreadcrumbs([
-    { title: "Strona Główna", path: "/" },
-    { title: "Lista Produktów", path: "/products" },
+    { title: t("productDetails.breadcrumbs.home"), path: "/" },
+    { title: t("productDetails.breadcrumbs.productList"), path: "/products" },
     { title: data?.data.productName ?? "", path: `/products/${id}` },
   ]);
 
@@ -45,7 +47,7 @@ const ProductDetailsPage: FC = () => {
   if (isError)
     return (
       <div>
-        Wystąpił błąd przy wczytywaniu danych.
+        {t("error.loadingError")}
         <RefreshQueryButton queryKeys={["productDetails"]} />
       </div>
     );
@@ -53,7 +55,7 @@ const ProductDetailsPage: FC = () => {
   return (
     <div className="flex flex-col gap-2 min-w-full">
       <div className="text-center text-3xl font-bold my-4">
-        Szczegóły Produktu
+        {t("productDetails.title")}
       </div>
       {breadcrumbs}
 
@@ -69,7 +71,7 @@ const ProductDetailsPage: FC = () => {
               <DropdownMenuItem>
                 <span className="flex items-center space-x-2 w-full">
                   <Plus className="mr-2" />
-                  Dodaj do porównania
+                  {t("productDetails.addToCompare")}
                 </span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -78,7 +80,7 @@ const ProductDetailsPage: FC = () => {
             <Card className="flex-1 min-w-[725px] max-w-full">
               <CardHeader>
                 <CardTitle className="text-center">
-                  {data.data.productName ?? "Brak danych"}
+                  {data.data.productName ?? t("productDetails.noData")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex justify-start">
@@ -92,33 +94,33 @@ const ProductDetailsPage: FC = () => {
                 />
                 <div className="flex-1 justify-center flex-col">
                   <DataField
-                    label="Opis :"
-                    value={data.data.productDescription ?? "Brak danych"}
+                    label={`${t("productDetails.description")}:`}
+                    value={data.data.productDescription ?? t("productDetails.noData")}
                   />
                   <DataField
-                    label="Kod EAN :"
-                    value={data.data.ean ?? "Brak danych"}
+                    label={`${t("productDetails.eanCode")}:`}
+                    value={data.data.ean ?? t("productDetails.noData")}
                     className="my-2"
                   />
                   <DataField
-                    label="Ilość :"
+                    label={`${t("productDetails.quantity")}:`}
                     value={
                       data.data.productQuantity && data.data.unit?.name
                         ? `${data.data.productQuantity.toString()} ${
                             data.data.unit.name
                           }`
-                        : "Brak danych"
+                        : t("productDetails.noData")
                     }
                     className="my-2"
                   />
                   <DataField
-                    label="Kraj pochodzenia :"
-                    value={data.data.country ?? "Brak danych"}
+                    label={`${t("productDetails.countryOfOrigin")}:`}
+                    value={data.data.country ?? t("productDetails.noData")}
                     className="my-2"
                   />
                   <DataField
-                    label="Typ Opakowania :"
-                    value={data.data.packageType?.name ?? "Brak danych"}
+                    label={`${t("productDetails.packageType")}:`}
+                    value={data.data.packageType?.name ?? t("productDetails.noData")}
                     className="my-2"
                   />
                 </div>
@@ -133,28 +135,28 @@ const ProductDetailsPage: FC = () => {
             <Card className="flex-1 min-w-[525px] max-w-full">
               <CardHeader>
                 <CardTitle className="text-left">
-                  Informacje o producencie
+                  {t("productDetails.producerInfo")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex justify-center flex-col">
                 <DataField
-                  label="Producent :"
-                  value={data.data.producer?.name ?? "Brak danych"}
+                  label={`${t("productDetails.producer")}:`}
+                  value={data.data.producer?.name ?? t("productDetails.noData")}
                   className="border-b py-1 my-1"
                 />
                 <DataField
-                  label="Adres :"
-                  value={data.data.producer.address ?? "Brak danych"}
+                  label={`${t("productDetails.address")}:`}
+                  value={data.data.producer.address ?? t("productDetails.noData")}
                   className="my-2"
                 />
                 <DataField
-                  label="NIP :"
-                  value={data.data.producer.NIP ?? "Brak danych"}
+                  label={`${t("productDetails.nip")}:`}
+                  value={data.data.producer.NIP ?? t("productDetails.noData")}
                   className="my-2"
                 />
                 <DataField
-                  label="Kontakt :"
-                  value={data.data.producer.contact ?? "Brak danych"}
+                  label={`${t("productDetails.contact")}:`}
+                  value={data.data.producer.contact ?? t("productDetails.noData")}
                   className="my-2"
                 />
               </CardContent>
@@ -165,7 +167,9 @@ const ProductDetailsPage: FC = () => {
           </div>
           <Card className="flex-1 max-w-full mt-4">
             <CardHeader>
-              <CardTitle className="text-left">Wartość odżywcza</CardTitle>
+              <CardTitle className="text-left">
+                {t("productDetails.nutritionalValue")}
+              </CardTitle>
             </CardHeader>
             <CardContent className="flex justify-center">
               <Accordion
@@ -175,7 +179,7 @@ const ProductDetailsPage: FC = () => {
                 defaultValue="item-1"
               >
                 <AccordionItem value="item-1">
-                  <AccordionTrigger>Podstawowe</AccordionTrigger>
+                  <AccordionTrigger>{t("productDetails.basic")}</AccordionTrigger>
                   <AccordionContent className="flex flex-col gap-4">
                     <div className="flex flex-row min-w-full gap-4 flex-wrap">
                       <NutritionalChart productDetails={data.data} />
@@ -188,7 +192,9 @@ const ProductDetailsPage: FC = () => {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                  <AccordionTrigger>Witaminy i minerały</AccordionTrigger>
+                  <AccordionTrigger>
+                    {t("productDetails.vitaminsAndMinerals")}
+                  </AccordionTrigger>
                   <AccordionContent>
                     <div className="flex flex-wrap gap-4">
                       <div className="flex-1 min-w-[450px]">
@@ -201,13 +207,13 @@ const ProductDetailsPage: FC = () => {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
-                  <AccordionTrigger>Kwasy Omega-3</AccordionTrigger>
+                  <AccordionTrigger>{t("productDetails.omega3")}</AccordionTrigger>
                   <AccordionContent>
                     <Omega3Table productDetails={data.data} />
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-4">
-                  <AccordionTrigger>Dodatkowe</AccordionTrigger>
+                  <AccordionTrigger>{t("productDetails.additional")}</AccordionTrigger>
                   <AccordionContent>item-5</AccordionContent>
                 </AccordionItem>
               </Accordion>
