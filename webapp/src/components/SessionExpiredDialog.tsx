@@ -22,7 +22,7 @@ const SessionExpiredDialog: FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (token !== undefined && isTokenValid(token)) {
+      if (token !== undefined && !isTokenValid(token)) {
         setOpen(true);
       }
     }, 1000 * 60);
