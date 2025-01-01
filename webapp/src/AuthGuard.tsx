@@ -11,7 +11,7 @@ const AuthGuard: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const isLoggedIn =
-    isAuthenticated && token !== undefined && isTokenValid(token);
+    token !== undefined && isAuthenticated && isTokenValid(token);
 
   useEffect(() => {
     if (!isLoggedIn) {

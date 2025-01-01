@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { useUserStore } from "@/store/userStore";
-import { decodeJwt } from "@/utils/jwt";
+import { isTokenValid } from "@/utils/jwt";
 import { useTranslation } from "react-i18next";
 import { Button } from "./ui/button";
 import GoogleLoginButton from "./SignInGoogleButton";
@@ -22,8 +22,7 @@ const SessionExpiredDialog: FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const payload = decodeJwt(token ?? "");
-      if (Date.now() > payload.exp * 1000) {
+      if (token !== undefined && isTokenValid(token)) {
         setOpen(true);
       }
     }, 1000 * 60);

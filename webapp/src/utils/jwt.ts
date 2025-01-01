@@ -10,9 +10,19 @@ type JwtPayload = {
   authorities: string[];
 };
 
-export const decodeJwt = (token: string) => jwtDecode<JwtPayload>(token);
+export const decodeJwt = (token: string) => {
+  if (!token || token.trim() === "" || token.split(".").length !== 3) {
+    return null;
+  }
+  try {
+    return jwtDecode<JwtPayload>(token);
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return null;
+  }
+};
 
 export const isTokenValid = (token: string): boolean => {
   const payload = decodeJwt(token);
-  return Date.now() < payload.exp * 1000;
+  return payload !== null && Date.now() < payload.exp * 1000;
 };
