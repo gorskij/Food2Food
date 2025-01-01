@@ -32,11 +32,11 @@ const UserAuth: React.FC = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent side="top" className="w-auto">
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <Settings />
               <span>{t("userAuth.settings")}</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleLogout}>
+            <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
               <LogOut />
               <span>{t("userAuth.logout")}</span>
             </DropdownMenuItem>

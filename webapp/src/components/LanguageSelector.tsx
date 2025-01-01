@@ -23,6 +23,7 @@ const LanguageSelector: FC = () => {
           onClick={() => {
             setLanguage("en");
           }}
+          className="cursor-pointer"
         >
           English
         </DropdownMenuItem>
@@ -30,6 +31,7 @@ const LanguageSelector: FC = () => {
           onClick={() => {
             setLanguage("pl");
           }}
+          className="cursor-pointer"
         >
           Polski
         </DropdownMenuItem>
