@@ -14,7 +14,7 @@ const BaseLayout: FC = () => {
   const [open, setOpen] = React.useState(true);
 
   return (
-    <div className="flex w-full min-h-screen flex-col">
+    <div className="flex w-full h-full flex-col">
       <div className="sticky top-0 z-10 bg-green-500 text-background h-16 flex flex-row justify-between px-4 shadow-md">
         <span className="text-2xl font-extrabold flex justify-center items-center">
           Food2Food
@@ -26,7 +26,7 @@ const BaseLayout: FC = () => {
           <LanguageSelector />
         </div>
       </div>
-      <div className="flex flex-1 flex-col justify-between">
+      <div className="flex flex-1 flex-col justify-between pr-6">
         <SidebarProvider open={open} onOpenChange={setOpen}>
           <AppSidebar />
           <SidebarTrigger />
@@ -35,14 +35,14 @@ const BaseLayout: FC = () => {
             <SessionExpiredDialog />
           </div>
         </SidebarProvider>
-        <footer
-          className={cn(
-            "sticky bottom-0 left-0 w-full h-12 flex items-center justify-center bg-green-500 text-xl text-background"
-          )}
-        >
-          <span>© 2024 Food2Food</span>
-        </footer>
       </div>
+      <footer
+        className={cn(
+          "sticky bottom-0 left-0 w-full h-12 flex items-center justify-center bg-green-500 text-xl text-background"
+        )}
+      >
+        <span>© 2024 Food2Food</span>
+      </footer>
     </div>
   );
 };
