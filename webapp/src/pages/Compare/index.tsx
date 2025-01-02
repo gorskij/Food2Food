@@ -27,8 +27,8 @@ const ComparePage: FC = () => {
   } = useGetProductDetails(product2?.id);
 
   const breadcrumbs = useBreadcrumbs([
-    { title: "Strona Główna", path: "/" },
-    { title: "Porównanie Produktów", path: "/compare" },
+    { title: t("compare.homePage"), path: "/" },
+    { title: t("compare.comparePage"), path: "/compare" },
   ]);
 
   if (isLoading1 || isLoading2) return <LoadingData />;
@@ -43,7 +43,7 @@ const ComparePage: FC = () => {
   return (
     <div className="flex flex-col gap-2 min-w-full">
       <div className="text-center text-3xl font-bold my-4">
-        Porównanie Produktów
+        {t("compare.title")}
       </div>
       {breadcrumbs}
       <Card className="flex-1 min-w-full max-w-full">

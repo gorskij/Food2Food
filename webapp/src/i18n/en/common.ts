@@ -1,3 +1,4 @@
+import ComparePage from "@/pages/Compare";
 import { ExceptionCode } from "@/types/ErrorCode";
 
 const validation = {
@@ -293,6 +294,8 @@ const appSidebar = {
   yourSection: "Your Section",
   favorites: "Favorite Products",
   editPreferences: "Edit Nutritional Preferences",
+  clearComparison: "Remove products from comparison",
+  comparisonSection: "Product comparison"
 };
 
 const userAuth = {
@@ -308,7 +311,10 @@ const productComparisonSlot = {
 }
 
 const compare = {
-  selectProducts: "Select both products to display their comparison"
+  selectProducts: "Select both products to display their comparison",
+  homePage: "Home",
+  comparePage: "Product Comparison",
+  title: "Product Comparison",
 }
 
 export default {

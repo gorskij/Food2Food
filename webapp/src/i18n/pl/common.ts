@@ -296,6 +296,8 @@ const appSidebar = {
   yourSection: "Twoja sekcja",
   favorites: "Ulubione Produkty",
   editPreferences: "Edytuj Preferencje Żywieniowe",
+  clearComparison: "Usuń produkty z porównania",
+  comparisonSection: "Porównanie produktów"
 };
 
 const userAuth = {
@@ -311,7 +313,10 @@ const productComparisonSlot = {
 }
 
 const compare = {
-  selectProducts: "Wybierz oba produkty, aby wyświetlić ich porównanie"
+  selectProducts: "Wybierz oba produkty, aby wyświetlić ich porównanie",
+  homePage: "Strona Główna",
+  comparePage: "Porównanie Produktów",
+  title: "Porównanie Produktów",
 }
 
 export default {
