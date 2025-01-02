@@ -4,7 +4,7 @@ import RefreshQueryButton from "@/components/RefreshQueryButton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetProductDetails } from "@/data/products/useProductDetails";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
-import { Swords } from "lucide-react";
+import { Scale } from "lucide-react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import ProductComparisonAccordion from "@/components/ProductComparisonAccordion";
@@ -49,9 +49,9 @@ const ComparePage: FC = () => {
       <Card className="flex-1 min-w-full max-w-full">
         <CardHeader>
           <CardTitle className="flex justify-around items-center text-center ">
-            <ProductComparisonSlot product={product1Data?.data} />
-            <Swords />
-            <ProductComparisonSlot product={product2Data?.data} />
+            <ProductComparisonSlot product={product1} />
+            <Scale className="w-12 h-12 flex-shrink-0" />
+            <ProductComparisonSlot product={product2} />
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
