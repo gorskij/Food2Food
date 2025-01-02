@@ -5,6 +5,7 @@ import {
   Heart,
   NotebookPen,
   Carrot,
+  Eraser,
 } from "lucide-react";
 
 import {
@@ -22,12 +23,15 @@ import { NavLink } from "react-router-dom";
 import { Sheet, SheetTrigger } from "./ui/sheet";
 import NutritionalProfileSheet from "./NutritionalProfileSheet";
 import { useUserStore } from "@/store/userStore";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useTranslation } from "react-i18next";
+import { Separator } from "./ui/separator";
+import { useComparisonStore } from "@/store/comparisonStore";
+import SidebarComparisonSlot from "./SidebarComparisonSlot";
 
 export function AppSidebar() {
   const { t } = useTranslation();
   const { isAuthenticated } = useUserStore();
+  const { clearProducts } = useComparisonStore();
 
   const items = [
     {
@@ -39,11 +43,6 @@ export function AppSidebar() {
       title: t("appSidebar.productList"),
       url: "/products",
       icon: Utensils,
-    },
-    {
-      title: t("appSidebar.compareProducts"),
-      url: "/compare",
-      icon: UtensilsCrossed,
     },
   ];
 
@@ -67,37 +66,68 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         {isAuthenticated() ? (
-          <SidebarGroup>
-            <SidebarGroupLabel>
-            {t("appSidebar.yourSection")} <Separator />
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <NavLink to="/user/favorite-products">
-                      <Heart />
-                      {t("appSidebar.favorites")}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <Sheet>
+          <>
+            <Separator className="mx-2 w-9/10" />
+            <SidebarGroup>
+              <SidebarGroupLabel>
+                {t("appSidebar.yourSection")}
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <SheetTrigger>
-                        <NotebookPen />
-                        {t("appSidebar.editPreferences")}
-                      </SheetTrigger>
+                      <NavLink to="/user/favorite-products">
+                        <Heart />
+                        {t("appSidebar.favorites")}
+                      </NavLink>
                     </SidebarMenuButton>
-                    <NutritionalProfileSheet />
-                  </Sheet>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <Sheet>
+                      <SidebarMenuButton asChild>
+                        <SheetTrigger>
+                          <NotebookPen />
+                          {t("appSidebar.editPreferences")}
+                        </SheetTrigger>
+                      </SidebarMenuButton>
+                      <NutritionalProfileSheet />
+                    </Sheet>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </>
         ) : (
           <></>
         )}
+        <Separator className="mx-2 w-9/10" />
+        <SidebarGroup>
+          <SidebarGroupLabel>
+            {t("appSidebar.comparisonSection")}
+          </SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <NavLink to="/compare">
+                  <UtensilsCrossed />
+                  {t("appSidebar.compareProducts")}
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem >
+              <SidebarMenuButton onClick={clearProducts}>
+                <Eraser />
+                {t("appSidebar.clearComparison")}
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem >
+              <SidebarComparisonSlot slot="product1" />
+            </SidebarMenuItem>
+            <SidebarMenuItem >
+              <SidebarComparisonSlot slot="product2" />
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
