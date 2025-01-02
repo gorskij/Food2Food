@@ -7,14 +7,19 @@ import {
 } from "./ui/dropdown-menu";
 import { Heart, Plus, Trash, Utensils } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { ProductDetails } from "@/types/ProductDetails";
 import { useUserStore } from "@/store/userStore";
 import { useComparisonStore } from "@/store/comparisonStore";
 import { Button } from "./ui/button";
 
 interface ProductComparisonSlotProps {
-  product?: ProductDetails;
-}
+  product?: {
+    id: string;
+    productName: string;
+    productDescription: string;
+    labelImage?: string | null;
+    ean: string;
+  };
+};
 
 const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }) => {
   const { t } = useTranslation();
@@ -29,17 +34,18 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
 
   if (!product) {
     return (
-      <div className="flex flex-col items-center w-full sm:w-[300px] rounded">
+      <div className="flex flex-col items-center w-full sm:max-w-[300px] rounded">
         <div className="flex flex-col items-center">
-          <div className="w-16 h-16 bg-accent flex justify-center items-center rounded-md">
+          <div
+          >
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button
-                  className="w-full h-full flex items-center justify-center text-gray-500 hover:text-gray-700 transition"
-                  aria-label={t("productComparisonSlot.addProduct")}
+                <Button
+                  variant="secondary"
+                  size="icon"
                 >
-                  <Plus className="w-8 h-8" />
-                </button>
+                  <Plus className="w-12 h-12" />
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center" className="w-auto p-1">
                 <DropdownMenuItem asChild>
@@ -80,8 +86,8 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
     );
   }
 
-  const productImg = product.label.image
-    ? `data:image/jpeg;base64,${product.label.image}`
+  const productImg = product.labelImage
+    ? `data:image/jpeg;base64,${product.labelImage}`
     : "https://via.placeholder.com/150";
 
   return (
