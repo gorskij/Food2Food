@@ -216,7 +216,9 @@ const notFound = {
 const productCard = {
   dropdown: {
     details: "Product Details",
-    addToComparison: "Add to Comparison",
+    addToComparison: "Add to comparison",
+    replaceProduct: "Replace product: ",
+    removeProduct: "Remove product from comparison"
   },
   eanCode: "EAN Code: {{ean}}",
 };
@@ -298,7 +300,20 @@ const userAuth = {
   logout: "Sign out",
 }
 
+const productComparisonSlot = {
+  noData: "No product selected",
+  selectProduct: "Click the symbol above to select a product",
+  browseProducts: "Choose a product from the list",
+  favoriteProducts: "Choose a product from your favorite products"
+}
+
+const compare = {
+  selectProducts: "Select both products to display their comparison"
+}
+
 export default {
+  productComparisonSlot,
+  compare,
   userAuth,
   appSidebar,
   sugarChart,

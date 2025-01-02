@@ -9,7 +9,6 @@
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-background: 0 0% 98%;
     --popover-foreground: 240 5.3% 26.1%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
@@ -87,8 +86,10 @@
     --chart-red: 10 80% 50%;
     --chart-yellow: 60 80% 50%;
 
-    --color-reference-line: hsl(0, 0%, 50%); /* Example: Gray dashed line */
-    --color-label: hsl(240, 10%, 10%); /* Example: Dark text for label */
+    --color-reference-line: hsl(0, 0%, 50%);
+    /* Example: Gray dashed line */
+    --color-label: hsl(240, 10%, 10%);
+    /* Example: Dark text for label */
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -110,6 +111,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

@@ -1,6 +1,4 @@
 import { ExceptionCode } from "@/types/ErrorCode";
-import { Description } from "@radix-ui/react-toast";
-import { Settings } from "lucide-react";
 
 const error = {
   loadingError: "Wystąpił błąd przy wczytywaniu danych.",
@@ -222,6 +220,8 @@ const productCard = {
   dropdown: {
     details: "Szczegóły Produktu",
     addToComparison: "Dodaj do porównania",
+    replaceProduct: "Zastąp produkt: ",
+    removeProduct: "Usuń produkt z porównania"
   },
   eanCode: "Kod EAN: {{ean}}",
 }
@@ -303,7 +303,20 @@ const userAuth = {
   logout: "Wyloguj",
 }
 
+const productComparisonSlot = {
+  noData: "Nie wybrano produktu",
+  selectProduct: "Kliknij w symbol powyżej w celu wybrania produktu",
+  browseProducts: "Wybierz produkt z listy",
+  favoriteProducts: "Wybierz jeden z twoich ulubionych produktów",
+}
+
+const compare = {
+  selectProducts: "Wybierz oba produkty, aby wyświetlić ich porównanie"
+}
+
 export default {
+  compare,
+  productComparisonSlot,
   userAuth,
   appSidebar,
   sugarChart,

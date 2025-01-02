@@ -6,8 +6,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { NavLink } from "react-router-dom";
-import { Ellipsis, Plus, Search } from "lucide-react";
+import { Ellipsis, Plus, RefreshCcw, Search, Trash } from "lucide-react";  // Added Trash icon
 import { useTranslation } from "react-i18next";
+import { useComparisonStore } from "@/store/comparisonStore";
 
 interface ProductCardProps {
   product: {
@@ -17,20 +18,39 @@ interface ProductCardProps {
     labelImage?: string | null;
     ean: string;
   };
-  placeholderImg?: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, placeholderImg }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { t } = useTranslation();
+  const { addProduct, removeProduct, replaceProduct, product1, product2 } = useComparisonStore();
 
   const productImg = product.labelImage
     ? `data:image/jpeg;base64,${product.labelImage}`
-    : placeholderImg || "https://via.placeholder.com/150";
+    : "https://via.placeholder.com/150";
+
+  const handleUseProduct1 = () => {
+    if (product1?.id === product.id) {
+      removeProduct("product1");
+    } else if (product2?.id === product.id) {
+      replaceProduct(product, "product1")
+    } else {
+      addProduct(product, "product1");
+    }
+  };
+
+  const handleUseProduct2 = () => {
+    if (product2?.id === product.id) {
+      removeProduct("product2");
+    } else if (product1?.id === product.id) {
+      replaceProduct(product, "product2")
+    } else {
+      addProduct(product, "product2");
+    }
+  };
 
   return (
     <div
-      className="flex flex-col items-center p-4 border rounded shadow-md"
-      style={{ width: "400px" }}
+      className="flex flex-col items-center p-4 border rounded shadow-md w-full sm:w-[400px]"
     >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -38,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, placeholderImg }) =>
             <Ellipsis />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side="bottom" className="w-30">
+        <DropdownMenuContent side="bottom" className="w-auto">
           <DropdownMenuItem>
             <NavLink
               to={`/products/${product.id}`}
@@ -48,18 +68,48 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, placeholderImg }) =>
               {t("productCard.dropdown.details")}
             </NavLink>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span className="flex items-center space-x-2 w-full">
+
+          <DropdownMenuItem
+            onClick={handleUseProduct1}
+            className="cursor-pointer"
+          >
+            {product1?.id === product.id ? (
+              <Trash className="mr-2" />
+            ) : product1 ? (
+              <RefreshCcw className="mr-2" />
+            ) : (
               <Plus className="mr-2" />
-              {t("productCard.dropdown.addToComparison")}
-            </span>
+            )}
+            {product1?.id === product.id
+              ? t("productCard.dropdown.removeProduct")
+              : product1
+                ? `${t("productCard.dropdown.replaceProduct")} (${product1.productName})`
+                : t("productCard.dropdown.addToComparison")}
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            onClick={handleUseProduct2}
+            className="cursor-pointer"
+          >
+            {product2?.id === product.id ? (
+              <Trash className="mr-2" />
+            ) : product2 ? (
+              <RefreshCcw className="mr-2" />
+            ) : (
+              <Plus className="mr-2" />
+            )}
+            {product2?.id === product.id
+              ? t("productCard.dropdown.removeProduct")
+              : product2
+                ? `${t("productCard.dropdown.replaceProduct")} (${product2.productName})`
+                : t("productCard.dropdown.addToComparison")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <img
         src={productImg}
         alt={product.productName}
-        className="w-full max-h-48 object-contain rounded"
+        className="w-full max-h-48 object-contain rounded hidden sm:block"
       />
       <h3 className="mt-2 text-lg font-bold text-center">
         {product.productName}

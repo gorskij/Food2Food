@@ -19,14 +19,14 @@ export const useGetProductDetails = (id: string) => {
           variant: "destructive",
           title: t("error.baseTitle"),
           description: t(
-            `errors.${
-              (axiosError.response?.data as ErrorCode)?.exceptionCode ||
-              "unknownError"
+            `errors.${(axiosError.response?.data as ErrorCode)?.exceptionCode ||
+            "unknownError"
             }`
           ),
         });
         return Promise.reject(axiosError);
       }
     },
+    enabled: Boolean(id),
   });
 };
