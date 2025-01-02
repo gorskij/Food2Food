@@ -5,10 +5,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Heart, Plus, Utensils } from "lucide-react";
+import { Heart, Plus, Trash, Utensils } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { ProductDetails } from "@/types/ProductDetails";
 import { useUserStore } from "@/store/userStore";
+import { useComparisonStore } from "@/store/comparisonStore";
+import { Button } from "./ui/button";
 
 interface ProductComparisonSlotProps {
   product?: ProductDetails;
@@ -17,6 +19,13 @@ interface ProductComparisonSlotProps {
 const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }) => {
   const { t } = useTranslation();
   const { isAuthenticated } = useUserStore();
+  const { product1, product2, removeProduct } = useComparisonStore();
+
+  const getProductSlot = () => {
+    if (product?.id === product1?.id) return "product1";
+    if (product?.id === product2?.id) return "product2";
+    return null;
+  };
 
   if (!product) {
     return (
@@ -79,6 +88,18 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
     <div
       className="flex flex-col items-center w-full sm:w-[300px]"
     >
+      <div className="w-full h-full flex justify-end">
+        <Button
+          variant="ghost"
+          onClick={() => {
+            const slot = getProductSlot();
+            if (slot) removeProduct(slot);
+          }}
+        >
+          <Trash className="h-4 w-4" />
+        </Button>
+
+      </div>
       <img
         src={productImg}
         alt={product.productName}
