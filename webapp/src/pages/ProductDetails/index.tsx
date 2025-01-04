@@ -29,12 +29,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Ellipsis, Plus } from "lucide-react";
+import { Ellipsis, Plus, RefreshCcw, Trash } from "lucide-react";
 import FavoriteInfo from "@/components/FavoriteInfo";
+import { useComparisonStore } from "@/store/comparisonStore";
 
 const ProductDetailsPage: FC = () => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
+  const { addProduct, removeProduct, replaceProduct, product1, product2 } = useComparisonStore();
   const { data, isLoading, isError } = useGetProductDetails(id!);
   const placeholderImg = "https://via.placeholder.com/150";
   const breadcrumbs = useBreadcrumbs([
@@ -42,6 +44,26 @@ const ProductDetailsPage: FC = () => {
     { title: t("productDetails.breadcrumbs.productList"), path: "/products" },
     { title: data?.data.productName ?? "", path: `/products/${id}` },
   ]);
+
+  const handleUseProduct1 = () => {
+    if (product1?.id === data?.data.id) {
+      removeProduct("product1");
+    } else if (product2?.id === data?.data.id) {
+      replaceProduct(data.data, "product1")
+    } else {
+      addProduct(data.data, "product1");
+    }
+  };
+
+  const handleUseProduct2 = () => {
+    if (product2?.id === data?.data.id) {
+      removeProduct("product2");
+    } else if (product1?.id === data?.data.id) {
+      replaceProduct(data.data, "product2")
+    } else {
+      addProduct(data.data, "product2");
+    }
+  };
 
   if (isLoading) return <LoadingData />;
   if (isError)
@@ -61,78 +83,109 @@ const ProductDetailsPage: FC = () => {
 
       {data && (
         <div className="mx-10">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="ml-auto pb-2 px-4">
-                <Ellipsis />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent side="bottom" className="w-30">
-              <DropdownMenuItem>
-                <span className="flex items-center space-x-2 w-full">
-                  <Plus className="mr-2" />
-                  {t("productDetails.addToCompare")}
-                </span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <div className="flex flex-wrap justify-between gap-4">
-            <Card className="flex-1 min-w-[725px] max-w-full">
+          <div className="flex-1 justify-between gap-4">
+            <Card className="flex-1 max-w-full mb-4">
               <CardHeader>
                 <CardTitle className="text-center">
+                  <div className="flex font-normal w-full justify-end items-center mb-2">
+                    <FavoriteInfo
+                      favoriteCount={data.data.favoriteCount}
+                      id={id}
+                    />
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="pb-2 px-4">
+                          <Ellipsis />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent side="bottom" className="w-30">
+                        <DropdownMenuItem
+                          onClick={handleUseProduct1}
+                          className="cursor-pointer"
+                        >
+                          {product1?.id === data.data.id ? (
+                            <Trash className="mr-2" />
+                          ) : product1 ? (
+                            <RefreshCcw className="mr-2" />
+                          ) : (
+                            <Plus className="mr-2" />
+                          )}
+                          {product1?.id === data.data.id
+                            ? t("productCard.dropdown.removeProduct")
+                            : product1
+                              ? `${t("productCard.dropdown.replaceProduct")} (${product1.productName})`
+                              : t("productCard.dropdown.addToComparison")}
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                          onClick={handleUseProduct2}
+                          className="cursor-pointer"
+                        >
+                          {product2?.id === data.data.id ? (
+                            <Trash className="mr-2" />
+                          ) : product2 ? (
+                            <RefreshCcw className="mr-2" />
+                          ) : (
+                            <Plus className="mr-2" />
+                          )}
+                          {product2?.id === data.data.id
+                            ? t("productCard.dropdown.removeProduct")
+                            : product2
+                              ? `${t("productCard.dropdown.replaceProduct")} (${product2.productName})`
+                              : t("productCard.dropdown.addToComparison")}
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                   {data.data.productName ?? t("productDetails.noData")}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="flex justify-start">
-                <img
-                  src={
-                    data.data.label.image
-                      ? `data:image/jpeg;base64,${data.data.label.image}`
-                      : placeholderImg
-                  }
-                  className="w-40 h-40 object-cover m-10"
-                />
-                <div className="flex-1 justify-center flex-col">
-                  <DataField
-                    label={`${t("productDetails.description")}:`}
-                    value={data.data.productDescription ?? t("productDetails.noData")}
-                  />
-                  <DataField
-                    label={`${t("productDetails.eanCode")}:`}
-                    value={data.data.ean ?? t("productDetails.noData")}
-                    className="my-2"
-                  />
-                  <DataField
-                    label={`${t("productDetails.quantity")}:`}
-                    value={
-                      data.data.productQuantity && data.data.unit?.name
-                        ? `${data.data.productQuantity.toString()} ${
-                            data.data.unit.name
-                          }`
-                        : t("productDetails.noData")
-                    }
-                    className="my-2"
-                  />
-                  <DataField
-                    label={`${t("productDetails.countryOfOrigin")}:`}
-                    value={data.data.country ?? t("productDetails.noData")}
-                    className="my-2"
-                  />
-                  <DataField
-                    label={`${t("productDetails.packageType")}:`}
-                    value={data.data.packageType?.name ?? t("productDetails.noData")}
-                    className="my-2"
-                  />
-                </div>
-                <div>
-                  <FavoriteInfo
-                    favoriteCount={data.data.favoriteCount}
-                    id={id}
-                  />
+              <CardContent className="flex flex-wrap">
+                <div className="flex flex-wrap w-full">
+                  <div className="sm:w-1/2 w-full pr-4">
+                    <img
+                      src={
+                        data.data.label.image
+                          ? `data:image/jpeg;base64,${data.data.label.image}`
+                          : placeholderImg
+                      }
+                      className="w-full max-h-48 object-contain rounded hidden sm:block"
+                    />
+                  </div>
+                  <div className="flex-1 sm:w-1/2 w-full flex-col">
+                    <DataField
+                      label={`${t("productDetails.description")}:`}
+                      value={data.data.productDescription ?? t("productDetails.noData")}
+                    />
+                    <DataField
+                      label={`${t("productDetails.eanCode")}:`}
+                      value={data.data.ean ?? t("productDetails.noData")}
+                      className="my-2"
+                    />
+                    <DataField
+                      label={`${t("productDetails.quantity")}:`}
+                      value={
+                        data.data.productQuantity && data.data.unit?.name
+                          ? `${data.data.productQuantity.toString()} ${data.data.unit.name}`
+                          : t("productDetails.noData")
+                      }
+                      className="my-2"
+                    />
+                    <DataField
+                      label={`${t("productDetails.countryOfOrigin")}:`}
+                      value={data.data.country ?? t("productDetails.noData")}
+                      className="my-2"
+                    />
+                    <DataField
+                      label={`${t("productDetails.packageType")}:`}
+                      value={data.data.packageType?.name ?? t("productDetails.noData")}
+                      className="my-2"
+                    />
+                  </div>
                 </div>
               </CardContent>
             </Card>
-            <Card className="flex-1 min-w-[525px] max-w-full">
+            <Card className="flex-1 max-w-full">
               <CardHeader>
                 <CardTitle className="text-left">
                   {t("productDetails.producerInfo")}
@@ -161,7 +214,7 @@ const ProductDetailsPage: FC = () => {
                 />
               </CardContent>
             </Card>
-          </div>
+          </div >
           <div className="flex flex-row min-w-full gap-4 flex-wrap">
             <ProductAllergens productDetails={data.data} />
           </div>
@@ -220,9 +273,9 @@ const ProductDetailsPage: FC = () => {
             </CardContent>
           </Card>
           <ProductIngredientsList productDetails={data.data} />
-        </div>
+        </div >
       )}
-    </div>
+    </div >
   );
 };
 
