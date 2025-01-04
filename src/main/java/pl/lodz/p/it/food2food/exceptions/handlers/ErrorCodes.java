@@ -15,7 +15,8 @@ public class ErrorCodes {
     public static final String NOT_FOUND = "notFound";
     public static final String USER_NOT_FOUND = "userNotFound";
     public static final String PRODUCT_NOT_FOUND = "productNotFound";
-    public static final String PRODUCT_ALREADY_FAVORITE = "productAlreadyFavorite";
+    public static final String PRODUCT_ALREADY_IN_FAVORITES = "productAlreadyInFavorites";
+    public static final String PRODUCT_NOT_IN_FAVORITES = "productNotInFavorites";
     public static final String THEME_NOT_FOUND = "themeNotFound";
     public static final String SOMETHING_WENT_WRONG = "somethingWentWrong";
     public static final String ACCESS_DENIED = "accessDenied";

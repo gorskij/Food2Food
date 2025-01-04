@@ -14,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.dto.responses.BooleanResponse;
 import pl.lodz.p.it.food2food.dto.responses.ProductDto;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
+import pl.lodz.p.it.food2food.exceptions.ProductAlreadyInFavorites;
+import pl.lodz.p.it.food2food.exceptions.ProductNotInFavorites;
 import pl.lodz.p.it.food2food.services.FavoriteProductsService;
 import pl.lodz.p.it.food2food.services.JwtService;
 
@@ -56,6 +58,8 @@ public class FavoriteProductsController {
             favoriteProductsService.addFavoriteProduct(userId, productId);
         } catch (NotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        } catch (ProductAlreadyInFavorites e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 
@@ -69,9 +73,10 @@ public class FavoriteProductsController {
         try{
         favoriteProductsService.removeFavoriteProduct(userId, productId);
         } catch (NotFoundException e) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
-    }
-
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        } catch (ProductNotInFavorites e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -79,12 +84,10 @@ public class FavoriteProductsController {
     public BooleanResponse checkFavoriteProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathVariable UUID productId) {
         String token = authorizationHeader.replace("Bearer ", "");
         UUID userId = UUID.fromString(jwtService.getUserId(token));
-        boolean isFavorite = false;
         try {
-            isFavorite = favoriteProductsService.isFavorite(userId, productId);
+            return new BooleanResponse(favoriteProductsService.isFavorite(userId, productId));
         } catch (NotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
-        return new BooleanResponse(isFavorite);
     }
 }

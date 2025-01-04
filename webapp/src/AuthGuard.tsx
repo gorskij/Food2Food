@@ -1,20 +1,19 @@
 import { FC, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useUserStore } from "./store/userStore";
-import { isTokenValid } from "./utils/jwt";
 import { toast } from "./hooks/use-toast";
 import { useTranslation } from "react-i18next";
 
 const AuthGuard: FC = () => {
-  const { token } = useUserStore();
-  const isAuthenticated = useUserStore();
+  const { token, clearToken } = useUserStore();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const isLoggedIn =
-    token !== undefined && isAuthenticated && isTokenValid(token);
+    token !== undefined;
 
   useEffect(() => {
     if (!isLoggedIn) {
+      clearToken();
       toast({
         variant: "destructive",
         title: t("authGuard.noAccess"),
@@ -22,7 +21,7 @@ const AuthGuard: FC = () => {
       });
       navigate("/", { replace: true });
     }
-  }, [isLoggedIn, t, navigate]);
+  }, [isLoggedIn, t, navigate, clearToken]);
 
   return <>{isLoggedIn ? <Outlet /> : null}</>;
 };

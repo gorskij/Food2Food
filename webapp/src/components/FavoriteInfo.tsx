@@ -8,8 +8,7 @@ import { useAddFavoriteProduct } from "@/data/products/useAddFavoriteProduct";
 import { Heart } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 import { useUserStore } from "@/store/userStore";
-import { useCheckFavoriteProduct } from "@/data/products/useCheckFavoriteProduct"; // Assuming you have this hook
-import { useQueryClient } from "@tanstack/react-query";
+import { useCheckFavoriteProduct } from "@/data/products/useCheckFavoriteProduct";
 import { useTranslation } from "react-i18next";
 
 interface FavoriteInfoProps {
@@ -23,32 +22,25 @@ const FavoriteInfo: FC<FavoriteInfoProps> = ({ favoriteCount, id }) => {
   const { isAuthenticated } = useUserStore();
   const { data: isFavorite, isLoading } = useCheckFavoriteProduct(id);
   const [isProductFavorite, setIsProductFavorite] = useState<boolean>(false);
-  const queryClient = useQueryClient();
   const { t } = useTranslation();
   useEffect(() => {
-    console.log("isAuthenticated:", isAuthenticated());
-    console.log("isLoading:", isLoading);
-    console.log("isFavorite:", isFavorite);
 
     if (isAuthenticated() === true && isLoading === false) {
       setIsProductFavorite(isFavorite?.result ?? false);
-      console.log("going through");
     }
   }, [isAuthenticated, isFavorite, isLoading]);
 
   const handleRemoveFromFavorites = async () => {
     if (id) {
-      await removeFavoriteProduct(id);
       setIsProductFavorite(false);
-      queryClient.invalidateQueries({ queryKey: ["productDetails"] });
+      await removeFavoriteProduct(id);
     }
   };
 
   const handleAddToFavorites = async () => {
     if (id) {
-      await addFavoriteProduct(id);
       setIsProductFavorite(true);
-      queryClient.invalidateQueries({ queryKey: ["productDetails"] });
+      await addFavoriteProduct(id);
     }
   };
 

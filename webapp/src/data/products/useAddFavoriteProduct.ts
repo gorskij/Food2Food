@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import useAxiosPrivate from "@/data/useAxiosPrivate.ts";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import { ErrorCode } from "@/types/ErrorCode";
 export const useAddFavoriteProduct = () => {
   const { api } = useAxiosPrivate();
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { mutateAsync } = useMutation({
     mutationFn: async (id: string) => {
@@ -28,6 +29,10 @@ export const useAddFavoriteProduct = () => {
           `errors.${(error.response?.data as ErrorCode).exceptionCode}`
         ),
       });
+      queryClient.invalidateQueries({ queryKey: ["checkFavoriteProduct"] });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["productDetails"] });
     },
   });
 

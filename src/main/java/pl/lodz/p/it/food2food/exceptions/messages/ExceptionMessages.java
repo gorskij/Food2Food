@@ -12,6 +12,8 @@ public class ExceptionMessages {
     public static final String PERSISTENCE_ERROR = "Problem occurred while trying to persist data";
     public static final String NOT_FOUND = "Endpoint not found";
     public static final String PRODUCT_NOT_FOUND = "Product not found";
+    public static final String PRODUCT_ALREADY_IN_FAVORITES = "Product already in favorites";
+    public static final String PRODUCT_NOT_IN_FAVORITES = "Product not in favorites";
     public static final String ROLLBACK = "Problem occurred during transaction, try again later";
     public static final String UNEXPECTED_ROLLBACK = "Problem occurred during transaction, try again later";
     public static final String TRANSACTION = "Problem occurred during transaction, try again later";

@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { toast } from "@/hooks/use-toast";
 import { t } from "i18next";
 import { ErrorCode } from "@/types/ErrorCode";
-import { useUserStore } from "@/store/userStore"; // Assuming you have access to `useUserStore`
+import { useUserStore } from "@/store/userStore";
 
 interface BooleanResponse {
   result: boolean;
@@ -12,7 +12,7 @@ interface BooleanResponse {
 
 export const useCheckFavoriteProduct = (productId: string) => {
   const { api } = useAxiosPrivate();
-  const { isAuthenticated } = useUserStore(); // Accessing the `isAuthenticated` function from user store
+  const { isAuthenticated } = useUserStore();
 
   return useQuery({
     queryKey: ["checkFavoriteProduct", productId],

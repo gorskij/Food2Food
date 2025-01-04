@@ -1,5 +1,6 @@
 package pl.lodz.p.it.food2food.exceptions.handlers;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import jakarta.persistence.OptimisticLockException;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.RollbackException;
@@ -61,6 +62,11 @@ public class GlobalExceptionsHandler {
 
     @ExceptionHandler(JwtValidationException.class)
     ResponseEntity<ExceptionResponse> handleJwtValidationException(JwtValidationException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ExceptionResponse(ExceptionMessages.INVALID_TOKEN, ErrorCodes.JWT_TOKEN_INVALID));
+    }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    ResponseEntity<ExceptionResponse> handleTokenExpiredException(TokenExpiredException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ExceptionResponse(ExceptionMessages.INVALID_TOKEN, ErrorCodes.JWT_TOKEN_INVALID));
     }
 
