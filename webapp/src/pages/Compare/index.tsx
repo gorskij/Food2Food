@@ -48,9 +48,9 @@ const ComparePage: FC = () => {
       {breadcrumbs}
       <Card className="flex-1 min-w-full max-w-full">
         <CardHeader>
-          <CardTitle className="flex justify-around items-center text-center ">
+          <CardTitle className="flex justify-between items-center text-center ">
             <ProductComparisonSlot product={product1} />
-            <Scale className="w-12 h-12 flex-shrink-0" />
+            <Scale className="w-12 h-12 flex-shrink-0 m-2" />
             <ProductComparisonSlot product={product2} />
           </CardTitle>
         </CardHeader>
