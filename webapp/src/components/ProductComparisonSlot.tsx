@@ -34,7 +34,7 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
 
   if (!product) {
     return (
-      <div className="flex flex-col items-center w-full sm:max-w-[300px] rounded">
+      <div className="flex flex-col items-center w-full rounded">
         <div className="flex flex-col items-center">
           <div
           >
@@ -44,7 +44,7 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
                   variant="secondary"
                   size="icon"
                 >
-                  <Plus className="w-12 h-12" />
+                  <Plus />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center" className="w-auto p-1">
@@ -54,7 +54,7 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
                     className="hover:bg-accent hover:text-accent-foreground p-2 block cursor-pointer"
                   >
                     <div className="flex items-center">
-                      <Utensils className="mr-2 h-4 w-4" />
+                      <Utensils className="mr-2" />
                       {t("productComparisonSlot.browseProducts")}
                     </div>
                   </NavLink>
@@ -66,7 +66,7 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
                       className="hover:bg-accent hover:text-accent-foreground p-2 block cursor-pointer"
                     >
                       <div className="flex items-center">
-                        <Heart className="mr-2 h-4 w-4" />
+                        <Heart className="mr-2" />
                         {t("productComparisonSlot.favoriteProducts")}
                       </div>
                     </NavLink>
@@ -92,7 +92,7 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
 
   return (
     <div
-      className="flex flex-col items-center w-full sm:w-[300px]"
+      className="flex flex-col items-center w-full"
     >
       <div className="w-full h-full flex justify-end">
         <Button
@@ -102,7 +102,7 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
             if (slot) removeProduct(slot);
           }}
         >
-          <Trash className="h-4 w-4" />
+          <Trash className="" />
         </Button>
 
       </div>

@@ -74,11 +74,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className="cursor-pointer"
           >
             {product1?.id === product.id ? (
-              <Trash className="mr-2" />
+              <Trash />
             ) : product1 ? (
-              <RefreshCcw className="mr-2" />
+              <RefreshCcw />
             ) : (
-              <Plus className="mr-2" />
+              <Plus />
             )}
             {product1?.id === product.id
               ? t("productCard.dropdown.removeProduct")
@@ -92,11 +92,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className="cursor-pointer"
           >
             {product2?.id === product.id ? (
-              <Trash className="mr-2" />
+              <Trash />
             ) : product2 ? (
-              <RefreshCcw className="mr-2" />
+              <RefreshCcw />
             ) : (
-              <Plus className="mr-2" />
+              <Plus />
             )}
             {product2?.id === product.id
               ? t("productCard.dropdown.removeProduct")
