@@ -120,20 +120,29 @@ export function AppSidebar() {
                 {t("appSidebar.clearComparison")}
               </SidebarMenuButton>
             </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>
+            {t("appSidebar.slot1")}
+          </SidebarGroupLabel>
+          <SidebarMenu>
             <SidebarMenuItem >
               <SidebarComparisonSlot slot="product1" />
             </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>
+            {t("appSidebar.slot2")}
+          </SidebarGroupLabel>
+          <SidebarMenu>
             <SidebarMenuItem >
               <SidebarComparisonSlot slot="product2" />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <Carrot />
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   );
 }

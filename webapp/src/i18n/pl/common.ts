@@ -297,7 +297,9 @@ const appSidebar = {
   favorites: "Ulubione Produkty",
   editPreferences: "Edytuj Preferencje Żywieniowe",
   clearComparison: "Usuń produkty z porównania",
-  comparisonSection: "Porównanie produktów"
+  comparisonSection: "Porównanie produktów",
+  slot1: "Produkt 1",
+  slot2: "Produkt 2",
 };
 
 const userAuth = {
@@ -319,7 +321,16 @@ const compare = {
   title: "Porównanie Produktów",
 }
 
+const sidebarComparisonSlot = {
+  addProduct: "Dodaj produkt do porównania",
+  browseProducts: "Wybierz produkt z listy",
+  favoriteProducts: "Wybierz jeden z twoich ulubionych produktów",
+  details: "Szczegóły Produktu",
+  removeProduct: "Usuń produkt z porównania",
+}
+
 export default {
+  sidebarComparisonSlot,
   compare,
   productComparisonSlot,
   userAuth,

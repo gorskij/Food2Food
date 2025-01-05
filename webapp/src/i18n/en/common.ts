@@ -1,4 +1,3 @@
-import ComparePage from "@/pages/Compare";
 import { ExceptionCode } from "@/types/ErrorCode";
 
 const validation = {
@@ -294,8 +293,10 @@ const appSidebar = {
   yourSection: "Your Section",
   favorites: "Favorite Products",
   editPreferences: "Edit Nutritional Preferences",
-  clearComparison: "Remove products from comparison",
-  comparisonSection: "Product comparison"
+  clearComparison: "Clear comparison products",
+  comparisonSection: "Product comparison",
+  slot1: "Product 1",
+  slot2: "Product 2",
 };
 
 const userAuth = {
@@ -317,7 +318,16 @@ const compare = {
   title: "Product Comparison",
 }
 
+const sidebarComparisonSlot = {
+  addProduct: "Add product to comparison",
+  browseProducts: "Choose a product from the list",
+  favoriteProducts: "Choose a product from your favorite products",
+  details: "Product Details",
+  removeProduct: "Remove product from comparison",
+}
+
 export default {
+  sidebarComparisonSlot,
   productComparisonSlot,
   compare,
   userAuth,
