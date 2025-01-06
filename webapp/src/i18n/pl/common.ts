@@ -304,7 +304,8 @@ const appSidebar = {
 
 const userAuth = {
   settings: "Opcje\u00A0użytkownika",
-  logout: "Wyloguj",
+  logout: "Wyloguj się",
+  signIn: "Zaloguj się",
 }
 
 const productComparisonSlot = {

@@ -17,7 +17,8 @@ const BaseLayout: FC = () => {
     <div className="flex w-full h-full flex-col">
       <div className="sticky top-0 z-10 bg-green-500 text-background h-16 flex flex-row justify-between px-4 shadow-md">
         <span className="text-2xl font-extrabold flex justify-center items-center">
-          Food2Food
+          <span className="hidden sm:inline">Food2Food</span>
+          <span className="inline sm:hidden">F2F</span>
           <Apple className="w-6 h-6 text-background ml-2" />
         </span>
         <div className=" flex items-center">

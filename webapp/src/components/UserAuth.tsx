@@ -1,8 +1,8 @@
 import React from "react";
 import { useUserStore } from "@/store/userStore";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { User2, LogOut, Settings, ChevronsUpDown } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { User2, LogOut, Settings, ChevronsUpDown, LogIn } from "lucide-react";
 import SignInGoogleButton from "@/components/SignInGoogleButton";
 import SignInGithubButton from "@/components/SignInGithubButton";
 import { toast } from "@/hooks/use-toast";
@@ -27,11 +27,13 @@ const UserAuth: React.FC = () => {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="flex items-center">
               <User2 />
-              {username}
+              <span className="hidden sm:inline">{username}</span>
               <ChevronsUpDown className="ml-auto" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent side="top" className="w-auto">
+            <DropdownMenuLabel>{username}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer">
               <Settings />
               <span>{t("userAuth.settings")}</span>
@@ -43,10 +45,22 @@ const UserAuth: React.FC = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <div className="flex space-x-2">
-          <SignInGoogleButton />
-          <SignInGithubButton />
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="flex items-center">
+              <LogIn />
+              <span >{t("userAuth.signIn")}</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side="top" className="w-auto flex flex-col">
+            <DropdownMenuItem asChild>
+              <SignInGoogleButton />
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <SignInGithubButton />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )}
     </div>
   );

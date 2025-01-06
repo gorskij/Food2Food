@@ -15,7 +15,7 @@ const GithubLoginButton: FC = () => {
         window.location.href = oAuthUrl?.url || "";
       }}
     >
-      <FaGithub className="mr-2 h-4 w-4" />
+      <FaGithub className="mr-2" />
       {t("loginButton.githubLoginButton")}
     </Button>
   );
