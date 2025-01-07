@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Heart, Plus, Trash, Utensils } from "lucide-react";
+import { Ellipsis, Heart, Plus, Search, Trash, Utensils } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useUserStore } from "@/store/userStore";
 import { useComparisonStore } from "@/store/comparisonStore";
@@ -95,15 +95,36 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
       className="flex flex-col items-center w-full"
     >
       <div className="w-full h-full flex justify-end">
-        <Button
-          variant="ghost"
-          onClick={() => {
-            const slot = getProductSlot();
-            if (slot) removeProduct(slot);
-          }}
-        >
-          <Trash className="" />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="ml-auto py-2 px-4">
+              <Ellipsis />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side="bottom" className="w-auto">
+            <DropdownMenuItem>
+              <NavLink
+                to={`/products/${product.id}`}
+                className="flex items-center space-x-2 w-full"
+              >
+                <Search className="mr-2" />
+                {t("productComparisonSlot.details")}
+              </NavLink>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  const slot = getProductSlot();
+                  if (slot) removeProduct(slot);
+                }}
+              >
+                <Trash />
+                {t("productComparisonSlot.removeProduct")}
+              </Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
       </div>
       <img

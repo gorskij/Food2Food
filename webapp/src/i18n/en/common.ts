@@ -309,7 +309,9 @@ const productComparisonSlot = {
   noData: "No product selected",
   selectProduct: "Click the symbol above to select a product",
   browseProducts: "Choose a product from the list",
-  favoriteProducts: "Choose a product from your favorite products"
+  favoriteProducts: "Choose a product from your favorite products",
+  details: "Product details",
+  removeProduct: "Remove product from comparison",
 }
 
 const compare = {

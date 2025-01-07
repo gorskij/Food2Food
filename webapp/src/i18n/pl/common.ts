@@ -313,6 +313,8 @@ const productComparisonSlot = {
   selectProduct: "Kliknij w symbol powyżej w celu wybrania produktu",
   browseProducts: "Wybierz produkt z listy",
   favoriteProducts: "Wybierz jeden z twoich ulubionych produktów",
+  details: "Szczegóły produktu",
+  removeProduct: "Usuń produkt z porównania",
 }
 
 const compare = {
