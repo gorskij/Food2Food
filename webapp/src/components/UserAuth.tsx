@@ -32,7 +32,7 @@ const UserAuth: React.FC = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent side="top" className="w-auto">
-            <DropdownMenuLabel>{username}</DropdownMenuLabel>
+            <DropdownMenuLabel className="flex flex-row"><User2 className="mr-2 w-4" />{username}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer">
               <Settings />
