@@ -176,7 +176,7 @@ const MineralsInformation: React.FC<MineralsTableProps> = ({
               </TableHeader>
               <TableBody>
                 {mineralsData.map((mineral, index) => (
-                  <TableRow key={index} className="bg-green-100">
+                  <TableRow key={index} className="bg-green-100 text-black">
                     <TableCell>{mineral.translatedName}</TableCell>
                     <TableCell>{mineral.quantity}</TableCell>
                     <TableCell>{mineral.unit}</TableCell>

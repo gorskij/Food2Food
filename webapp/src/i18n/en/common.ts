@@ -54,6 +54,9 @@ const mineralsInformation = {
       rwsPercentage: "% DRV",
     },
   },
+  mineralFooter: {
+    dataSource: "Data based on product nutritional values.",
+  },
 };
 
 const RWSChart = {
@@ -81,7 +84,7 @@ const base = {
 const vitaminsInformation = {
   vitaminDrvChart: {
     title: "Vitamin Content in the Product",
-    description: "Percentage of Dietary Reference Value for an adult",
+    description: "In reference to the Dietary Reference Value for an adult",
   },
   vitaminDataUnavailable: "No vitamin data available to display.",
   vitaminNutritionalValues: {

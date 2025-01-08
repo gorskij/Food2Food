@@ -175,7 +175,7 @@ const VitaminsInformation: React.FC<VitaminsTableProps> = ({
               </TableHeader>
               <TableBody>
                 {vitaminsData.map((vitamin, index) => (
-                  <TableRow key={index} className="bg-green-100">
+                  <TableRow key={index} className="bg-green-100 text-black">
                     <TableCell>{vitamin.translatedName}</TableCell>
                     <TableCell>{vitamin.quantity}</TableCell>
                     <TableCell>{vitamin.unit}</TableCell>
