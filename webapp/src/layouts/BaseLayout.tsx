@@ -42,7 +42,7 @@ const BaseLayout: FC = () => {
           "sticky bottom-0 left-0 w-full h-12 flex items-center justify-center bg-green-500 text-xl text-background"
         )}
       >
-        <span>© 2024 Food2Food</span>
+        <span>© 2025 Food2Food</span>
       </footer>
     </div>
   );
