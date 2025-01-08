@@ -14,9 +14,8 @@ const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
 
   return (
     <Card
-      className={`flex-1 max-w-full mt-4 min-w-[400px] ${
-        areAllergensAbsent ? "bg-green-100" : ""
-      }`}
+      className={`flex-1 max-w-full mt-4 ${areAllergensAbsent ? "bg-green-100" : ""
+        }`}
     >
       <CardHeader>
         <CardTitle className="text-left">{t("allergens.title")}</CardTitle>

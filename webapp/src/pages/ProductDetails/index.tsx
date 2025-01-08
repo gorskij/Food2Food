@@ -82,7 +82,7 @@ const ProductDetailsPage: FC = () => {
       {breadcrumbs}
 
       {data && (
-        <div className="mx-10">
+        <div className="sm:mx-5">
           <div className="flex-1 justify-between gap-4">
             <Card className="flex-1 max-w-full mb-4">
               <CardHeader>
@@ -94,11 +94,11 @@ const ProductDetailsPage: FC = () => {
                     />
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="pb-2 px-4">
+                        <Button variant="ghost" size="icon">
                           <Ellipsis />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent side="bottom" className="w-30">
+                      <DropdownMenuContent side="bottom" className="w-auto">
                         <DropdownMenuItem
                           onClick={handleUseProduct1}
                           className="cursor-pointer"
@@ -142,7 +142,7 @@ const ProductDetailsPage: FC = () => {
               </CardHeader>
               <CardContent className="flex flex-wrap">
                 <div className="flex flex-wrap w-full">
-                  <div className="sm:w-1/2 w-full pr-4">
+                  <div className="sm:w-1/2 w-full pr-2 sm:pr-4">
                     <img
                       src={
                         data.data.label.image
@@ -249,11 +249,11 @@ const ProductDetailsPage: FC = () => {
                     {t("productDetails.vitaminsAndMinerals")}
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="flex flex-wrap gap-4">
-                      <div className="flex-1 min-w-[450px]">
+                    <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4">
+                      <div className="flex-1 sm:min-w-[450px]">
                         <VitaminsInformation productDetails={data.data} />
                       </div>
-                      <div className="flex-1 min-w-[450px]">
+                      <div className="flex-1 sm:min-w-[450px]">
                         <MineralsInformation productDetails={data.data} />
                       </div>
                     </div>

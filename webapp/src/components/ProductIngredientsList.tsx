@@ -29,7 +29,7 @@ const ProductIngredientsList: FC<ProductIngredientsListProps> = ({
   const noData = ingredients.length === 0 && additions.length === 0;
 
   return (
-    <Card className="flex-1 max-w-full mt-4 min-w-[400px]">
+    <Card className="flex-1 max-w-full mt-4">
       <CardHeader>
         <CardTitle className="text-left">
           {t("ingredients.title")}
