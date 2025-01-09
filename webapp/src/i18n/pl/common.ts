@@ -38,22 +38,15 @@ const errors = {
 };
 
 const mineralsInformation = {
-  mineralDrvChart: {
-    title: "Zawartość minerałów w produkcie",
-    description:
-      "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej",
-  },
-  mineralDataUnavailable: "Brak danych o minerałach do wyświetlenia.",
-  mineralNutritionalValues: {
-    title: "Zawartość minerałów w produkcie",
-    description:
-      "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej",
-    table: {
-      mineral: "Minerał",
-      quantity: "Ilość",
-      unit: "Jednostka",
-      rwsPercentage: "% RWS",
-    },
+  title: "Zawartość minerałów w produkcie",
+  description:
+    "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+  mineralDataUnavailable: "Brak danych o minerałach do wyświetlenia",
+  table: {
+    mineral: "Minerał",
+    quantity: "Ilość",
+    unit: "Jednostka",
+    rwsPercentage: "% RWS",
   },
 };
 
@@ -77,22 +70,15 @@ const minerals = {
 };
 
 const vitaminsInformation = {
-  vitaminDrvChart: {
-    title: "Zawartość witamin w produkcie",
-    description:
-      "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej",
-  },
-  vitaminDataUnavailable: "Brak danych o witaminach do wyświetlenia.",
-  vitaminNutritionalValues: {
-    title: "Zawartość witamin w produkcie",
-    description:
-      "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej",
-    table: {
-      vitamin: "Witamina",
-      quantity: "Ilość",
-      unit: "Jednostka",
-      rwsPercentage: "% RWS",
-    },
+  title: "Zawartość witamin w produkcie",
+  description:
+    "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+  vitaminDataUnavailable: "Brak danych o witaminach do wyświetlenia",
+  table: {
+    vitamin: "Witamina",
+    quantity: "Ilość",
+    unit: "Jednostka",
+    rwsPercentage: "% RWS",
   },
 };
 
@@ -207,7 +193,10 @@ const productDetails = {
   vitaminsAndMinerals: "Witaminy i Minerały",
   omega3: "Omega 3",
   additional: "Dodatkowe",
-  loadingError: "Błąd ładowania danych"
+  loadingError: "Błąd ładowania danych",
+  productTabTrigger: "Produkt",
+  nutritionalValueTabTrigger: "Wartość Odżywcza",
+  producerTabTrigger: "Producent",
 };
 
 const notFound = {
@@ -256,9 +245,9 @@ const fatSaturation = {
   saturatedFatLabel: "Nasycone Kwasy Tłuszczowe",
   unsaturatedFatLabel: "Pozostałe tłuszcze",
   chartLabel: "nasycone kwasy tłuszczowe / total tłuszcze",
-  lowSaturatedFat: "Niska zawartość tłuszczów nasyconych w produkcie",
-  highSaturatedFat: "Wysoka zawartość tłuszczów nasyconych w produkcie",
-  moderateSaturatedFat: "Umiarkowana zawartość tłuszczów nasyconych w produkcie",
+  lowSaturatedFat: "Niska zawartość tłuszczów nasyconych",
+  highSaturatedFat: "Wysoka zawartość tłuszczów nasyconych",
+  moderateSaturatedFat: "Umiarkowana zawartość tłuszczów nasyconych",
 };
 
 const ingredients = {
@@ -281,9 +270,9 @@ const sugarChart = {
     nonSugarCarbs: "Pozostałe węglowodany",
   },
   info: {
-    lowSugar: "Niska zawartość cukru w produkcie",
-    moderateSugar: "Umiarkowana zawartość cukru w produkcie",
-    highSugar: "Wysoka zawartość cukru w produkcie",
+    lowSugar: "Niska zawartość cukru",
+    moderateSugar: "Umiarkowana zawartość cukru",
+    highSugar: "Wysoka zawartość cukru",
   },
   noCarbs: "Brak węglowodanów w produkcie",
   tooltip: "zawartość cukru / total węglowodany",
@@ -332,7 +321,24 @@ const sidebarComparisonSlot = {
   removeProduct: "Usuń produkt z porównania",
 }
 
+const macronutrientsInformation = {
+  WartośćEnergetyczna: "Wartość energetyczna",
+  Węglowodany: "Węglowodany",
+  Tłuszcz: "Tłuszcz",
+  Białko: "Białko",
+  Sól: "Sól",
+  Błonnik: "Błonnik",
+  title: "Makroskładniki w produkcie",
+  description: "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+  dataUnavailable: "Brak danych o makroskładnikach do wyświetlenia",
+  macronutrient: "Makroskładnik",
+  quantity: "Ilość",
+  unit: "Jednostka",
+  rwsPercentage: "%RWS",
+}
+
 export default {
+  macronutrientsInformation,
   sidebarComparisonSlot,
   compare,
   productComparisonSlot,

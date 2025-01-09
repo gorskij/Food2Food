@@ -39,23 +39,16 @@ const errors = {
 };
 
 const mineralsInformation = {
-  mineralDrvChart: {
-    title: "Mineral Content in the Product",
-    description: "In reference to the Dietary Reference Value for an adult",
-  },
-  mineralDataUnavailable: "No mineral data available to display.",
+  title: "Mineral Content in the Product",
+  description: "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
+  mineralDataUnavailable: "No mineral data available to display",
   mineralNutritionalValues: {
-    title: "Mineral Content in the Product",
-    description: "In reference to the Dietary Reference Value for an adult",
     table: {
       mineral: "Mineral",
       quantity: "Quantity",
       unit: "Unit",
       rwsPercentage: "% DRV",
     },
-  },
-  mineralFooter: {
-    dataSource: "Data based on product nutritional values.",
   },
 };
 
@@ -82,23 +75,16 @@ const base = {
 };
 
 const vitaminsInformation = {
-  vitaminDrvChart: {
-    title: "Vitamin Content in the Product",
-    description: "In reference to the Dietary Reference Value for an adult",
-  },
-  vitaminDataUnavailable: "No vitamin data available to display.",
+  title: "Vitamin Content in the Product",
+  description: "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
+  vitaminDataUnavailable: "No vitamin data available to display",
   vitaminNutritionalValues: {
-    title: "Vitamin Content in the Product",
-    description: "Percentage of Dietary Reference Value for an adult",
     table: {
       vitamin: "Vitamin",
       quantity: "Quantity",
       unit: "Unit",
       rwsPercentage: "% DRV",
     },
-  },
-  vitaminFooter: {
-    dataSource: "Data based on product nutritional values.",
   },
 };
 
@@ -208,7 +194,10 @@ const productDetails = {
   vitaminsAndMinerals: "Vitamins and Minerals",
   omega3: "Omega 3",
   additional: "Additional",
-  loadingError: "Error loading data"
+  loadingError: "Error loading data",
+  productTabTrigger: "Product",
+  nutritionalValueTabTrigger: "Nutritional Value",
+  producerTabTrigger: "Producer",
 };
 const notFound = {
   title: "Page not found",
@@ -256,9 +245,9 @@ const fatSaturation = {
   unsaturatedFatLabel: "Unsaturated Fats",
   saturated: "Saturated Fatty Acids",
   chartLabel: "saturated fatty acids / total fats",
-  lowSaturatedFat: "Low saturated fat content in the product",
-  highSaturatedFat: "High saturated fat content in the product",
-  moderateSaturatedFat: "Moderate saturated fat content in the product",
+  lowSaturatedFat: "Low saturated fat content",
+  highSaturatedFat: "High saturated fat content",
+  moderateSaturatedFat: "Moderate saturated fat content",
 };
 
 const ingredients = {
@@ -332,7 +321,24 @@ const sidebarComparisonSlot = {
   removeProduct: "Remove product from comparison",
 }
 
+const macronutrientsInformation = {
+  WartośćEnergetyczna: "Energy value",
+  Węglowodany: "Carbohydrates",
+  Tłuszcz: "Fats",
+  Białko: "Protein",
+  Sól: "Salt",
+  Błonnik: "Fibers",
+  title: "Macronutrients in product",
+  description: "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
+  dataUnavailable: "No macronutrient data available to display",
+  macronutrient: "Macronutrient",
+  quantity: "Quantity",
+  unit: "Unit",
+  rwsPercentage: "% DRV",
+}
+
 export default {
+  macronutrientsInformation,
   sidebarComparisonSlot,
   productComparisonSlot,
   compare,
