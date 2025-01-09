@@ -65,7 +65,7 @@ const SidebarComparisonSlot: React.FC<SidebarComparisonSlotProps> = ({ slot }) =
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <SidebarMenuButton className="items-center">
+        <SidebarMenuButton className="items-center h-fit">
           {slot === "product1" ? <Banana /> : <Carrot />}
           {product.productName}
         </SidebarMenuButton>
