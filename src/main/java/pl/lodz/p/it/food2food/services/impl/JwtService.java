@@ -1,4 +1,4 @@
-package pl.lodz.p.it.food2food.services;
+package pl.lodz.p.it.food2food.services.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

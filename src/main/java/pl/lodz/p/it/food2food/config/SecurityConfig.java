@@ -11,18 +11,13 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import pl.lodz.p.it.food2food.model.User;
-import pl.lodz.p.it.food2food.services.JwtService;
+import pl.lodz.p.it.food2food.services.impl.JwtService;
 import pl.lodz.p.it.food2food.utils.JwtAuthFilter;
 
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 import java.util.List;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity

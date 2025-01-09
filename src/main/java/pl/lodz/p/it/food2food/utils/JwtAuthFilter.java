@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import pl.lodz.p.it.food2food.services.JwtService;
+import pl.lodz.p.it.food2food.services.impl.JwtService;
 
 import java.io.IOException;
 

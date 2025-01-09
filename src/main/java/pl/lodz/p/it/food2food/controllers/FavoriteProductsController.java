@@ -17,7 +17,7 @@ import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.ProductAlreadyInFavorites;
 import pl.lodz.p.it.food2food.exceptions.ProductNotInFavorites;
 import pl.lodz.p.it.food2food.services.FavoriteProductsService;
-import pl.lodz.p.it.food2food.services.JwtService;
+import pl.lodz.p.it.food2food.services.impl.JwtService;
 
 import java.util.UUID;
 
