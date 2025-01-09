@@ -197,6 +197,7 @@ const productDetails = {
   productTabTrigger: "Produkt",
   nutritionalValueTabTrigger: "Wartość Odżywcza",
   producerTabTrigger: "Producent",
+  ratingsTitle: "Cechy produktu",
 };
 
 const notFound = {

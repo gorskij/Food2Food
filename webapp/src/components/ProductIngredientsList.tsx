@@ -31,7 +31,7 @@ const ProductIngredientsList: FC<ProductIngredientsListProps> = ({
   return (
     <Card className="flex-1 max-w-full mt-4">
       <CardHeader>
-        <CardTitle className="text-left">
+        <CardTitle className="text-center">
           {t("ingredients.title")}
         </CardTitle>
       </CardHeader>

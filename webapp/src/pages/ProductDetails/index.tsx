@@ -186,13 +186,22 @@ const ProductDetailsPage: FC = () => {
                           className="my-2"
                         />
                       </div>
-                      <ProductAllergens productDetails={data.data} />
-                      <ProductRatings productDetails={data.data} groupName="Posiadane Certyfikaty" />
-                      <ProductRatings productDetails={data.data} groupName="Specyficzne Cechy" />
-                      <ProductRatings productDetails={data.data} groupName="Bez dodatków do żywności" />
-                      <ProductRatings productDetails={data.data} groupName="Zastosowane procesy technologiczne" />
-                      <ProductRatings productDetails={data.data} groupName="Parametry bez składników" />
                     </div>
+                    <Card className="w-full mt-2">
+                      <CardHeader>
+                        <CardTitle className="text-center">
+                          {t("productDetails.ratingsTitle")}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex flex-row flex-wrap">
+                        <ProductAllergens productDetails={data.data} />
+                        <ProductRatings productDetails={data.data} groupName="Posiadane Certyfikaty" />
+                        <ProductRatings productDetails={data.data} groupName="Specyficzne Cechy" />
+                        <ProductRatings productDetails={data.data} groupName="Bez dodatków do żywności" />
+                        <ProductRatings productDetails={data.data} groupName="Zastosowane procesy technologiczne" />
+                        <ProductRatings productDetails={data.data} groupName="Parametry bez składników" />
+                      </CardContent>
+                    </Card>
                     <ProductIngredientsList productDetails={data.data} />
                   </CardContent>
                 </Card>

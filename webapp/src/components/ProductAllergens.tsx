@@ -13,13 +13,14 @@ const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div className="flex flex-row flex-wrap">
       {allergens.map((allergen) => (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger><Badge
               key={allergen.id}
               variant="outline"
+              className="whitespace-nowrap"
             >
               {allergen.name}
             </Badge>

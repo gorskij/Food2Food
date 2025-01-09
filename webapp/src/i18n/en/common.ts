@@ -198,6 +198,7 @@ const productDetails = {
   productTabTrigger: "Product",
   nutritionalValueTabTrigger: "Nutritional Value",
   producerTabTrigger: "Producer",
+  ratingsTitle: "Product characteristics",
 };
 const notFound = {
   title: "Page not found",

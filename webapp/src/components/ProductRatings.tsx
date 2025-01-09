@@ -19,13 +19,14 @@ const ProductRatings: FC<ProductRatingsProps> = ({
   );
 
   return (
-    <div>
+    <div className="flex flex-row flex-wrap">
       {filteredRatings.map((rating) => (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger><Badge
               key={rating.id}
               variant="outline"
+              className="whitespace-nowrap"
             >
               {t(`ratings.${rating.name}`)}
             </Badge>
