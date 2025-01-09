@@ -9,18 +9,12 @@ import VitaminsInformation from "@/components/VitaminsInformation";
 import ProductAllergens from "@/components/ProductAllergens";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
 import SugarContentChart from "@/components/SugarContentChart";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetProductDetails } from "@/data/products/useProductDetails";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import SaltAndFiberTable from "@/components/SaltAndFiberTable";
+import MacronutrientsInformation from "@/components/MacronutrientsInformation";
 import ProductIngredientsList from "@/components/ProductIngredientsList";
 import {
   DropdownMenu,
@@ -32,6 +26,8 @@ import { Button } from "@/components/ui/button";
 import { Ellipsis, Plus, RefreshCcw, Trash } from "lucide-react";
 import FavoriteInfo from "@/components/FavoriteInfo";
 import { useComparisonStore } from "@/store/comparisonStore";
+import ProducerInfo from "@/components/ProducerInfo";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ProductDetailsPage: FC = () => {
   const { t } = useTranslation();
@@ -84,195 +80,171 @@ const ProductDetailsPage: FC = () => {
       {data && (
         <div className="sm:mx-5">
           <div className="flex-1 justify-between gap-4">
-            <Card className="flex-1 max-w-full mb-4">
-              <CardHeader>
-                <CardTitle className="text-center">
-                  <div className="flex font-normal w-full justify-end items-center mb-2">
-                    <FavoriteInfo
-                      favoriteCount={data.data.favoriteCount}
-                      id={id}
-                    />
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <Ellipsis />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent side="bottom" className="w-auto">
-                        <DropdownMenuItem
-                          onClick={handleUseProduct1}
-                          className="cursor-pointer"
-                        >
-                          {product1?.id === data.data.id ? (
-                            <Trash className="mr-2" />
-                          ) : product1 ? (
-                            <RefreshCcw className="mr-2" />
-                          ) : (
-                            <Plus className="mr-2" />
-                          )}
-                          {product1?.id === data.data.id
-                            ? t("productCard.dropdown.removeProduct")
-                            : product1
-                              ? `${t("productCard.dropdown.replaceProduct")} (${product1.productName})`
-                              : t("productCard.dropdown.addToComparison")}
-                        </DropdownMenuItem>
+            <Tabs defaultValue="product">
+              <TabsList className="flex justify-start flex-wrap sm:flex-nowrap h-auto w-fit">
+                <TabsTrigger value="product" className="sm:flex-1 text-center">{t("productDetails.productTabTrigger")}</TabsTrigger>
+                <TabsTrigger value="details" className="sm:flex-1 text-center">{t("productDetails.nutritionalValueTabTrigger")}</TabsTrigger>
+                <TabsTrigger value="producer" className="sm:flex-1 text-center">{t("productDetails.producerTabTrigger")}</TabsTrigger>
+              </TabsList>
+              <TabsContent value="product">
+                <Card className="flex-1 max-w-full mb-4">
+                  <CardHeader>
+                    <CardTitle className="text-center">
+                      <div className="flex font-normal w-full justify-end items-center mb-2">
+                        <FavoriteInfo
+                          favoriteCount={data.data.favoriteCount}
+                          id={id}
+                        />
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                              <Ellipsis />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent side="bottom" className="w-auto">
+                            <DropdownMenuItem
+                              onClick={handleUseProduct1}
+                              className="cursor-pointer"
+                            >
+                              {product1?.id === data.data.id ? (
+                                <Trash className="mr-2" />
+                              ) : product1 ? (
+                                <RefreshCcw className="mr-2" />
+                              ) : (
+                                <Plus className="mr-2" />
+                              )}
+                              {product1?.id === data.data.id
+                                ? t("productCard.dropdown.removeProduct")
+                                : product1
+                                  ? `${t("productCard.dropdown.replaceProduct")} (${product1.productName})`
+                                  : t("productCard.dropdown.addToComparison")}
+                            </DropdownMenuItem>
 
-                        <DropdownMenuItem
-                          onClick={handleUseProduct2}
-                          className="cursor-pointer"
-                        >
-                          {product2?.id === data.data.id ? (
-                            <Trash className="mr-2" />
-                          ) : product2 ? (
-                            <RefreshCcw className="mr-2" />
-                          ) : (
-                            <Plus className="mr-2" />
-                          )}
-                          {product2?.id === data.data.id
-                            ? t("productCard.dropdown.removeProduct")
-                            : product2
-                              ? `${t("productCard.dropdown.replaceProduct")} (${product2.productName})`
-                              : t("productCard.dropdown.addToComparison")}
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                  {data.data.productName ?? t("productDetails.noData")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-wrap">
-                <div className="flex flex-wrap w-full">
-                  <div className="sm:w-1/2 w-full pr-2 sm:pr-4">
-                    <img
-                      src={
-                        data.data.label.image
-                          ? `data:image/jpeg;base64,${data.data.label.image}`
-                          : placeholderImg
-                      }
-                      className="w-full max-h-48 object-contain rounded hidden sm:block"
-                    />
-                  </div>
-                  <div className="flex-1 sm:w-1/2 w-full flex-col">
-                    <DataField
-                      label={`${t("productDetails.description")}:`}
-                      value={data.data.productDescription ?? t("productDetails.noData")}
-                    />
-                    <DataField
-                      label={`${t("productDetails.eanCode")}:`}
-                      value={data.data.ean ?? t("productDetails.noData")}
-                      className="my-2"
-                    />
-                    <DataField
-                      label={`${t("productDetails.quantity")}:`}
-                      value={
-                        data.data.productQuantity && data.data.unit?.name
-                          ? `${data.data.productQuantity.toString()} ${data.data.unit.name}`
-                          : t("productDetails.noData")
-                      }
-                      className="my-2"
-                    />
-                    <DataField
-                      label={`${t("productDetails.countryOfOrigin")}:`}
-                      value={data.data.country ?? t("productDetails.noData")}
-                      className="my-2"
-                    />
-                    <DataField
-                      label={`${t("productDetails.packageType")}:`}
-                      value={data.data.packageType?.name ?? t("productDetails.noData")}
-                      className="my-2"
-                    />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="flex-1 max-w-full">
-              <CardHeader>
-                <CardTitle className="text-left">
-                  {t("productDetails.producerInfo")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex justify-center flex-col">
-                <DataField
-                  label={`${t("productDetails.producer")}:`}
-                  value={data.data.producer?.name ?? t("productDetails.noData")}
-                  className="border-b py-1 my-1"
-                />
-                <DataField
-                  label={`${t("productDetails.address")}:`}
-                  value={data.data.producer.address ?? t("productDetails.noData")}
-                  className="my-2"
-                />
-                <DataField
-                  label={`${t("productDetails.nip")}:`}
-                  value={data.data.producer.NIP ?? t("productDetails.noData")}
-                  className="my-2"
-                />
-                <DataField
-                  label={`${t("productDetails.contact")}:`}
-                  value={data.data.producer.contact ?? t("productDetails.noData")}
-                  className="my-2"
-                />
-              </CardContent>
-            </Card>
+                            <DropdownMenuItem
+                              onClick={handleUseProduct2}
+                              className="cursor-pointer"
+                            >
+                              {product2?.id === data.data.id ? (
+                                <Trash className="mr-2" />
+                              ) : product2 ? (
+                                <RefreshCcw className="mr-2" />
+                              ) : (
+                                <Plus className="mr-2" />
+                              )}
+                              {product2?.id === data.data.id
+                                ? t("productCard.dropdown.removeProduct")
+                                : product2
+                                  ? `${t("productCard.dropdown.replaceProduct")} (${product2.productName})`
+                                  : t("productCard.dropdown.addToComparison")}
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                      {data.data.productName ?? t("productDetails.noData")}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-wrap">
+                    <div className="flex flex-wrap w-full">
+                      <div className="sm:w-1/2 w-full pr-2 sm:pr-4">
+                        <img
+                          src={
+                            data.data.label.image
+                              ? `data:image/jpeg;base64,${data.data.label.image}`
+                              : placeholderImg
+                          }
+                          className="w-full max-h-48 object-contain rounded hidden sm:block"
+                        />
+                      </div>
+                      <div className="flex-1 sm:w-1/2 w-full flex-col">
+                        <DataField
+                          label={`${t("productDetails.description")}:`}
+                          value={data.data.productDescription ?? t("productDetails.noData")}
+                        />
+                        <DataField
+                          label={`${t("productDetails.eanCode")}:`}
+                          value={data.data.ean ?? t("productDetails.noData")}
+                          className="my-2"
+                        />
+                        <DataField
+                          label={`${t("productDetails.quantity")}:`}
+                          value={
+                            data.data.productQuantity && data.data.unit?.name
+                              ? `${data.data.productQuantity.toString()} ${data.data.unit.name}`
+                              : t("productDetails.noData")
+                          }
+                          className="my-2"
+                        />
+                        <DataField
+                          label={`${t("productDetails.countryOfOrigin")}:`}
+                          value={data.data.country ?? t("productDetails.noData")}
+                          className="my-2"
+                        />
+                        <DataField
+                          label={`${t("productDetails.packageType")}:`}
+                          value={data.data.packageType?.name ?? t("productDetails.noData")}
+                          className="my-2"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-row min-w-full gap-4 flex-wrap">
+                      <ProductAllergens productDetails={data.data} />
+                    </div>
+                    <ProductIngredientsList productDetails={data.data} />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="details">
+                <Card className="flex-1 max-w-full mt-4">
+                  <CardHeader>
+                    <CardTitle className="text-center">
+                      {t("productDetails.nutritionalValue")}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-col justify-center">
+                    <Tabs defaultValue="tab-1">
+                      <TabsList className="flex justify-start flex-wrap sm:flex-nowrap h-auto w-fit">
+                        <TabsTrigger value="tab-1">{t("productDetails.basic")}</TabsTrigger>
+                        <TabsTrigger value="tab-2">{t("productDetails.vitaminsAndMinerals")}</TabsTrigger>
+                        <TabsTrigger value="tab-3">{t("productDetails.omega3")}</TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="tab-1">
+                        <div className="flex flex-col gap-4">
+                          <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4">
+                            <div className="flex-1 sm:min-w-[450px] hidden sm:block">
+                              <NutritionalChart productDetails={data.data} />
+                            </div>
+                            <div className="flex-1 sm:min-w-[450px]">
+                              <MacronutrientsInformation productDetails={data.data} />
+                            </div>
+                          </div>
+                          <div className="flex flex-col min-w-full gap-4 sm:flex-row flex-nowrap sm:flex-wrap">
+                            <FatSaturationChart productDetails={data.data} />
+                            <SugarContentChart productDetails={data.data} />
+                          </div>
+                        </div>
+                      </TabsContent>
+                      <TabsContent value="tab-2">
+                        <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4">
+                          <div className="flex-1 sm:min-w-[450px]">
+                            <VitaminsInformation productDetails={data.data} />
+                          </div>
+                          <div className="flex-1 sm:min-w-[450px]">
+                            <MineralsInformation productDetails={data.data} />
+                          </div>
+                        </div>
+                      </TabsContent>
+                      <TabsContent value="tab-3">
+                        <Omega3Table productDetails={data.data} />
+                      </TabsContent>
+                    </Tabs>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="producer">
+                <ProducerInfo productDetails={data.data} />
+              </TabsContent>
+            </Tabs>
           </div >
-          <div className="flex flex-row min-w-full gap-4 flex-wrap">
-            <ProductAllergens productDetails={data.data} />
-          </div>
-          <Card className="flex-1 max-w-full mt-4">
-            <CardHeader>
-              <CardTitle className="text-left">
-                {t("productDetails.nutritionalValue")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex justify-center">
-              <Accordion
-                type="single"
-                collapsible
-                className="min-w-full"
-                defaultValue="item-1"
-              >
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>{t("productDetails.basic")}</AccordionTrigger>
-                  <AccordionContent className="flex flex-col gap-4">
-                    <div className="flex flex-row min-w-full gap-4 flex-wrap">
-                      <NutritionalChart productDetails={data.data} />
-                      <SaltAndFiberTable productDetails={data.data} />
-                    </div>
-                    <div className="flex flex-row min-w-full gap-4 flex-wrap">
-                      <FatSaturationChart productDetails={data.data} />
-                      <SugarContentChart productDetails={data.data} />
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>
-                    {t("productDetails.vitaminsAndMinerals")}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4">
-                      <div className="flex-1 sm:min-w-[450px]">
-                        <VitaminsInformation productDetails={data.data} />
-                      </div>
-                      <div className="flex-1 sm:min-w-[450px]">
-                        <MineralsInformation productDetails={data.data} />
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-3">
-                  <AccordionTrigger>{t("productDetails.omega3")}</AccordionTrigger>
-                  <AccordionContent>
-                    <Omega3Table productDetails={data.data} />
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-4">
-                  <AccordionTrigger>{t("productDetails.additional")}</AccordionTrigger>
-                  <AccordionContent>item-5</AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </CardContent>
-          </Card>
-          <ProductIngredientsList productDetails={data.data} />
         </div >
       )}
     </div >

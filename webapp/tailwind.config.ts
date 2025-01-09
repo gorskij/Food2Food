@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        "xs": "400px",
+      },
       colors: {
         success: "hsl(var(--success))",
         background: "hsl(var(--background))",

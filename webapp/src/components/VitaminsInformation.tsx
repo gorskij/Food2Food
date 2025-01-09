@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
@@ -17,6 +16,7 @@ import {
 } from "./ui/table";
 import RWSChart from "./RWSChart";
 import { useTranslation } from "react-i18next";
+import { FC } from "react";
 
 interface VitaminsTableProps {
   productDetails: ProductDetails;
@@ -38,7 +38,7 @@ const RWS_VALUES: Record<string, number> = {
   "Witamina K": 0.0075,
 };
 
-const VitaminsInformation: React.FC<VitaminsTableProps> = ({
+const VitaminsInformation: FC<VitaminsTableProps> = ({
   productDetails,
 }) => {
   const vitaminNames = Object.keys(RWS_VALUES);
@@ -115,11 +115,11 @@ const VitaminsInformation: React.FC<VitaminsTableProps> = ({
     <>
       <Card className="flex-1 h-full hidden sm:block">
         <CardHeader>
-          <CardTitle>
-            {t("vitaminsInformation.vitaminDrvChart.title")}
+          <CardTitle className="text-center">
+            {t("vitaminsInformation.title")}
           </CardTitle>
-          <CardDescription>
-            {t("vitaminsInformation.vitaminDrvChart.description")}
+          <CardDescription className="text-center">
+            {t("vitaminsInformation.description", { unit: productDetails.unit.name })}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-center">
@@ -139,11 +139,11 @@ const VitaminsInformation: React.FC<VitaminsTableProps> = ({
 
       <Card className="flex-1 h-full block sm:hidden">
         <CardHeader>
-          <CardTitle>
-            {t("vitaminsInformation.vitaminNutritionalValues.title")}
+          <CardTitle className="text-center">
+            {t("vitaminsInformation.title")}
           </CardTitle>
-          <CardDescription>
-            {t("vitaminsInformation.vitaminNutritionalValues.description")}
+          <CardDescription className="text-center">
+            {t("vitaminsInformation.description", { unit: productDetails.unit.name })}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -153,22 +153,22 @@ const VitaminsInformation: React.FC<VitaminsTableProps> = ({
                 <TableRow>
                   <TableHead>
                     {t(
-                      "vitaminsInformation.vitaminNutritionalValues.table.vitamin"
+                      "vitaminsInformation.table.vitamin"
                     )}
                   </TableHead>
                   <TableHead>
                     {t(
-                      "vitaminsInformation.vitaminNutritionalValues.table.quantity"
+                      "vitaminsInformation.table.quantity"
                     )}
                   </TableHead>
                   <TableHead>
                     {t(
-                      "vitaminsInformation.vitaminNutritionalValues.table.unit"
+                      "vitaminsInformation.table.unit"
                     )}
                   </TableHead>
                   <TableHead>
                     {t(
-                      "vitaminsInformation.vitaminNutritionalValues.table.rwsPercentage"
+                      "vitaminsInformation.table.rwsPercentage"
                     )}
                   </TableHead>
                 </TableRow>
@@ -190,11 +190,6 @@ const VitaminsInformation: React.FC<VitaminsTableProps> = ({
             </div>
           )}
         </CardContent>
-        <CardFooter className="flex-col items-start gap-2 text-sm">
-          <div className="leading-none text-muted-foreground">
-            {t("vitaminsInformation.vitaminFooter.dataSource")}
-          </div>
-        </CardFooter>
       </Card>
     </>
   );

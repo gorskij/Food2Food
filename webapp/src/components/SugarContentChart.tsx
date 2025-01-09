@@ -55,21 +55,20 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
       nonSugarCarbohydrates: nonSugarCarbohydrates,
     },
   ];
-  
+
   const isCarbohydrateAbsent = totalCarbohydrates === 0;
 
   const sugarLevelInfo =
     sugarContent < 5
       ? t("sugarChart.info.lowSugar")
       : sugarContent >= 15
-      ? t("sugarChart.info.highSugar")
-      : t("sugarChart.info.moderateSugar");
+        ? t("sugarChart.info.highSugar")
+        : t("sugarChart.info.moderateSugar");
 
   return (
     <Card
-      className={`flex-1 flex-col min-w-[400px] ${
-        isCarbohydrateAbsent ? "bg-green-100" : ""
-      }`}
+      className={`flex-1 flex-col ${isCarbohydrateAbsent ? "bg-green-100" : ""
+        }`}
     >
       <CardHeader className="items-center pb-0">
         <CardTitle>{t("sugarChart.title")}</CardTitle>
@@ -79,19 +78,19 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         {isCarbohydrateAbsent ? (
-          <p className="flex-1 text-center justify-center text-xl text-muted-foreground">
+          <p className="flex-1 text-center justify-center text-muted-foreground">
             {t("sugarChart.noCarbs")}
           </p>
         ) : (
           <ChartContainer
             config={sugarContentChartConfig}
-            className="mx-auto w-full max-w-[400px] h-full min-h-[240px]"
+            className="mx-auto w-full max-w-[290px] h-full min-h-[240px]"
           >
             <RadialBarChart
               data={sugarContentChartData}
               endAngle={180}
-              innerRadius={110}
-              outerRadius={hoveredIndex !== null ? 165 : 155}
+              innerRadius={100}
+              outerRadius={hoveredIndex !== null ? 145 : 135}
             >
               <ChartTooltip
                 cursor={false}
@@ -106,7 +105,7 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
                           <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) - 5}
-                            className="fill-foreground text-2xl font-bold"
+                            className="fill-foreground text-xl font-bold"
                           >
                             {(
                               sugarContent.toLocaleString() +

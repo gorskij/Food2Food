@@ -65,14 +65,13 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
     saturatedFat < 1.5
       ? t("fatSaturation.lowSaturatedFat")
       : saturatedFat >= 5
-      ? t("fatSaturation.highSaturatedFat")
-      : t("fatSaturation.moderateSaturatedFat");
+        ? t("fatSaturation.highSaturatedFat")
+        : t("fatSaturation.moderateSaturatedFat");
 
   return (
     <Card
-      className={`flex-1 flex-col min-w-[400px] ${
-        isSaturatedAbsent ? "bg-green-100" : ""
-      }`}
+      className={`flex-1 flex-col ${isSaturatedAbsent ? "bg-green-100" : ""
+        }`}
     >
       <CardHeader className="items-center pb-0">
         <CardTitle>{t("fatSaturation.title")}</CardTitle>
@@ -84,19 +83,19 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         {isFatAbsent ? (
-          <p className="flex-1 text-center justify-center text-xl text-muted-foreground">
+          <p className="flex-1 text-center justify-center text-muted-foreground">
             {t("fatSaturation.noFat")}
           </p>
         ) : (
           <ChartContainer
             config={fatSaturationChartConfig}
-            className="mx-auto w-full max-w-[400px] h-full min-h-[240px]"
+            className="mx-auto w-full max-w-[290px] h-full min-h-[240px]"
           >
             <RadialBarChart
               data={fatSaturationChartData}
               endAngle={180}
-              innerRadius={110}
-              outerRadius={hoveredIndex !== null ? 165 : 155}
+              innerRadius={100}
+              outerRadius={hoveredIndex !== null ? 145 : 135}
             >
               <ChartTooltip
                 cursor={false}
@@ -111,7 +110,7 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
                           <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) - 5}
-                            className="fill-foreground text-2xl font-bold"
+                            className="fill-foreground text-xl font-bold"
                           >
                             {`${saturatedFat.toLocaleString()} g / ${totalFat} g`.replace(",", ".")}
                           </tspan>

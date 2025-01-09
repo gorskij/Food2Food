@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
@@ -17,6 +16,7 @@ import {
 } from "./ui/table";
 import RWSChart from "./RWSChart";
 import { useTranslation } from "react-i18next";
+import { FC } from "react";
 
 interface MineralsTableProps {
   productDetails: ProductDetails;
@@ -38,7 +38,7 @@ const RWS_VALUES: Record<string, number> = {
   Chrom: 0.04,
 };
 
-const MineralsInformation: React.FC<MineralsTableProps> = ({
+const MineralsInformation: FC<MineralsTableProps> = ({
   productDetails,
 }) => {
   const mineralNames = Object.keys(RWS_VALUES);
@@ -116,11 +116,11 @@ const MineralsInformation: React.FC<MineralsTableProps> = ({
     <>
       <Card className="flex-1 h-full hidden sm:block">
         <CardHeader>
-          <CardTitle>
-            {t("mineralsInformation.mineralDrvChart.title")}
+          <CardTitle className="text-center">
+            {t("mineralsInformation.title")}
           </CardTitle>
-          <CardDescription>
-            {t("mineralsInformation.mineralDrvChart.description")}
+          <CardDescription className="text-center">
+            {t("mineralsInformation.description", { unit: productDetails.unit.name })}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-center">
@@ -140,11 +140,11 @@ const MineralsInformation: React.FC<MineralsTableProps> = ({
 
       <Card className="flex-1 h-full block sm:hidden">
         <CardHeader>
-          <CardTitle>
-            {t("mineralsInformation.mineralNutritionalValues.title")}
+          <CardTitle className="text-center">
+            {t("mineralsInformation.title")}
           </CardTitle>
-          <CardDescription>
-            {t("mineralsInformation.mineralNutritionalValues.description")}
+          <CardDescription className="text-center">
+            {t("mineralsInformation.description", { unit: productDetails.unit.name })}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -154,22 +154,22 @@ const MineralsInformation: React.FC<MineralsTableProps> = ({
                 <TableRow>
                   <TableHead>
                     {t(
-                      "mineralsInformation.mineralNutritionalValues.table.mineral"
+                      "mineralsInformation.table.mineral"
                     )}
                   </TableHead>
                   <TableHead>
                     {t(
-                      "mineralsInformation.mineralNutritionalValues.table.quantity"
+                      "mineralsInformation.table.quantity"
                     )}
                   </TableHead>
                   <TableHead>
                     {t(
-                      "mineralsInformation.mineralNutritionalValues.table.unit"
+                      "mineralsInformation.table.unit"
                     )}
                   </TableHead>
                   <TableHead>
                     {t(
-                      "mineralsInformation.mineralNutritionalValues.table.rwsPercentage"
+                      "mineralsInformation.table.rwsPercentage"
                     )}
                   </TableHead>
                 </TableRow>
@@ -191,11 +191,6 @@ const MineralsInformation: React.FC<MineralsTableProps> = ({
             </div>
           )}
         </CardContent>
-        <CardFooter className="flex-col items-start gap-2 text-sm">
-          <div className="leading-none text-muted-foreground">
-            {t("mineralsInformation.mineralFooter.dataSource")}
-          </div>
-        </CardFooter>
       </Card>
     </>
   );

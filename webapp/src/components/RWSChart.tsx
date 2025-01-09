@@ -41,16 +41,15 @@ const RWSChart: React.FC<RWSChartProps> = ({
   return (
     <ChartContainer
       config={chartConfig}
-      className={`${className || "min-w-[400px]"} ${
-        data.length === 1 ? "h-[150px]" : ""
-      }`}
+      className={`${className || "min-w-[450px]"} ${data.length === 1 ? "h-[150px]" : ""
+        }`}
     >
       <BarChart
         accessibilityLayer
         data={data}
         layout="vertical"
         margin={{
-          left: 20,
+          left: 35,
           right: 65,
           top: 20,
         }}
