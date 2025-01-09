@@ -47,27 +47,27 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
   const getMacronutrientColor = (name: string, quantity: number) => {
     switch (name) {
       case "Wartość Energetyczna":
-        if (quantity < 100) return "hsl(var(--chart-green))"; // Niska wartość energetyczna
-        if (quantity >= 100 && quantity <= 200) return "hsl(var(--chart-yellow))"; // Umiarkowana wartość energetyczna
-        return "hsl(var(--chart-red))"; // Wysoka wartość energetyczna
+        if (quantity < 100) return "hsl(var(--chart-green))";
+        if (quantity >= 100 && quantity <= 200) return "hsl(var(--chart-yellow))";
+        return "hsl(var(--chart-red))";
       case "Węglowodany":
-        if (quantity < 50) return "hsl(var(--chart-green))"; // Niska zawartość
-        if (quantity >= 50 && quantity <= 75) return "hsl(var(--chart-yellow))"; // Umiarkowana zawartość
-        return "hsl(var(--chart-red))"; // Wysoka zawartość
+        if (quantity < 50) return "hsl(var(--chart-green))";
+        if (quantity >= 50 && quantity <= 75) return "hsl(var(--chart-yellow))";
+        return "hsl(var(--chart-red))";
       case "Tłuszcz":
-        if (quantity < 10) return "hsl(var(--chart-green))"; // Niska zawartość
-        if (quantity >= 10 && quantity <= 20) return "hsl(var(--chart-yellow))"; // Umiarkowana zawartość
-        return "hsl(var(--chart-red))"; // Wysoka zawartość
+        if (quantity < 10) return "hsl(var(--chart-green))";
+        if (quantity >= 10 && quantity <= 20) return "hsl(var(--chart-yellow))";
+        return "hsl(var(--chart-red))";
       case "Białko":
-        return "hsl(var(--chart-green))"; // Zawsze zielony
+        return "hsl(var(--chart-green))";
       case "Błonnik":
-        return "hsl(var(--chart-green))"; // Zawsze zielony
+        return "hsl(var(--chart-green))";
       case "Sól":
-        if (quantity < 1) return "hsl(var(--chart-green))"; // Niska zawartość
-        if (quantity >= 1 && quantity <= 2) return "hsl(var(--chart-yellow))"; // Umiarkowana zawartość
-        return "hsl(var(--chart-red))"; // Wysoka zawartość
+        if (quantity < 1) return "hsl(var(--chart-green))";
+        if (quantity >= 1 && quantity <= 2) return "hsl(var(--chart-yellow))";
+        return "hsl(var(--chart-red))";
       default:
-        return "hsl(var(--chart-green))"; // Domyślnie zielony
+        return "hsl(var(--chart-green))";
     }
   };
 
@@ -136,6 +136,8 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
     },
   };
 
+  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+
   return (
     <>
       <Card className="flex-1 h-full hidden sm:block">
@@ -144,7 +146,7 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
             {t("macronutrientsInformation.title")}
           </CardTitle>
           <CardDescription className="text-center">
-            {t("macronutrientsInformation.description", { unit: productDetails.unit.name })}
+            {t("macronutrientsInformation.description", { unit: unit })}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-center">
@@ -168,7 +170,7 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
             {t("macronutrientsInformation.title")}
           </CardTitle>
           <CardDescription className="text-center">
-            {t("macronutrientsInformation.description", { unit: productDetails.unit.name })}
+            {t("macronutrientsInformation.description", { unit: unit })}
           </CardDescription>
         </CardHeader>
         <CardContent>

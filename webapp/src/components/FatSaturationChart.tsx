@@ -68,6 +68,8 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
         ? t("fatSaturation.highSaturatedFat")
         : t("fatSaturation.moderateSaturatedFat");
 
+  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+
   return (
     <Card
       className={`flex-1 flex-col ${isSaturatedAbsent ? "bg-green-100" : ""
@@ -77,7 +79,7 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
         <CardTitle>{t("fatSaturation.title")}</CardTitle>
         <CardDescription>
           {t("fatSaturation.description", {
-            unit: productDetails.unit.name,
+            unit: unit,
           })}
         </CardDescription>
       </CardHeader>

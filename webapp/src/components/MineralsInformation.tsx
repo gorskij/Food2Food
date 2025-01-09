@@ -112,6 +112,8 @@ const MineralsInformation: FC<MineralsTableProps> = ({
     },
   };
 
+  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+
   return (
     <>
       <Card className="flex-1 h-full hidden sm:block">
@@ -120,7 +122,7 @@ const MineralsInformation: FC<MineralsTableProps> = ({
             {t("mineralsInformation.title")}
           </CardTitle>
           <CardDescription className="text-center">
-            {t("mineralsInformation.description", { unit: productDetails.unit.name })}
+            {t("mineralsInformation.description", { unit: unit })}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex items-center justify-center">
@@ -144,7 +146,7 @@ const MineralsInformation: FC<MineralsTableProps> = ({
             {t("mineralsInformation.title")}
           </CardTitle>
           <CardDescription className="text-center">
-            {t("mineralsInformation.description", { unit: productDetails.unit.name })}
+            {t("mineralsInformation.description", { unit: unit })}
           </CardDescription>
         </CardHeader>
         <CardContent>

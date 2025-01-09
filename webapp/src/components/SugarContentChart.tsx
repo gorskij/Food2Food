@@ -65,6 +65,8 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
         ? t("sugarChart.info.highSugar")
         : t("sugarChart.info.moderateSugar");
 
+  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+
   return (
     <Card
       className={`flex-1 flex-col ${isCarbohydrateAbsent ? "bg-green-100" : ""
@@ -73,7 +75,7 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
       <CardHeader className="items-center pb-0">
         <CardTitle>{t("sugarChart.title")}</CardTitle>
         <CardDescription>
-          {t("sugarChart.description", { unit: productDetails.unit.name })}
+          {t("sugarChart.description", { unit: unit })}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">

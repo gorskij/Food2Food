@@ -86,7 +86,9 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
     })
     .filter(Boolean);
 
-   return (
+  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+
+  return (
     <Card className="flex-1 flex-col min-w-[400px]">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-center">
@@ -94,7 +96,7 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
         </CardTitle>
         <CardDescription>
           {t("nutritionalChart.description", {
-            unit: productDetails.unit.name,
+            unit: unit,
           })}
         </CardDescription>
       </CardHeader>
