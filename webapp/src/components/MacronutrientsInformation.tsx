@@ -140,7 +140,7 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
 
   return (
     <>
-      <Card className="flex-1 h-full hidden sm:block">
+      <Card className="flex-1 hidden sm:block">
         <CardHeader>
           <CardTitle className="text-center">
             {t("macronutrientsInformation.title")}
@@ -164,7 +164,7 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
         </CardContent>
       </Card>
 
-      <Card className="flex-1 h-full block sm:hidden">
+      <Card className="flex-1 block sm:hidden">
         <CardHeader>
           <CardTitle className="text-center">
             {t("macronutrientsInformation.title")}
