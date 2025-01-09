@@ -1,31 +1,37 @@
 import { ProductDetails } from "@/types/ProductDetails";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { Badge } from "./ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
-import { useTranslation } from "react-i18next";
 
-interface ProductAllergensProps {
+interface ProductRatingsProps {
   productDetails: ProductDetails;
+  groupName: string;
 }
 
-const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
-  const allergens = productDetails.label.allergens;
+const ProductRatings: FC<ProductRatingsProps> = ({
+  productDetails,
+  groupName,
+}) => {
   const { t } = useTranslation();
+  const filteredRatings = productDetails.ratings.filter(
+    (rating) => rating.groupName === groupName
+  );
 
   return (
     <div>
-      {allergens.map((allergen) => (
+      {filteredRatings.map((rating) => (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger><Badge
-              key={allergen.id}
+              key={rating.id}
               variant="outline"
             >
-              {allergen.name}
+              {t(`ratings.${rating.name}`)}
             </Badge>
             </TooltipTrigger>
             <TooltipContent>
-              {t("allergens.tooltip")}
+              {t(`ratings.${groupName}`)}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -34,4 +40,4 @@ const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
   );
 };
 
-export default ProductAllergens;
+export default ProductRatings;

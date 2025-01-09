@@ -28,6 +28,7 @@ import FavoriteInfo from "@/components/FavoriteInfo";
 import { useComparisonStore } from "@/store/comparisonStore";
 import ProducerInfo from "@/components/ProducerInfo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ProductRatings from "@/components/ProductRatings";
 
 const ProductDetailsPage: FC = () => {
   const { t } = useTranslation();
@@ -185,9 +186,12 @@ const ProductDetailsPage: FC = () => {
                           className="my-2"
                         />
                       </div>
-                    </div>
-                    <div className="flex flex-row min-w-full gap-4 flex-wrap">
                       <ProductAllergens productDetails={data.data} />
+                      <ProductRatings productDetails={data.data} groupName="Posiadane Certyfikaty" />
+                      <ProductRatings productDetails={data.data} groupName="Specyficzne Cechy" />
+                      <ProductRatings productDetails={data.data} groupName="Bez dodatków do żywności" />
+                      <ProductRatings productDetails={data.data} groupName="Zastosowane procesy technologiczne" />
+                      <ProductRatings productDetails={data.data} groupName="Parametry bez składników" />
                     </div>
                     <ProductIngredientsList productDetails={data.data} />
                   </CardContent>
