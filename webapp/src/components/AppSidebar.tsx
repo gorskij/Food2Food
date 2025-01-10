@@ -18,8 +18,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { NavLink } from "react-router-dom";
-import { Sheet, SheetTrigger } from "./ui/sheet";
-import NutritionalProfileSheet from "./NutritionalProfileSheet";
 import { useUserStore } from "@/store/userStore";
 import { useTranslation } from "react-i18next";
 import { Separator } from "./ui/separator";
@@ -81,15 +79,12 @@ export function AppSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <Sheet>
-                      <SidebarMenuButton asChild>
-                        <SheetTrigger>
-                          <NotebookPen />
-                          {t("appSidebar.editPreferences")}
-                        </SheetTrigger>
-                      </SidebarMenuButton>
-                      <NutritionalProfileSheet />
-                    </Sheet>
+                    <SidebarMenuButton asChild>
+                      <NavLink to="/user/preferences">
+                        <NotebookPen />
+                        {t("appSidebar.editPreferences")}
+                      </NavLink>
+                    </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroupContent>

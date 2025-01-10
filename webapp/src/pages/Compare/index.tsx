@@ -7,7 +7,7 @@ import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { Scale } from "lucide-react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import ProductComparisonAccordion from "@/components/ProductComparisonAccordion";
+import ProductComparison from "@/components/ProductComparison";
 import ProductComparisonSlot from "@/components/ProductComparisonSlot";
 
 const ComparePage: FC = () => {
@@ -56,7 +56,7 @@ const ComparePage: FC = () => {
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
           {product1 && product2 ? (
-            <ProductComparisonAccordion
+            <ProductComparison
               product1={product1Data?.data}
               product2={product2Data?.data}
             />

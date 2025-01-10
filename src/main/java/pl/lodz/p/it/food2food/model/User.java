@@ -54,8 +54,9 @@ public class User extends AbstractEntity {
     private Theme theme;
 
     public User(String username,
-                String email) {
+                String email, UserPreference userPreference) {
         this.username = username;
         this.email = email;
+        this.userPreference = userPreference;
     }
 }
