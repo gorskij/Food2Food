@@ -4,38 +4,32 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import pl.lodz.p.it.food2food.dto.responses.ProductDto;
-import pl.lodz.p.it.food2food.mappers.ProductMapper;
+import pl.lodz.p.it.food2food.exceptions.NotFoundException;
+import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
+import pl.lodz.p.it.food2food.exceptions.messages.ExceptionMessages;
 import pl.lodz.p.it.food2food.model.Product;
 import pl.lodz.p.it.food2food.repositories.ProductRepository;
-import pl.lodz.p.it.food2food.dto.responses.ProductDetailsDto;
 import pl.lodz.p.it.food2food.services.ProductService;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
 
     @Override
-    public Page<ProductDto> getAllProducts(String name, Pageable pageable) {
+    public Page<Product> getAllProducts(String name, Pageable pageable) {
         if (name != null && !name.isEmpty()) {
-            return productRepository.findByProductNameContainingIgnoreCase(name, pageable)
-                    .map(productMapper::toProductDto);
+            return productRepository.findByProductNameContainingIgnoreCase(name, pageable);
         } else {
-            return productRepository.findAll(pageable)
-                    .map(productMapper::toProductDto);
+            return productRepository.findAll(pageable);
         }
     }
 
     @Override
-    public ProductDetailsDto getProduct(UUID id) {
-        Optional<Product> product = productRepository.findById(id);
-//                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
+    public Product getProduct(UUID id) throws NotFoundException {
 
-        return productMapper.toProductDetailsDto(product.get());
+        return productRepository.findById(id).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));
     }
 }

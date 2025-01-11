@@ -28,14 +28,12 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     private final ProductMapper productMapper;
 
     @Override
-    public Page<ProductDto> getFavoriteProducts(UUID userId, String name, Pageable pageable) throws NotFoundException {
-        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+    public Page<Product> getFavoriteProducts(UUID userId, String name, Pageable pageable) throws NotFoundException {
+        userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         if (name != null && !name.isEmpty()) {
-            return productRepository.findFavoriteProductsByUserIdAndName(userId, name, pageable)
-                    .map(productMapper::toProductDto);
+            return productRepository.findFavoriteProductsByUserIdAndName(userId, name, pageable);
         } else {
-            return productRepository.findFavoriteProductsByUserId(userId, pageable)
-                    .map(productMapper::toProductDto);
+            return productRepository.findFavoriteProductsByUserId(userId, pageable);
         }
     }
 

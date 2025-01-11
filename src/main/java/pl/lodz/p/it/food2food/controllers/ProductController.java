@@ -3,9 +3,15 @@ package pl.lodz.p.it.food2food.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.dto.responses.ProductDetailsDto;
 import pl.lodz.p.it.food2food.dto.responses.ProductDto;
+import pl.lodz.p.it.food2food.exceptions.NotFoundException;
+import pl.lodz.p.it.food2food.mappers.ProductMapper;
+import pl.lodz.p.it.food2food.model.Product;
 import pl.lodz.p.it.food2food.services.ProductService;
 
 import org.springframework.data.domain.Pageable;
@@ -17,18 +23,24 @@ import java.util.UUID;
 public class ProductController {
 
     private final ProductService productService;
+    private final ProductMapper productMapper;
 
     @GetMapping
-    public Page<ProductDto> getAllProducts(
+    public ResponseEntity<Page<ProductDto>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String name) {
         Pageable pageable = PageRequest.of(page, size);
-        return productService.getAllProducts(name, pageable);
+        return ResponseEntity.ok(productService.getAllProducts(name, pageable).map(productMapper::toProductDto));
     }
 
     @GetMapping("/{id}")
-    public ProductDetailsDto getProduct(@PathVariable UUID id) {
-        return productService.getProduct(id);
+    public ResponseEntity<ProductDetailsDto> getProduct(@PathVariable UUID id) {
+        try {
+        Product product = productService.getProduct(id);
+        return ResponseEntity.ok(productMapper.toProductDetailsDto(product));
+        } catch (NotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
     }
 }

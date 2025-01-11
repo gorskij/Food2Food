@@ -6,25 +6,12 @@ import pl.lodz.p.it.food2food.dto.responses.ProductDto;
 import pl.lodz.p.it.food2food.dto.responses.ProductDetailsDto;
 import pl.lodz.p.it.food2food.model.Product;
 
-@Mapper(componentModel = "spring", uses = {
-//        ProducerMapper.class,
-//        UnitMapper.class,
-//        PackageTypeMapper.class,
-//        CompositionMapper.class,
-//        NutritionalIndexMapper.class,
-//        ProductIndexMapper.class,
-//        LabelMapper.class,
-//        PortionMapper.class,
-//        RatingMapper.class,
-//        NutritionalValueMapper.class
-})
+@Mapper(componentModel = "spring")
 public interface ProductMapper {
 
-    // Map Product to ProductDto
     @Mapping(source = "label.image", target = "labelImage")
     ProductDto toProductDto(Product product);
 
-    // Map Product to ProductDetailsDto
     ProductDetailsDto toProductDetailsDto(Product product);
 
 }

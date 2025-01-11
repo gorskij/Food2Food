@@ -9,7 +9,7 @@ import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.model.UserPreference;
 import pl.lodz.p.it.food2food.services.AuthService;
-import pl.lodz.p.it.food2food.services.UserPreferencesService;
+import pl.lodz.p.it.food2food.services.UserPreferenceService;
 import pl.lodz.p.it.food2food.services.UserService;
 
 import java.util.Map;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserService userService;
-    private final UserPreferencesService userPreferencesService;
+    private final UserPreferenceService userPreferencesService;
     private final JwtService jwtService;
 
     @PreAuthorize("permitAll()")
@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
         } catch (NotFoundException e) {
             String email = payload.email();
             String username = email.split("@")[0];
-            UserPreference userPreference = userPreferencesService.create(new UserPreference());
+            UserPreference userPreference = userPreferencesService.createUserPreference(new UserPreference());
             User newUser = new User(
                     username,
                     email,
@@ -72,7 +72,7 @@ public class AuthServiceImpl implements AuthService {
             String username = (payload.username() != null && !payload.username().isEmpty())
                     ? payload.username()
                     : (email != null ? email.split("@")[0] : "github_user_" + payload.id());
-            UserPreference userPreference = userPreferencesService.create(new UserPreference());
+            UserPreference userPreference = userPreferencesService.createUserPreference(new UserPreference());
 
             User newUser = new User(
                     username,

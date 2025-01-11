@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.it.food2food.dto.responses.AllergenDto;
 import pl.lodz.p.it.food2food.mappers.AllergenMapper;
+import pl.lodz.p.it.food2food.model.Allergen;
 import pl.lodz.p.it.food2food.repositories.AllergenRepository;
 import pl.lodz.p.it.food2food.services.AllergenService;
 
@@ -17,7 +18,7 @@ public class AllergenServiceImpl implements AllergenService {
     private final AllergenMapper allergenMapper;
 
     @Override
-    public List<AllergenDto> getAllAllergens() {
-        return allergenRepository.findAll().stream().map(allergenMapper::toAllergenDto).collect(Collectors.toList());
+    public List<Allergen> getAllAllergens() {
+        return allergenRepository.findAll();
     }
 }
