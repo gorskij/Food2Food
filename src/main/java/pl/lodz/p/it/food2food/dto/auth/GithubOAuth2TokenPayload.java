@@ -4,6 +4,5 @@ public record GithubOAuth2TokenPayload(
         String id,
         String username,
         String email,
-        String avatarUrl,
         String name
 ) {}
