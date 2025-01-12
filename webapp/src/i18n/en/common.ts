@@ -40,7 +40,8 @@ const errors = {
 
 const mineralsInformation = {
   title: "Mineral Content in the Product",
-  description: "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
+  description:
+    "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
   mineralDataUnavailable: "No mineral data available to display",
   mineralNutritionalValues: {
     table: {
@@ -76,7 +77,8 @@ const base = {
 
 const vitaminsInformation = {
   title: "Vitamin Content in the Product",
-  description: "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
+  description:
+    "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
   vitaminDataUnavailable: "No vitamin data available to display",
   vitaminNutritionalValues: {
     table: {
@@ -133,6 +135,12 @@ const login = {
   loggedInDescription: "You have been logged in successfully.",
   loginError: "Login error",
   tryAgain: "An error occurred during login. Please try again.",
+  creationError: "Registration error",
+  creationErrorDescription:
+    "An error occurred during registration. Please try again.",
+  emailConflict: "Email conflict",
+  emailConflictDescription:
+    "The email address is already registered in the system. Please try logging in using a different provider.",
 };
 
 const logout = {
@@ -175,7 +183,7 @@ const productDetails = {
   title: "Product Details",
   breadcrumbs: {
     home: "Home",
-    productList: "Product List"
+    productList: "Product List",
   },
   noData: "No data available",
   description: "Description",
@@ -203,7 +211,7 @@ const productDetails = {
 const notFound = {
   title: "Page not found",
   description: "Sorry, we couldn't find the page you were looking for.",
-  homeLink: "Return to Home"
+  homeLink: "Return to Home",
 };
 
 const productCard = {
@@ -211,7 +219,7 @@ const productCard = {
     details: "Product Details",
     addToComparison: "Add to comparison",
     replaceProduct: "Replace product: ",
-    removeProduct: "Remove product from comparison"
+    removeProduct: "Remove product from comparison",
   },
   eanCode: "EAN Code: {{ean}}",
 };
@@ -296,7 +304,7 @@ const userAuth = {
   settings: "User\u00A0options",
   logout: "Sign out",
   signIn: "Sign in",
-}
+};
 
 const productComparisonSlot = {
   noData: "No product selected",
@@ -305,14 +313,14 @@ const productComparisonSlot = {
   favoriteProducts: "Choose a product from your favorite products",
   details: "Product details",
   removeProduct: "Remove product from comparison",
-}
+};
 
 const compare = {
   selectProducts: "Select both products to display their comparison",
   homePage: "Home",
   comparePage: "Product Comparison",
   title: "Product Comparison",
-}
+};
 
 const sidebarComparisonSlot = {
   addProduct: "Add product to comparison",
@@ -320,7 +328,7 @@ const sidebarComparisonSlot = {
   favoriteProducts: "Choose a product from your favorite products",
   details: "Product Details",
   removeProduct: "Remove product from comparison",
-}
+};
 
 const macronutrientsInformation = {
   WartośćEnergetyczna: "Energy value",
@@ -330,28 +338,29 @@ const macronutrientsInformation = {
   Sól: "Salt",
   Błonnik: "Fibers",
   title: "Macronutrients in product",
-  description: "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
+  description:
+    "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
   dataUnavailable: "No macronutrient data available to display",
   macronutrient: "Macronutrient",
   quantity: "Quantity",
   unit: "Unit",
   rwsPercentage: "% DRV",
-}
+};
 
 const ratings = {
   "Bez laktozy": "Lactose Free",
   "bez konserwantów": "Preservative Free",
   "mleko i produkty pochodne": "Milk and Derivatives",
-  "pasteryzowanie": "Pasteurized",
+  pasteryzowanie: "Pasteurized",
   "Bez dodatku cukru": "Sugar Free",
   "bez barwników": "Colorant Free",
   "orzeszki ziemne (arachidowe)": "Peanuts",
   "orzechy z drzew orzechowych": "Tree Nuts",
   "sezam i produkty pochodne": "Sesame and Derivatives",
-  "siarczyny": "Sulphites",
+  siarczyny: "Sulphites",
   "System „Jakość Tradycja”": "Quality Tradition System",
   "produkt naturalny": "Natural Product",
-  "fermentacja": "Fermentation",
+  fermentacja: "Fermentation",
   "Produkcja ekologiczna": "Organic Production",
   "Bez GMO": "GMO Free",
   "Integrowana Produkcja Roślin (IP)": "Integrated Plant Production",
@@ -360,9 +369,12 @@ const ratings = {
   "Gwarantowana Tradycyjna Specjalność": "Guaranteed Traditional Specialty",
   "QAFP System gwarantowanej jakości żywności": "QAFP Quality System",
   "QMP System gwarantowania jakości mięsa wołowego": "QMP Beef Quality System",
-  "V-Label (żywność wegańska i wegetariańska)": "V-Label (Vegan and Vegetarian Food)",
-  "Pork Quality System (PQS) -System Jakości Wieprzowiny": "Pork Quality System (PQS)",
-  "Marine Stewardship Council (MSC) Certyfikat Zrównoważonego Rybołówstwa": "Marine Stewardship Council (MSC) Sustainable Fishing Certificate",
+  "V-Label (żywność wegańska i wegetariańska)":
+    "V-Label (Vegan and Vegetarian Food)",
+  "Pork Quality System (PQS) -System Jakości Wieprzowiny":
+    "Pork Quality System (PQS)",
+  "Marine Stewardship Council (MSC) Certyfikat Zrównoważonego Rybołówstwa":
+    "Marine Stewardship Council (MSC) Sustainable Fishing Certificate",
   "Bez glutenu, Znak Przekreślonego Kłosa (ESL)": "Gluten Free",
   "Bez glutenu": "Gluten Free",
   "O bardzo niskiej zawartości glutenu": "Very Low Gluten",
@@ -375,11 +387,12 @@ const ratings = {
   "Bez Beta Kazeiny A1": "A1 Beta Casein Free",
   "O bardzo niskiej zawartości laktozy": "Very Low Lactose",
   "Wegański (bez produktów zwierzęcych)": "Vegan (Animal Product Free)",
-  "Wegetariański": "Vegetarian",
+  Wegetariański: "Vegetarian",
   "Bez soli": "Salt Free",
   "Niska zawartość sodu/soli": "Low Sodium/Salt",
   "bez przeciwutleniaczy": "Antioxidant Free",
-  "bez emulgatorów i środków spulchniających": "Emulsifier and Raising Agent Free",
+  "bez emulgatorów i środków spulchniających":
+    "Emulsifier and Raising Agent Free",
   "bez wzmacniaczy smaku": "Flavor Enhancer Free",
   "bez azotynów i azotanów": "Nitrite and Nitrate Free",
   "bez środków słodzących": "Sweetener Free",
@@ -396,34 +409,37 @@ const ratings = {
   "mięczaki i produkty pochodne": "Molluscs and Derivatives",
   "produkt o dedykowanej strukturze dla osób starszych": "Product for Seniors",
   "produkt o dedykowanej strukturze dla dzieci": "Product for Children",
-  "produkt o dedykowanej strukturze dla diety łatwostrawnej": "Product for Easy-to-Digest Diet",
-  "Produkt o dedykowanej strukturze dla kobiet w ciąży i karmiących": "Product for Pregnant and Nursing Women",
+  "produkt o dedykowanej strukturze dla diety łatwostrawnej":
+    "Product for Easy-to-Digest Diet",
+  "Produkt o dedykowanej strukturze dla kobiet w ciąży i karmiących":
+    "Product for Pregnant and Nursing Women",
   "produkt o dedykowanej strukturze dla sportowców": "Product for Athletes",
-  "produkt o dedykowanej strukturze dla diety wysokobłonnikowej": "Product for High-Fiber Diet",
+  "produkt o dedykowanej strukturze dla diety wysokobłonnikowej":
+    "Product for High-Fiber Diet",
   "produkt o niskim Indeksie Glikemicznym": "Low Glycemic Index Product",
-  "mrożenie": "Freezing",
+  mrożenie: "Freezing",
   "głębokie mrożenie": "Deep Freezing",
-  "gotowanie": "Cooking",
+  gotowanie: "Cooking",
   "gotowanie na parze": "Steaming",
-  "sterylizowanie": "Sterilizing",
-  "smażenie": "Frying",
+  sterylizowanie: "Sterilizing",
+  smażenie: "Frying",
   "smażenie beztłuszczowe": "Fat-Free Frying",
-  "liofilizowanie": "Freeze Drying",
-  "peklowanie": "Curing",
+  liofilizowanie: "Freeze Drying",
+  peklowanie: "Curing",
   "ekstrakcja na zimno": "Cold Extraction",
   "ekstrakcja rozp. selektywnymi": "Selective Solvent Extraction",
-  "rafinowanie": "Refining",
+  rafinowanie: "Refining",
   "utwardzanie tłuszczów": "Fat Hardening",
   "estryfikacja tłuszczów": "Fat Esterification",
-  "neutralizacja": "Neutralization",
-  "napromieniowanie": "Irradiation",
-  "ekspandowanie": "Expanding",
-  "ekstruzja": "Extrusion",
+  neutralizacja: "Neutralization",
+  napromieniowanie: "Irradiation",
+  ekspandowanie: "Expanding",
+  ekstruzja: "Extrusion",
   "wędzenie na zimno": "Cold Smoking",
   "wędzenie na gorąco": "Hot Smoking",
-  "paskalizacja": "Pascualization",
-  "suszenie": "Drying",
-  "inne": "Other",
+  paskalizacja: "Pascualization",
+  suszenie: "Drying",
+  inne: "Other",
   "wysoka zawartość białka": "High Protein Content",
   "wysoka zawartość wapnia": "High Calcium Content",
   "Zastosowane procesy technologiczne": "Applied technological processes",

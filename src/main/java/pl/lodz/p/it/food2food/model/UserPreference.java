@@ -12,13 +12,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 @Entity
 public class UserPreference extends AbstractEntity {
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
     @ManyToMany
     @JoinTable(
             name = "user_preference_allergen",
@@ -34,6 +29,4 @@ public class UserPreference extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "rating_id")
     )
     private Set<Rating> ratings = new HashSet<>();
-
-
 }

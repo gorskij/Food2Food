@@ -37,7 +37,9 @@ public class User extends AbstractEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AccessLevel> accessLevels = new ArrayList<>();
 
-    @OneToOne
+    @Setter
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_preference_id", referencedColumnName = "id")
     private UserPreference userPreference;
 
     @Setter

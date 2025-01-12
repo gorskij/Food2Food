@@ -9,8 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.lodz.p.it.food2food.dto.auth.*;
+import pl.lodz.p.it.food2food.exceptions.CreationException;
+import pl.lodz.p.it.food2food.exceptions.IdenticalFieldValueException;
 import pl.lodz.p.it.food2food.services.AuthService;
 import java.util.Base64;
 import java.util.HashMap;
@@ -74,7 +77,7 @@ public class AuthController {
     @GetMapping("/google-oauth/token/")
     public ResponseEntity<Map<String, String>> signInOAuth(
             @RequestParam String code
-    ) throws JsonProcessingException {
+    ) {
         String tokenRequestUrl = UriComponentsBuilder
                 .fromUriString(oAuthGoogleTokenUri)
                 .queryParam("client_id", oAuthGoogleClientId)
@@ -97,9 +100,21 @@ public class AuthController {
         String tokenPayload = new String(decoder.decode(tokenChunks[1]));
 
         ObjectMapper objectMapper = new ObjectMapper();
-        GoogleOAuth2TokenPayload payload = objectMapper.readValue(tokenPayload, GoogleOAuth2TokenPayload.class);
+        GoogleOAuth2TokenPayload payload;
+        try {
+            payload = objectMapper.readValue(tokenPayload, GoogleOAuth2TokenPayload.class);
+        } catch (JsonProcessingException e) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage(), e);
+        }
 
-        Map<String, String> response = authService.singInOAuth(payload);
+        Map<String, String> response;
+        try {
+            response = authService.singInGoogleOAuth(payload);
+        } catch (CreationException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        } catch (IdenticalFieldValueException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
 
         if (response.containsKey("created")) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -124,7 +139,7 @@ public class AuthController {
     }
 
     @GetMapping("/github-oauth/token/")
-    public ResponseEntity<Map<String, String>> signInOAuthGithub(@RequestParam String code) throws JsonProcessingException {
+    public ResponseEntity<Map<String, String>> signInOAuthGithub(@RequestParam String code) {
         String tokenRequestUrl = UriComponentsBuilder
                 .fromUriString(oAuthGithubTokenUri)
                 .queryParam("client_id", oAuthGithubClientId)
@@ -174,11 +189,17 @@ public class AuthController {
                 id,
                 username,
                 email,
-                (String) userInfo.get("avatar_url"),
                 (String) userInfo.get("name")
         );
 
-        Map<String, String> response = authService.singInGithubOAuth(payload);
+        Map<String, String> response;
+        try {
+            response = authService.singInGithubOAuth(payload);
+        } catch (CreationException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        } catch (IdenticalFieldValueException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
 
         if (response.containsKey("created")) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);

@@ -132,6 +132,12 @@ const login = {
   loggedInDescription: "Zostałeś pomyślnie zalogowany.",
   loginError: "Błąd logowania",
   tryAgain: "Wystąpił błąd podczas logowania. Spróbuj ponownie.",
+  creationError: "Błąd rejestracji",
+  creationErrorDescription:
+    "Wystąpił błąd podczas rejestracji. Spróbuj ponownie.",
+  emailConflict: "Konflikt adresów email",
+  emailConflictDescription:
+    "Adres email jest już zarejestrowany już w systemie. Spróbuj zalogować się za pomoca innego dostawcy.",
 };
 
 const logout = {
@@ -174,7 +180,7 @@ const productDetails = {
   title: "Szczegóły Produktu",
   breadcrumbs: {
     home: "Strona Główna",
-    productList: "Lista Produktów"
+    productList: "Lista Produktów",
   },
   noData: "Brak danych",
   description: "Opis",
@@ -203,7 +209,7 @@ const productDetails = {
 const notFound = {
   title: "Nie znaleziono strony",
   description: "Przepraszamy, nie mogliśmy znaleźć strony, której szukasz.",
-  homeLink: "Wróć do strony głównej"
+  homeLink: "Wróć do strony głównej",
 };
 
 const productCard = {
@@ -211,10 +217,10 @@ const productCard = {
     details: "Szczegóły Produktu",
     addToComparison: "Dodaj do porównania",
     replaceProduct: "Zastąp produkt: ",
-    removeProduct: "Usuń produkt z porównania"
+    removeProduct: "Usuń produkt z porównania",
   },
   eanCode: "Kod EAN: {{ean}}",
-}
+};
 
 const favouriteProducts = {
   title: "Lista Ulubionych Produktów",
@@ -295,7 +301,7 @@ const userAuth = {
   settings: "Opcje\u00A0użytkownika",
   logout: "Wyloguj się",
   signIn: "Zaloguj się",
-}
+};
 
 const productComparisonSlot = {
   noData: "Nie wybrano produktu",
@@ -304,14 +310,14 @@ const productComparisonSlot = {
   favoriteProducts: "Wybierz jeden z twoich ulubionych produktów",
   details: "Szczegóły produktu",
   removeProduct: "Usuń produkt z porównania",
-}
+};
 
 const compare = {
   selectProducts: "Wybierz oba produkty, aby wyświetlić ich porównanie",
   homePage: "Strona Główna",
   comparePage: "Porównanie Produktów",
   title: "Porównanie Produktów",
-}
+};
 
 const sidebarComparisonSlot = {
   addProduct: "Dodaj produkt do porównania",
@@ -319,7 +325,7 @@ const sidebarComparisonSlot = {
   favoriteProducts: "Wybierz jeden z twoich ulubionych produktów",
   details: "Szczegóły Produktu",
   removeProduct: "Usuń produkt z porównania",
-}
+};
 
 const macronutrientsInformation = {
   WartośćEnergetyczna: "Wartość energetyczna",
@@ -329,40 +335,47 @@ const macronutrientsInformation = {
   Sól: "Sól",
   Błonnik: "Błonnik",
   title: "Makroskładniki w produkcie",
-  description: "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+  description:
+    "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
   dataUnavailable: "Brak danych o makroskładnikach do wyświetlenia",
   macronutrient: "Makroskładnik",
   quantity: "Ilość",
   unit: "Jednostka",
   rwsPercentage: "%RWS",
-}
+};
 
 const ratings = {
   "Bez laktozy": "Bez laktozy",
   "bez konserwantów": "Bez konserwantów",
   "mleko i produkty pochodne": "Mleko i produkty pochodne",
-  "pasteryzowanie": "Pasteryzowanie",
+  pasteryzowanie: "Pasteryzowanie",
   "Bez dodatku cukru": "Bez dodatku cukru",
   "bez barwników": "Bez barwników",
   "orzeszki ziemne (arachidowe)": "Orzeszki ziemne (arachidowe)",
   "orzechy z drzew orzechowych": "Orzechy z drzew orzechowych",
   "sezam i produkty pochodne": "Sezam i produkty pochodne",
-  "siarczyny": "Siarczyny",
+  siarczyny: "Siarczyny",
   "System „Jakość Tradycja”": "System „Jakość Tradycja”",
   "produkt naturalny": "Produkt naturalny",
-  "fermentacja": "Fermentacja",
+  fermentacja: "Fermentacja",
   "Produkcja ekologiczna": "Produkcja ekologiczna",
   "Bez GMO": "Bez GMO",
   "Integrowana Produkcja Roślin (IP)": "Integrowana Produkcja Roślin (IP)",
   "Chronione Oznaczenie Geograficzne": "Chronione Oznaczenie Geograficzne",
   "Chroniona Nazwa Pochodzenia": "Chroniona Nazwa Pochodzenia",
   "Gwarantowana Tradycyjna Specjalność": "Gwarantowana Tradycyjna Specjalność",
-  "QAFP System gwarantowanej jakości żywności": "QAFP System gwarantowanej jakości żywności",
-  "QMP System gwarantowania jakości mięsa wołowego": "QMP System gwarantowania jakości mięsa wołowego",
-  "V-Label (żywność wegańska i wegetariańska)": "V-Label (żywność wegańska i wegetariańska)",
-  "Pork Quality System (PQS) -System Jakości Wieprzowiny": "Pork Quality System (PQS) -System Jakości Wieprzowiny",
-  "Marine Stewardship Council (MSC) Certyfikat Zrównoważonego Rybołówstwa": "Marine Stewardship Council (MSC) Certyfikat Zrównoważonego Rybołówstwa",
-  "Bez glutenu, Znak Przekreślonego Kłosa (ESL)": "Bez glutenu, Znak Przekreślonego Kłosa (ESL)",
+  "QAFP System gwarantowanej jakości żywności":
+    "QAFP System gwarantowanej jakości żywności",
+  "QMP System gwarantowania jakości mięsa wołowego":
+    "QMP System gwarantowania jakości mięsa wołowego",
+  "V-Label (żywność wegańska i wegetariańska)":
+    "V-Label (żywność wegańska i wegetariańska)",
+  "Pork Quality System (PQS) -System Jakości Wieprzowiny":
+    "Pork Quality System (PQS) -System Jakości Wieprzowiny",
+  "Marine Stewardship Council (MSC) Certyfikat Zrównoważonego Rybołówstwa":
+    "Marine Stewardship Council (MSC) Certyfikat Zrównoważonego Rybołówstwa",
+  "Bez glutenu, Znak Przekreślonego Kłosa (ESL)":
+    "Bez glutenu, Znak Przekreślonego Kłosa (ESL)",
   "Bez glutenu": "Bez glutenu",
   "O bardzo niskiej zawartości glutenu": "O bardzo niskiej zawartości glutenu",
   "Niska wartość energetyczna": "Niska wartość energetyczna",
@@ -370,15 +383,18 @@ const ratings = {
   "Nie zawiera tłuszczu": "Nie zawiera tłuszczu",
   "Bez tłuszczów nasyconych": "Bez tłuszczów nasyconych",
   "Niska zawartość cukrów": "Niska zawartość cukrów",
-  "Bez mleka krowiego i produktów pochodnych": "Bez mleka krowiego i produktów pochodnych",
+  "Bez mleka krowiego i produktów pochodnych":
+    "Bez mleka krowiego i produktów pochodnych",
   "Bez Beta Kazeiny A1": "Bez Beta Kazeiny A1",
   "O bardzo niskiej zawartości laktozy": "O bardzo niskiej zawartości laktozy",
-  "Wegański (bez produktów zwierzęcych)": "Wegański (bez produktów zwierzęcych)",
-  "Wegetariański": "Wegetariański",
+  "Wegański (bez produktów zwierzęcych)":
+    "Wegański (bez produktów zwierzęcych)",
+  Wegetariański: "Wegetariański",
   "Bez soli": "Bez soli",
   "Niska zawartość sodu/soli": "Niska zawartość sodu/soli",
   "bez przeciwutleniaczy": "Bez przeciwutleniaczy",
-  "bez emulgatorów i środków spulchniających": "Bez emulgatorów i środków spulchniających",
+  "bez emulgatorów i środków spulchniających":
+    "Bez emulgatorów i środków spulchniających",
   "bez wzmacniaczy smaku": "Bez wzmacniaczy smaku",
   "bez azotynów i azotanów": "Bez azotynów i azotanów",
   "bez środków słodzących": "Bez środków słodzących",
@@ -393,36 +409,43 @@ const ratings = {
   "gorczyca i produkty pochodne": "Gorczyca i produkty pochodne",
   "łubin i produkty pochodne": "Łubin i produkty pochodne",
   "mięczaki i produkty pochodne": "Mięczaki i produkty pochodne",
-  "produkt o dedykowanej strukturze dla osób starszych": "Produkt o dedykowanej strukturze dla osób starszych",
-  "produkt o dedykowanej strukturze dla dzieci": "Produkt o dedykowanej strukturze dla dzieci",
-  "produkt o dedykowanej strukturze dla diety łatwostrawnej": "Produkt o dedykowanej strukturze dla diety łatwostrawnej",
-  "Produkt o dedykowanej strukturze dla kobiet w ciąży i karmiących": "Produkt o dedykowanej strukturze dla kobiet w ciąży i karmiących",
-  "produkt o dedykowanej strukturze dla sportowców": "Produkt o dedykowanej strukturze dla sportowców",
-  "produkt o dedykowanej strukturze dla diety wysokobłonnikowej": "Produkt o dedykowanej strukturze dla diety wysokobłonnikowej",
-  "produkt o niskim Indeksie Glikemicznym": "Produkt o niskim Indeksie Glikemicznym",
-  "mrożenie": "Mrożenie",
+  "produkt o dedykowanej strukturze dla osób starszych":
+    "Produkt o dedykowanej strukturze dla osób starszych",
+  "produkt o dedykowanej strukturze dla dzieci":
+    "Produkt o dedykowanej strukturze dla dzieci",
+  "produkt o dedykowanej strukturze dla diety łatwostrawnej":
+    "Produkt o dedykowanej strukturze dla diety łatwostrawnej",
+  "Produkt o dedykowanej strukturze dla kobiet w ciąży i karmiących":
+    "Produkt o dedykowanej strukturze dla kobiet w ciąży i karmiących",
+  "produkt o dedykowanej strukturze dla sportowców":
+    "Produkt o dedykowanej strukturze dla sportowców",
+  "produkt o dedykowanej strukturze dla diety wysokobłonnikowej":
+    "Produkt o dedykowanej strukturze dla diety wysokobłonnikowej",
+  "produkt o niskim Indeksie Glikemicznym":
+    "Produkt o niskim Indeksie Glikemicznym",
+  mrożenie: "Mrożenie",
   "głębokie mrożenie": "Głębokie mrożenie",
-  "gotowanie": "Gotowanie",
+  gotowanie: "Gotowanie",
   "gotowanie na parze": "Gotowanie na parze",
-  "sterylizowanie": "Sterylizowanie",
-  "smażenie": "Smażenie",
+  sterylizowanie: "Sterylizowanie",
+  smażenie: "Smażenie",
   "smażenie beztłuszczowe": "Smażenie beztłuszczowe",
-  "liofilizowanie": "Liofilizowanie",
-  "peklowanie": "Peklowanie",
+  liofilizowanie: "Liofilizowanie",
+  peklowanie: "Peklowanie",
   "ekstrakcja na zimno": "Ekstrakcja na zimno",
   "ekstrakcja rozp. selektywnymi": "Ekstrakcja rozp. selektywnymi",
-  "rafinowanie": "Rafinowanie",
+  rafinowanie: "Rafinowanie",
   "utwardzanie tłuszczów": "Utwardzanie tłuszczów",
   "estryfikacja tłuszczów": "Estryfikacja tłuszczów",
-  "neutralizacja": "Neutralizacja",
-  "napromieniowanie": "Napromieniowanie",
-  "ekspandowanie": "Ekspandowanie",
-  "ekstruzja": "Ekstruzja",
+  neutralizacja: "Neutralizacja",
+  napromieniowanie: "Napromieniowanie",
+  ekspandowanie: "Ekspandowanie",
+  ekstruzja: "Ekstruzja",
   "wędzenie na zimno": "Wędzenie na zimno",
   "wędzenie na gorąco": "Wędzenie na gorąco",
-  "paskalizacja": "Paskalizacja",
-  "suszenie": "Suszenie",
-  "inne": "Inne",
+  paskalizacja: "Paskalizacja",
+  suszenie: "Suszenie",
+  inne: "Inne",
   "wysoka zawartość białka": "Wysoka zawartość białka",
   "wysoka zawartość wapnia": "Wysoka zawartość wapnia",
   "Zastosowane procesy technologiczne": "Zastosowane procesy technologiczne",

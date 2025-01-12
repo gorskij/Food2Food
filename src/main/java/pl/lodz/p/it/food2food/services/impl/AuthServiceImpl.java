@@ -5,11 +5,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.it.food2food.dto.auth.GithubOAuth2TokenPayload;
 import pl.lodz.p.it.food2food.dto.auth.GoogleOAuth2TokenPayload;
+import pl.lodz.p.it.food2food.exceptions.CreationException;
+import pl.lodz.p.it.food2food.exceptions.IdenticalFieldValueException;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.model.UserPreference;
 import pl.lodz.p.it.food2food.services.AuthService;
-import pl.lodz.p.it.food2food.services.UserPreferenceService;
 import pl.lodz.p.it.food2food.services.UserService;
 
 import java.util.Map;
@@ -18,12 +19,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserService userService;
-    private final UserPreferenceService userPreferencesService;
     private final JwtService jwtService;
 
     @PreAuthorize("permitAll()")
     @Override
-    public Map<String, String> singInOAuth(GoogleOAuth2TokenPayload payload) {
+    public Map<String, String> singInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
         try {
             User user = userService.getUserByGoogleId(payload.sub());
 
@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
         } catch (NotFoundException e) {
             String email = payload.email();
             String username = email.split("@")[0];
-            UserPreference userPreference = userPreferencesService.createUserPreference(new UserPreference());
+            UserPreference userPreference = new UserPreference();
             User newUser = new User(
                     username,
                     email,
@@ -58,7 +58,7 @@ public class AuthServiceImpl implements AuthService {
 
     @PreAuthorize("permitAll()")
     @Override
-    public Map<String, String> singInGithubOAuth(GithubOAuth2TokenPayload payload) {
+    public Map<String, String> singInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
         try {
             User user = userService.getUserByGithubId(payload.id());
 
@@ -68,18 +68,7 @@ public class AuthServiceImpl implements AuthService {
                     "token", userToken
             );
         } catch (NotFoundException e) {
-            String email = payload.email();
-            String username = (payload.username() != null && !payload.username().isEmpty())
-                    ? payload.username()
-                    : (email != null ? email.split("@")[0] : "github_user_" + payload.id());
-            UserPreference userPreference = userPreferencesService.createUserPreference(new UserPreference());
-
-            User newUser = new User(
-                    username,
-                    email,
-                    userPreference
-            );
-            newUser.setGithubId(payload.id());
+            User newUser = newUserFromGithubTokenPayload(payload);
 
             User user = userService.createUser(newUser);
             String userToken = jwtService.createToken(user);
@@ -89,5 +78,22 @@ public class AuthServiceImpl implements AuthService {
                     "created", "true"
             );
         }
+    }
+
+    @PreAuthorize("permitAll()")
+    private User newUserFromGithubTokenPayload(GithubOAuth2TokenPayload payload) {
+        String email = payload.email();
+        String username = (payload.username() != null && !payload.username().isEmpty())
+                ? payload.username()
+                : (email != null ? email.split("@")[0] : "github_user_" + payload.id());
+        UserPreference userPreference = new UserPreference();
+
+        User newUser = new User(
+                username,
+                email,
+                userPreference
+        );
+        newUser.setGithubId(payload.id());
+        return newUser;
     }
 }
