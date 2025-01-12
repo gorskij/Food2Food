@@ -6,6 +6,5 @@ import pl.lodz.p.it.food2food.model.UserPreference;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface UserPreferencesRepository extends JpaRepository<UserPreference, UUID> {
-        Optional<UserPreference> findByUserId(UUID userId);
+public interface UserPreferenceRepository extends JpaRepository<UserPreference, UUID> {
 }
