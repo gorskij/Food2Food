@@ -65,15 +65,15 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
     saturatedFat < 1.5
       ? t("fatSaturation.lowSaturatedFat")
       : saturatedFat >= 5
-        ? t("fatSaturation.highSaturatedFat")
-        : t("fatSaturation.moderateSaturatedFat");
+      ? t("fatSaturation.highSaturatedFat")
+      : t("fatSaturation.moderateSaturatedFat");
 
-  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+  const unit =
+    productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
 
   return (
     <Card
-      className={`flex-1 flex-col ${isSaturatedAbsent ? "bg-green-100" : ""
-        }`}
+      className={`flex-1 flex-col ${isSaturatedAbsent ? "bg-green-300" : ""}`}
     >
       <CardHeader className="items-center pb-0">
         <CardTitle>{t("fatSaturation.title")}</CardTitle>
@@ -114,7 +114,10 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
                             y={(viewBox.cy || 0) - 5}
                             className="fill-foreground text-xl font-bold"
                           >
-                            {`${saturatedFat.toLocaleString()} g / ${totalFat} g`.replace(",", ".")}
+                            {`${saturatedFat.toLocaleString()} g / ${totalFat} g`.replace(
+                              ",",
+                              "."
+                            )}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
@@ -126,7 +129,7 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
                           <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) + 75}
-                            className="text-sm text-muted-foreground"
+                            className="text-sm fill-foreground"
                           >
                             {fatLevelInfo}
                           </tspan>

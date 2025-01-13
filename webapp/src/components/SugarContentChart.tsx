@@ -62,15 +62,17 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
     sugarContent < 5
       ? t("sugarChart.info.lowSugar")
       : sugarContent >= 15
-        ? t("sugarChart.info.highSugar")
-        : t("sugarChart.info.moderateSugar");
+      ? t("sugarChart.info.highSugar")
+      : t("sugarChart.info.moderateSugar");
 
-  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+  const unit =
+    productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
 
   return (
     <Card
-      className={`flex-1 flex-col ${isCarbohydrateAbsent ? "bg-green-100" : ""
-        }`}
+      className={`flex-1 flex-col ${
+        isCarbohydrateAbsent ? "bg-green-300" : ""
+      }`}
     >
       <CardHeader className="items-center pb-0">
         <CardTitle>{t("sugarChart.title")}</CardTitle>
@@ -80,7 +82,7 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         {isCarbohydrateAbsent ? (
-          <p className="flex-1 text-center justify-center text-muted-foreground">
+          <p className="flex-1 text-center justify-center">
             {t("sugarChart.noCarbs")}
           </p>
         ) : (
@@ -129,7 +131,7 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
                           <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) + 75}
-                            className="text-sm text-muted-foreground"
+                            className="text-sm fill-foreground"
                           >
                             {sugarLevelInfo}
                           </tspan>
