@@ -74,7 +74,7 @@
     --ring: 240 4.9% 83.9%;
 
     --card-shadow: #ffffff1a;
-    --success: #96e496;
+    --success: 142 70.6% 45.3%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -87,9 +87,7 @@
     --chart-yellow: 60 80% 50%;
 
     --color-reference-line: hsl(0, 0%, 50%);
-    /* Example: Gray dashed line */
     --color-label: hsl(0, 0%, 93%);
-    /* Example: Dark text for label */
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
