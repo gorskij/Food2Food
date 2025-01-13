@@ -18,20 +18,20 @@ import RWSChart from "./RWSChart";
 import { useTranslation } from "react-i18next";
 import { FC } from "react";
 
-interface MacronutrientsTableProps {
+interface MacronutrientsInformationProps {
   productDetails: ProductDetails;
 }
 
 const RWS_VALUES: Record<string, number> = {
   "Wartość Energetyczna": 2000,
-  "Węglowodany": 300,
-  "Tłuszcz": 70,
-  "Białko": 50,
-  "Sól": 6,
-  "Błonnik": 25,
+  Węglowodany: 300,
+  Tłuszcz: 70,
+  Białko: 50,
+  Sól: 6,
+  Błonnik: 25,
 };
 
-const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
+const MacronutrientsInformation: FC<MacronutrientsInformationProps> = ({
   productDetails,
 }) => {
   const macronutrientNames = [
@@ -47,27 +47,27 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
   const getMacronutrientColor = (name: string, quantity: number) => {
     switch (name) {
       case "Wartość Energetyczna":
-        if (quantity < 100) return "hsl(var(--chart-green))";
-        if (quantity >= 100 && quantity <= 200) return "hsl(var(--chart-yellow))";
-        return "hsl(var(--chart-red))";
+        if (quantity < 100) return "green";
+        if (quantity >= 100 && quantity <= 200) return "yellow";
+        return "red";
       case "Węglowodany":
-        if (quantity < 50) return "hsl(var(--chart-green))";
-        if (quantity >= 50 && quantity <= 75) return "hsl(var(--chart-yellow))";
-        return "hsl(var(--chart-red))";
+        if (quantity < 50) return "green";
+        if (quantity >= 50 && quantity <= 75) return "yellow";
+        return "red";
       case "Tłuszcz":
-        if (quantity < 10) return "hsl(var(--chart-green))";
-        if (quantity >= 10 && quantity <= 20) return "hsl(var(--chart-yellow))";
-        return "hsl(var(--chart-red))";
+        if (quantity < 10) return "green";
+        if (quantity >= 10 && quantity <= 20) return "yellow";
+        return "red";
       case "Białko":
-        return "hsl(var(--chart-green))";
+        return "green";
       case "Błonnik":
-        return "hsl(var(--chart-green))";
+        return "green";
       case "Sól":
-        if (quantity < 1) return "hsl(var(--chart-green))";
-        if (quantity >= 1 && quantity <= 2) return "hsl(var(--chart-yellow))";
-        return "hsl(var(--chart-red))";
+        if (quantity < 1) return "green";
+        if (quantity >= 1 && quantity <= 2) return "yellow";
+        return "red";
       default:
-        return "hsl(var(--chart-green))";
+        return "green";
     }
   };
 
@@ -93,26 +93,28 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
         quantity,
         unit,
         rwsPercentage: parseFloat(rwsPercentage),
-        valueWithUnit: `${quantity} ${unit}`,
+        valueWithUnit: `${quantity}${unit}`,
       };
     }
 
+    const defaultUnit = groupName === "Wartość Energetyczna" ? "kcal" : "g";
+    const defaultQuantity = 0;
+
     return {
-      quantity: t("base.noData"),
-      unit: "",
-      rwsPercentage: null,
-      valueWithUnit: "",
+      quantity: 0,
+      unit: defaultUnit,
+      rwsPercentage: 0,
+      valueWithUnit: `${defaultQuantity}${defaultUnit}`,
     };
   };
 
   const macronutrientsData = macronutrientNames.map(({ groupName, name }) => {
-    const { quantity, unit, rwsPercentage, valueWithUnit } = getMacronutrientValue(
-      groupName,
-      name
-    );
-    const nameWithoutSpaces = groupName.replace(/\s+/g, '');
+    const { quantity, unit, rwsPercentage, valueWithUnit } =
+      getMacronutrientValue(groupName, name);
+    const nameWithoutSpaces = groupName.replace(/\s+/g, "");
     return {
       translatedName: t(`macronutrientsInformation.${nameWithoutSpaces}`),
+      groupName,
       quantity,
       unit,
       rwsPercentage,
@@ -121,13 +123,29 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
   });
 
   const macronutrientsChartData = macronutrientsData
-    .map((macronutrient) => ({
-      name: macronutrient.translatedName,
-      rws: macronutrient.rwsPercentage ?? 0,
-      fill: getMacronutrientColor(macronutrient.translatedName, macronutrient.quantity),
-      valueWithUnit: macronutrient.valueWithUnit,
-    }))
-    .filter((macronutrient) => macronutrient.rws > 0);
+    .map((macronutrient) => {
+      const quantity =
+        typeof macronutrient.quantity === "number" ? macronutrient.quantity : 0;
+      return {
+        name: macronutrient.translatedName,
+        rws: macronutrient.rwsPercentage ?? 0,
+        fill: (() => {
+          const color = getMacronutrientColor(
+            macronutrient.groupName,
+            quantity
+          );
+          return color === "green"
+            ? "hsl(var(--chart-green))"
+            : color === "yellow"
+            ? "hsl(var(--chart-yellow))"
+            : color === "red"
+            ? "hsl(var(--chart-red))"
+            : "hsl(var(--chart-green))";
+        })(),
+        valueWithUnit: macronutrient.valueWithUnit,
+      };
+    })
+    .filter((macronutrient) => macronutrient.rws >= 0);
 
   const chartConfig = {
     rws: {
@@ -136,7 +154,8 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
     },
   };
 
-  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+  const unit =
+    productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
 
   return (
     <>
@@ -179,36 +198,57 @@ const MacronutrientsInformation: FC<MacronutrientsTableProps> = ({
               <TableHeader>
                 <TableRow>
                   <TableHead>
-                    {t(
-                      "macronutrientsInformation.macronutrient"
-                    )}
+                    {t("macronutrientsInformation.macronutrient")}
                   </TableHead>
                   <TableHead>
-                    {t(
-                      "macronutrientsInformation.quantity"
-                    )}
+                    {t("macronutrientsInformation.quantity")}
                   </TableHead>
+                  <TableHead>{t("macronutrientsInformation.unit")}</TableHead>
                   <TableHead>
-                    {t(
-                      "macronutrientsInformation.unit"
-                    )}
-                  </TableHead>
-                  <TableHead>
-                    {t(
-                      "macronutrientsInformation.rwsPercentage"
-                    )}
+                    {t("macronutrientsInformation.rwsPercentage")}
                   </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {macronutrientsData.map((macronutrient, index) => (
-                  <TableRow key={index} style={{ backgroundColor: getMacronutrientColor(macronutrient.translatedName, macronutrient.quantity) }}>
-                    <TableCell>{macronutrient.translatedName}</TableCell>
-                    <TableCell>{macronutrient.quantity}</TableCell>
-                    <TableCell>{macronutrient.unit}</TableCell>
-                    <TableCell>{macronutrient.rwsPercentage}</TableCell>
-                  </TableRow>
-                ))}
+                {macronutrientsData.map((macronutrient, index) => {
+                  const quantity =
+                    typeof macronutrient.quantity === "number"
+                      ? macronutrient.quantity
+                      : 0;
+                  const colorClass = getMacronutrientColor(
+                    macronutrient.groupName,
+                    quantity
+                  );
+
+                  return (
+                    <TableRow
+                      key={index}
+                      className={`
+                      ${
+                        colorClass === "green"
+                          ? "bg-green-300 hover:bg-green-400"
+                          : ""
+                      }
+                      ${
+                        colorClass === "yellow"
+                          ? "bg-yellow-300 hover:bg-yellow-400"
+                          : ""
+                      }
+                      ${
+                        colorClass === "red"
+                          ? "bg-red-300 hover:bg-red-400"
+                          : ""
+                      }
+                      text-black
+                    `}
+                    >
+                      <TableCell>{macronutrient.translatedName}</TableCell>
+                      <TableCell>{macronutrient.quantity}</TableCell>
+                      <TableCell>{macronutrient.unit}</TableCell>
+                      <TableCell>{macronutrient.rwsPercentage}%</TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           ) : (
