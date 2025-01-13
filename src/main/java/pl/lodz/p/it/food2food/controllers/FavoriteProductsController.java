@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.dto.responses.BooleanResponse;
@@ -29,18 +31,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FavoriteProductsController {
     private final FavoriteProductsService favoriteProductsService;
-    private final JwtService jwtService;
     private final ProductMapper productMapper;
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Page<ProductDto>> getFavoriteProducts(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String name) {
-        String token = authorizationHeader.replace("Bearer ", "");
-        UUID userId = UUID.fromString(jwtService.getUserId(token));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userIdString = (String) authentication.getPrincipal();
+        UUID userId = UUID.fromString(userIdString);
 
         Pageable pageable = PageRequest.of(page, size);
         try {
@@ -54,9 +55,10 @@ public class FavoriteProductsController {
     @Transactional
     @Retryable
     @PostMapping("/{productId}")
-    public ResponseEntity<?> addFavoriteProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathVariable UUID productId) {
-        String token = authorizationHeader.replace("Bearer ", "");
-        UUID userId = UUID.fromString(jwtService.getUserId(token));
+    public ResponseEntity<?> addFavoriteProduct(@PathVariable UUID productId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userIdString = (String) authentication.getPrincipal();
+        UUID userId = UUID.fromString(userIdString);
         try {
             favoriteProductsService.addFavoriteProduct(userId, productId);
             return ResponseEntity.ok().build();
@@ -71,9 +73,10 @@ public class FavoriteProductsController {
     @Transactional
     @Retryable
     @DeleteMapping("/{productId}")
-    public ResponseEntity<?> removeFavoriteProduct( @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathVariable UUID productId) {
-        String token = authorizationHeader.replace("Bearer ", "");
-        UUID userId = UUID.fromString(jwtService.getUserId(token));
+    public ResponseEntity<?> removeFavoriteProduct(@PathVariable UUID productId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userIdString = (String) authentication.getPrincipal();
+        UUID userId = UUID.fromString(userIdString);
         try{
         favoriteProductsService.removeFavoriteProduct(userId, productId);
             return ResponseEntity.noContent().build();
@@ -86,9 +89,10 @@ public class FavoriteProductsController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{productId}")
-    public ResponseEntity<BooleanResponse> checkFavoriteProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathVariable UUID productId) {
-        String token = authorizationHeader.replace("Bearer ", "");
-        UUID userId = UUID.fromString(jwtService.getUserId(token));
+    public ResponseEntity<BooleanResponse> checkFavoriteProduct(@PathVariable UUID productId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userIdString = (String) authentication.getPrincipal();
+        UUID userId = UUID.fromString(userIdString);
         try {
             return ResponseEntity.ok(new BooleanResponse(favoriteProductsService.isFavorite(userId, productId)));
         } catch (NotFoundException e) {

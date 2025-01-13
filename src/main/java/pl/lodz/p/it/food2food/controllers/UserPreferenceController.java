@@ -5,6 +5,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.dto.UserPreferenceDto;
@@ -21,14 +23,14 @@ import java.util.UUID;
 @RequestMapping("/api/v1/users/preference")
 public class UserPreferenceController {
     private final UserPreferenceService userPreferenceService;
-    private final JwtService jwtService;
     private final UserPreferenceMapper userPreferenceMapper;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping()
-    public ResponseEntity<UserPreferenceDto> getUserPreference(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
-        String token = authorizationHeader.replace("Bearer ", "");
-        UUID userId = UUID.fromString(jwtService.getUserId(token));
+    public ResponseEntity<UserPreferenceDto> getUserPreference() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userIdString = (String) authentication.getPrincipal();
+        UUID userId = UUID.fromString(userIdString);
         try {
             UserPreference userPreference = userPreferenceService.getUserPreference(userId);
             UserPreferenceDto userPreferenceDto = userPreferenceMapper.toUserPreferenceDto(userPreference);
@@ -41,12 +43,15 @@ public class UserPreferenceController {
     @PreAuthorize("isAuthenticated()")
     @PutMapping()
     public ResponseEntity<UserPreferenceDto> updateUserPreference(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
             @RequestBody UserPreferenceDto newUserPreference) {
-        String token = authorizationHeader.replace("Bearer ", "");
-        UUID userId = UUID.fromString(jwtService.getUserId(token));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userIdString = (String) authentication.getPrincipal();
+        UUID userId = UUID.fromString(userIdString);
         try {
-            return ResponseEntity.ok(userPreferenceMapper.toUserPreferenceDto( userPreferenceService.updateUserPreference(userId, newUserPreference)));
+            return ResponseEntity.ok(
+                    userPreferenceMapper.toUserPreferenceDto(
+                            userPreferenceService.updateUserPreference(
+                                    userId, newUserPreference)));
         } catch (NotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
