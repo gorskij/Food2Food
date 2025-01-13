@@ -38,9 +38,7 @@ const RWS_VALUES: Record<string, number> = {
   "Witamina K": 0.0075,
 };
 
-const VitaminsInformation: FC<VitaminsTableProps> = ({
-  productDetails,
-}) => {
+const VitaminsInformation: FC<VitaminsTableProps> = ({ productDetails }) => {
   const vitaminNames = Object.keys(RWS_VALUES);
   const { t } = useTranslation();
 
@@ -111,7 +109,8 @@ const VitaminsInformation: FC<VitaminsTableProps> = ({
     },
   };
 
-  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+  const unit =
+    productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
 
   return (
     <>
@@ -154,34 +153,27 @@ const VitaminsInformation: FC<VitaminsTableProps> = ({
               <TableHeader>
                 <TableRow>
                   <TableHead>
-                    {t(
-                      "vitaminsInformation.table.vitamin"
-                    )}
+                    {t("vitaminsInformation.table.vitamin")}
                   </TableHead>
                   <TableHead>
-                    {t(
-                      "vitaminsInformation.table.quantity"
-                    )}
+                    {t("vitaminsInformation.table.quantity")}
                   </TableHead>
+                  <TableHead>{t("vitaminsInformation.table.unit")}</TableHead>
                   <TableHead>
-                    {t(
-                      "vitaminsInformation.table.unit"
-                    )}
-                  </TableHead>
-                  <TableHead>
-                    {t(
-                      "vitaminsInformation.table.rwsPercentage"
-                    )}
+                    {t("vitaminsInformation.table.rwsPercentage")}
                   </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {vitaminsData.map((vitamin, index) => (
-                  <TableRow key={index} className="bg-green-100 text-black">
+                  <TableRow
+                    key={index}
+                    className="bg-green-300 text-black hover:bg-green-400"
+                  >
                     <TableCell>{vitamin.translatedName}</TableCell>
                     <TableCell>{vitamin.quantity}</TableCell>
                     <TableCell>{vitamin.unit}</TableCell>
-                    <TableCell>{vitamin.rwsPercentage}</TableCell>
+                    <TableCell>{vitamin.rwsPercentage}%</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

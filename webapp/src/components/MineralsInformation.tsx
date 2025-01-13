@@ -38,9 +38,7 @@ const RWS_VALUES: Record<string, number> = {
   Chrom: 0.04,
 };
 
-const MineralsInformation: FC<MineralsTableProps> = ({
-  productDetails,
-}) => {
+const MineralsInformation: FC<MineralsTableProps> = ({ productDetails }) => {
   const mineralNames = Object.keys(RWS_VALUES);
   const { t } = useTranslation();
 
@@ -112,7 +110,8 @@ const MineralsInformation: FC<MineralsTableProps> = ({
     },
   };
 
-  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+  const unit =
+    productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
 
   return (
     <>
@@ -155,34 +154,27 @@ const MineralsInformation: FC<MineralsTableProps> = ({
               <TableHeader>
                 <TableRow>
                   <TableHead>
-                    {t(
-                      "mineralsInformation.table.mineral"
-                    )}
+                    {t("mineralsInformation.table.mineral")}
                   </TableHead>
                   <TableHead>
-                    {t(
-                      "mineralsInformation.table.quantity"
-                    )}
+                    {t("mineralsInformation.table.quantity")}
                   </TableHead>
+                  <TableHead>{t("mineralsInformation.table.unit")}</TableHead>
                   <TableHead>
-                    {t(
-                      "mineralsInformation.table.unit"
-                    )}
-                  </TableHead>
-                  <TableHead>
-                    {t(
-                      "mineralsInformation.table.rwsPercentage"
-                    )}
+                    {t("mineralsInformation.table.rwsPercentage")}
                   </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {mineralsData.map((mineral, index) => (
-                  <TableRow key={index} className="bg-green-100 text-black">
+                  <TableRow
+                    key={index}
+                    className="bg-green-300 text-black hover:bg-green-400"
+                  >
                     <TableCell>{mineral.translatedName}</TableCell>
                     <TableCell>{mineral.quantity}</TableCell>
                     <TableCell>{mineral.unit}</TableCell>
-                    <TableCell>{mineral.rwsPercentage}</TableCell>
+                    <TableCell>{mineral.rwsPercentage}%</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
