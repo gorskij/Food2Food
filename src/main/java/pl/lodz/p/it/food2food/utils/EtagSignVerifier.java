@@ -1,0 +1,41 @@
+package pl.lodz.p.it.food2food.utils;
+
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSObject;
+import com.nimbusds.jose.JWSVerifier;
+import com.nimbusds.jose.crypto.MACVerifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+import pl.lodz.p.it.food2food.exceptions.messages.OptimisticLockExceptionMessages;
+
+import java.text.ParseException;
+import java.util.Base64;
+import java.util.Map;
+import java.util.UUID;
+
+public class EtagSignVerifier {
+
+    private final String secretValue;
+
+    public EtagSignVerifier(String secretValue) {
+        this.secretValue = Base64.getEncoder().encodeToString(secretValue.getBytes());
+    }
+
+    private boolean verifySignature(String token) throws ParseException, JOSEException {
+        JWSObject jwsObject = JWSObject.parse(token);
+        JWSVerifier verifier = new MACVerifier(secretValue);
+        return jwsObject.verify(verifier);
+    }
+
+    public boolean verifySignature(UUID id, Long version, String token) {
+        try {
+            if (!verifySignature(token)) return false;
+            JWSObject jwsObject = JWSObject.parse(token);
+            Map<String, Object> claims = jwsObject.getPayload().toJSONObject();
+            return id.equals(UUID.fromString((String) claims.get("id"))) && version.equals(claims.get("version"));
+        } catch (ParseException | JOSEException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, OptimisticLockExceptionMessages.PROBLEM_WITH_IF_MATCH_HEADER);
+        }
+    }
+}
+
