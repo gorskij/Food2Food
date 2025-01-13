@@ -2,7 +2,7 @@ import { api } from "@/data/api";
 import { useToast } from "@/hooks/use-toast";
 import { useUserStore } from "@/store/userStore";
 import { AuthenticateResponse } from "@/types/AuthenticateResponse";
-import axios from "axios";
+import { AxiosError } from "axios";
 import { FC, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -42,27 +42,25 @@ const GoogleCallback: FC = () => {
         }
 
         navigate("/");
-      } catch (err) {
-        if (!axios.isAxiosError(err)) {
-          toast({
-            variant: "destructive",
-            title: t("login.loginError"),
-            description: t("login.tryAgain"),
-          });
-          navigate("/");
-          return;
-        }
-        if (err.status === 400) {
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError.status === 400) {
           toast({
             variant: "destructive",
             title: t("login.creationError"),
             description: t("login.creationErrorDescription"),
           });
-        } else if (err.status === 409) {
+        } else if (axiosError.status === 409) {
           toast({
             variant: "destructive",
             title: t("login.emailConflict"),
             description: t("login.emailConflictDescription"),
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: t("login.loginError"),
+            description: t("login.tryAgain"),
           });
         }
         navigate("/");
