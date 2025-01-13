@@ -93,7 +93,7 @@ const MacronutrientsInformation: FC<MacronutrientsInformationProps> = ({
         quantity,
         unit,
         rwsPercentage: parseFloat(rwsPercentage),
-        valueWithUnit: `${quantity}${unit}`,
+        valueWithUnit: `${quantity}\u00A0${unit}`,
       };
     }
 
@@ -104,7 +104,7 @@ const MacronutrientsInformation: FC<MacronutrientsInformationProps> = ({
       quantity: 0,
       unit: defaultUnit,
       rwsPercentage: 0,
-      valueWithUnit: `${defaultQuantity}${defaultUnit}`,
+      valueWithUnit: `${defaultQuantity}\u00A0${defaultUnit}`,
     };
   };
 
