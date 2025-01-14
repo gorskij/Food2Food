@@ -31,8 +31,7 @@ public class UserPreferenceController {
     @GetMapping()
     public ResponseEntity<UserPreferenceDto> getUserPreference() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userIdString = (String) authentication.getPrincipal();
-        UUID userId = UUID.fromString(userIdString);
+        UUID userId = (UUID) authentication.getPrincipal();
 
         try {
             UserPreference userPreference = userPreferenceService.getUserPreference(userId);
@@ -49,8 +48,7 @@ public class UserPreferenceController {
             @RequestBody UserPreferenceDto newUserPreference,
             @RequestHeader(HttpHeaders.IF_MATCH) String tagValue) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userIdString = (String) authentication.getPrincipal();
-        UUID userId = UUID.fromString(userIdString);
+        UUID userId = (UUID) authentication.getPrincipal();
         try {
             return ResponseEntity.ok(
                     userPreferenceMapper.toUserPreferenceDto(

@@ -21,13 +21,10 @@ import pl.lodz.p.it.food2food.exceptions.ProductAlreadyInFavorites;
 import pl.lodz.p.it.food2food.exceptions.ProductNotInFavorites;
 import pl.lodz.p.it.food2food.mappers.ProductMapper;
 import pl.lodz.p.it.food2food.services.FavoriteProductsService;
-import pl.lodz.p.it.food2food.services.impl.JwtService;
-
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/favorite-products")
-@PreAuthorize("isAuthenticated()")
 @RequiredArgsConstructor
 public class FavoriteProductsController {
     private final FavoriteProductsService favoriteProductsService;
@@ -40,8 +37,7 @@ public class FavoriteProductsController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String name) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userIdString = (String) authentication.getPrincipal();
-        UUID userId = UUID.fromString(userIdString);
+        UUID userId = (UUID) authentication.getPrincipal();
 
         Pageable pageable = PageRequest.of(page, size);
         try {
@@ -57,8 +53,7 @@ public class FavoriteProductsController {
     @PostMapping("/{productId}")
     public ResponseEntity<?> addFavoriteProduct(@PathVariable UUID productId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userIdString = (String) authentication.getPrincipal();
-        UUID userId = UUID.fromString(userIdString);
+        UUID userId = (UUID) authentication.getPrincipal();
         try {
             favoriteProductsService.addFavoriteProduct(userId, productId);
             return ResponseEntity.ok().build();
@@ -75,8 +70,7 @@ public class FavoriteProductsController {
     @DeleteMapping("/{productId}")
     public ResponseEntity<?> removeFavoriteProduct(@PathVariable UUID productId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userIdString = (String) authentication.getPrincipal();
-        UUID userId = UUID.fromString(userIdString);
+        UUID userId = (UUID) authentication.getPrincipal();
         try{
         favoriteProductsService.removeFavoriteProduct(userId, productId);
             return ResponseEntity.noContent().build();
@@ -91,8 +85,7 @@ public class FavoriteProductsController {
     @GetMapping("/{productId}")
     public ResponseEntity<BooleanResponse> checkFavoriteProduct(@PathVariable UUID productId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userIdString = (String) authentication.getPrincipal();
-        UUID userId = UUID.fromString(userIdString);
+        UUID userId = (UUID) authentication.getPrincipal();
         try {
             return ResponseEntity.ok(new BooleanResponse(favoriteProductsService.isFavorite(userId, productId)));
         } catch (NotFoundException e) {
