@@ -30,7 +30,7 @@ const useAxiosPrivate = () => {
       (error) => {
         error = error as AxiosError;
 
-        if (error.response?.status === 401) {
+        if (error.response?.status === 401 || error.response?.status === 403) {
           clearToken();
           toast({
             variant: "destructive",
@@ -47,7 +47,7 @@ const useAxiosPrivate = () => {
       api.interceptors.request.eject(requestInterceptor);
       api.interceptors.response.eject(responseInterceptor);
     };
-  }, [token, clearToken, navigation, setToken]);
+  }, [token, clearToken, navigation, setToken, t]);
 
   return { api };
 };

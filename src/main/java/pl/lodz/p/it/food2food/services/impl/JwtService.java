@@ -8,13 +8,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import pl.lodz.p.it.food2food.exceptions.NotFoundException;
+import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
+import pl.lodz.p.it.food2food.exceptions.messages.UserExceptionMessages;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.repositories.UserRepository;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.Date;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -35,11 +38,11 @@ public class JwtService {
                 .sign(Algorithm.HMAC256(secret_key));
     }
 
-    public Authentication validateToken(String token) {
+    public Authentication validateToken(String token) throws NotFoundException {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret_key)).build();
         DecodedJWT decodedJWT = verifier.verify(token);
-        Optional<User> user = userRepository.findByUsername(decodedJWT.getSubject());
-        return new UsernamePasswordAuthenticationToken(user, null);
+        User user = userRepository.findByUsername(decodedJWT.getSubject()).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+        return new UsernamePasswordAuthenticationToken(user.getId(), null, Collections.emptyList());
     }
 
     public String getUserId(String token) {

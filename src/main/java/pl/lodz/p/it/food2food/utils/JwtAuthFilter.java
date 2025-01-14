@@ -1,24 +1,24 @@
 package pl.lodz.p.it.food2food.utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
+import pl.lodz.p.it.food2food.exceptions.messages.ExceptionMessages;
 import pl.lodz.p.it.food2food.services.impl.JwtService;
-
+import pl.lodz.p.it.food2food.exceptions.handlers.ExceptionResponse;
 import java.io.IOException;
-import java.util.Collections;
 
+@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-
-    public JwtAuthFilter(JwtService jwtService) {
-        this.jwtService = jwtService;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -27,17 +27,28 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (header != null) {
             String[] elements = header.split(" ");
             if (elements.length == 2 && "Bearer".equals(elements[0])) {
-                String token = elements[1];
                 try {
-                    String userId = jwtService.getUserId(token);
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(userId, null, Collections.emptyList());
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                } catch (RuntimeException e) {
+                    SecurityContextHolder.getContext().setAuthentication(jwtService.validateToken(elements[1]));
+                } catch (Exception e) {
+                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
                     SecurityContextHolder.clearContext();
+
+                    ExceptionResponse exceptionResponse = new ExceptionResponse(
+                            ExceptionMessages.INVALID_TOKEN,
+                            ErrorCodes.JWT_TOKEN_INVALID
+                    );
+
+                    response.setContentType("application/json");
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String jsonResponse = objectMapper.writeValueAsString(exceptionResponse);
+
+                    response.getWriter().write(jsonResponse);
+                    return;
                 }
+
             }
         }
-        filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
     }
 }
