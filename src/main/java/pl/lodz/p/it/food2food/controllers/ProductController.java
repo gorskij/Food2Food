@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.dto.responses.ProductDetailsDto;
@@ -25,6 +26,7 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
+    @PreAuthorize("permitAll()")
     @GetMapping
     public ResponseEntity<Page<ProductDto>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
@@ -34,6 +36,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProducts(name, pageable).map(productMapper::toProductDto));
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/{id}")
     public ResponseEntity<ProductDetailsDto> getProduct(@PathVariable UUID id) {
         try {

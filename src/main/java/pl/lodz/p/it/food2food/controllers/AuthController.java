@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.server.ResponseStatusException;
@@ -56,6 +57,7 @@ public class AuthController {
     @Value("${oauth2.github.redirect.url}")
     private String oAuthGithubRedirectUri;
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/google-oauth/url")
     public ResponseEntity<Map<String, String>> getOAuthGoogleUrl() {
         String url = UriComponentsBuilder
@@ -74,6 +76,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/google-oauth/token/")
     public ResponseEntity<Map<String, String>> signInOAuth(
             @RequestParam String code
@@ -123,6 +126,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/github-oauth/url")
     public ResponseEntity<Map<String, String>> getOAuthGithubUrl() {
         String url = UriComponentsBuilder
@@ -138,6 +142,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/github-oauth/token/")
     public ResponseEntity<Map<String, String>> signInOAuthGithub(@RequestParam String code) {
         String tokenRequestUrl = UriComponentsBuilder
