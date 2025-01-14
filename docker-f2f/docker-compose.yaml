@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: database
     volumes:
-      - ./init_dump.sql:/docker-entrypoint-initdb.d/init_dump.sql
+      - ./init_dump.sql:/docker-entrypoint-initdb.d/dump_sql_new.sql
     ports:
       - "5432:5432"
 
@@ -22,5 +22,19 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
+    depends_on:
+      - postgres
+
+  app:
+    image: food2food:latest
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/database
+      SPRING_DATASOURCE_USERNAME: f2fadmin
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080"
     depends_on:
       - postgres
