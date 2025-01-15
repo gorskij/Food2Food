@@ -293,7 +293,7 @@ const appSidebar = {
   compareProducts: "Compare Products",
   yourSection: "Your Section",
   favorites: "Favorite Products",
-  editPreferences: "Edit Nutritional Preferences",
+  userPreferences: "Nutritional Preferences",
   clearComparison: "Clear comparison products",
   comparisonSection: "Product comparison",
   slot1: "Product 1",
@@ -451,7 +451,27 @@ const ratings = {
   "Bez dodatków do żywności": "Without food additives",
 };
 
+const omega3 = {
+  ALA: "Omega-3 ALA",
+  "EPA+DHA": "Omega-3 EPA+DHA",
+};
+
+const omega3Information = {
+  title: "Omega-3 Content in the Product",
+  description:
+    "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
+  dataUnavailable: "No Omega-3 data available to display",
+  table: {
+    name: "Omega-3",
+    quantity: "Quantity",
+    unit: "Unit",
+    rwsPercentage: "% DRV",
+  },
+};
+
 export default {
+  omega3Information,
+  omega3,
   ratings,
   macronutrientsInformation,
   sidebarComparisonSlot,

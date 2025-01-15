@@ -290,7 +290,7 @@ const appSidebar = {
   compareProducts: "Porównaj Produkty",
   yourSection: "Twoja sekcja",
   favorites: "Ulubione Produkty",
-  editPreferences: "Edytuj Preferencje Żywieniowe",
+  userPreferences: "Preferencje Żywieniowe",
   clearComparison: "Usuń produkty z porównania",
   comparisonSection: "Porównanie produktów",
   slot1: "Produkt 1",
@@ -457,7 +457,27 @@ const ratings = {
   "Bez dodatków do żywności": "Bez dodatków do żywności",
 };
 
+const omega3 = {
+  ALA: "Omega-3 ALA",
+  "EPA+DHA": "Omega-3 EPA+DHA",
+};
+
+const omega3Information = {
+  title: "Zawartość Omega-3 w produkcie",
+  description:
+    "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100 {{unit}} produktu",
+  dataUnavailable: "Brak danych o Omega-3 do wyświetlenia",
+  table: {
+    name: "Omega-3",
+    quantity: "Ilość",
+    unit: "Jednostka",
+    rwsPercentage: "% RWS",
+  },
+};
+
 export default {
+  omega3Information,
+  omega3,
   ratings,
   macronutrientsInformation,
   sidebarComparisonSlot,

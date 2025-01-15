@@ -4,7 +4,7 @@ import FatSaturationChart from "@/components/FatSaturationChart";
 import { LoadingData } from "@/components/LoadingData";
 import MineralsInformation from "@/components/MineralsInformation";
 import NutritionalChart from "@/components/NutritionalChart";
-import Omega3Table from "@/components/Omega3Table";
+import Omega3Information from "@/components/Omega3Information";
 import VitaminsInformation from "@/components/VitaminsInformation";
 import ProductAllergens from "@/components/ProductAllergens";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
@@ -33,7 +33,8 @@ import ProductRatings from "@/components/ProductRatings";
 const ProductDetailsPage: FC = () => {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const { addProduct, removeProduct, replaceProduct, product1, product2 } = useComparisonStore();
+  const { addProduct, removeProduct, replaceProduct, product1, product2 } =
+    useComparisonStore();
   const { data, isLoading, isError } = useGetProductDetails(id!);
   const placeholderImg = "https://via.placeholder.com/150";
   const breadcrumbs = useBreadcrumbs([
@@ -46,7 +47,7 @@ const ProductDetailsPage: FC = () => {
     if (product1?.id === data?.data.id) {
       removeProduct("product1");
     } else if (product2?.id === data?.data.id) {
-      replaceProduct(data.data, "product1")
+      replaceProduct(data.data, "product1");
     } else {
       addProduct(data.data, "product1");
     }
@@ -56,7 +57,7 @@ const ProductDetailsPage: FC = () => {
     if (product2?.id === data?.data.id) {
       removeProduct("product2");
     } else if (product1?.id === data?.data.id) {
-      replaceProduct(data.data, "product2")
+      replaceProduct(data.data, "product2");
     } else {
       addProduct(data.data, "product2");
     }
@@ -83,9 +84,15 @@ const ProductDetailsPage: FC = () => {
           <div className="flex-1 justify-between gap-4">
             <Tabs defaultValue="product">
               <TabsList className="flex justify-start flex-wrap sm:flex-nowrap h-auto w-fit">
-                <TabsTrigger value="product" className="sm:flex-1 text-center">{t("productDetails.productTabTrigger")}</TabsTrigger>
-                <TabsTrigger value="details" className="sm:flex-1 text-center">{t("productDetails.nutritionalValueTabTrigger")}</TabsTrigger>
-                <TabsTrigger value="producer" className="sm:flex-1 text-center">{t("productDetails.producerTabTrigger")}</TabsTrigger>
+                <TabsTrigger value="product" className="sm:flex-1 text-center">
+                  {t("productDetails.productTabTrigger")}
+                </TabsTrigger>
+                <TabsTrigger value="details" className="sm:flex-1 text-center">
+                  {t("productDetails.nutritionalValueTabTrigger")}
+                </TabsTrigger>
+                <TabsTrigger value="producer" className="sm:flex-1 text-center">
+                  {t("productDetails.producerTabTrigger")}
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="product">
                 <Card className="flex-1 max-w-full mb-4">
@@ -117,8 +124,10 @@ const ProductDetailsPage: FC = () => {
                               {product1?.id === data.data.id
                                 ? t("productCard.dropdown.removeProduct")
                                 : product1
-                                  ? `${t("productCard.dropdown.replaceProduct")} (${product1.productName})`
-                                  : t("productCard.dropdown.addToComparison")}
+                                ? `${t(
+                                    "productCard.dropdown.replaceProduct"
+                                  )} (${product1.productName})`
+                                : t("productCard.dropdown.addToComparison")}
                             </DropdownMenuItem>
 
                             <DropdownMenuItem
@@ -135,8 +144,10 @@ const ProductDetailsPage: FC = () => {
                               {product2?.id === data.data.id
                                 ? t("productCard.dropdown.removeProduct")
                                 : product2
-                                  ? `${t("productCard.dropdown.replaceProduct")} (${product2.productName})`
-                                  : t("productCard.dropdown.addToComparison")}
+                                ? `${t(
+                                    "productCard.dropdown.replaceProduct"
+                                  )} (${product2.productName})`
+                                : t("productCard.dropdown.addToComparison")}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -159,7 +170,10 @@ const ProductDetailsPage: FC = () => {
                       <div className="flex-1 sm:w-1/2 w-full flex-col">
                         <DataField
                           label={`${t("productDetails.description")}:`}
-                          value={data.data.productDescription ?? t("productDetails.noData")}
+                          value={
+                            data.data.productDescription ??
+                            t("productDetails.noData")
+                          }
                         />
                         <DataField
                           label={`${t("productDetails.eanCode")}:`}
@@ -170,19 +184,26 @@ const ProductDetailsPage: FC = () => {
                           label={`${t("productDetails.quantity")}:`}
                           value={
                             data.data.productQuantity && data.data.unit?.name
-                              ? `${data.data.productQuantity.toString()} ${data.data.unit.name}`
+                              ? `${data.data.productQuantity.toString()} ${
+                                  data.data.unit.name
+                                }`
                               : t("productDetails.noData")
                           }
                           className="my-2"
                         />
                         <DataField
                           label={`${t("productDetails.countryOfOrigin")}:`}
-                          value={data.data.country ?? t("productDetails.noData")}
+                          value={
+                            data.data.country ?? t("productDetails.noData")
+                          }
                           className="my-2"
                         />
                         <DataField
                           label={`${t("productDetails.packageType")}:`}
-                          value={data.data.packageType?.name ?? t("productDetails.noData")}
+                          value={
+                            data.data.packageType?.name ??
+                            t("productDetails.noData")
+                          }
                           className="my-2"
                         />
                       </div>
@@ -195,11 +216,26 @@ const ProductDetailsPage: FC = () => {
                       </CardHeader>
                       <CardContent className="flex flex-row flex-wrap">
                         <ProductAllergens productDetails={data.data} />
-                        <ProductRatings productDetails={data.data} groupName="Posiadane Certyfikaty" />
-                        <ProductRatings productDetails={data.data} groupName="Specyficzne Cechy" />
-                        <ProductRatings productDetails={data.data} groupName="Bez dodatków do żywności" />
-                        <ProductRatings productDetails={data.data} groupName="Zastosowane procesy technologiczne" />
-                        <ProductRatings productDetails={data.data} groupName="Parametry bez składników" />
+                        <ProductRatings
+                          productDetails={data.data}
+                          groupName="Posiadane Certyfikaty"
+                        />
+                        <ProductRatings
+                          productDetails={data.data}
+                          groupName="Specyficzne Cechy"
+                        />
+                        <ProductRatings
+                          productDetails={data.data}
+                          groupName="Bez dodatków do żywności"
+                        />
+                        <ProductRatings
+                          productDetails={data.data}
+                          groupName="Zastosowane procesy technologiczne"
+                        />
+                        <ProductRatings
+                          productDetails={data.data}
+                          groupName="Parametry bez składników"
+                        />
                       </CardContent>
                     </Card>
                     <ProductIngredientsList productDetails={data.data} />
@@ -216,9 +252,15 @@ const ProductDetailsPage: FC = () => {
                   <CardContent className="flex flex-col justify-center">
                     <Tabs defaultValue="tab-1">
                       <TabsList className="flex justify-start flex-wrap sm:flex-nowrap h-auto w-fit">
-                        <TabsTrigger value="tab-1">{t("productDetails.basic")}</TabsTrigger>
-                        <TabsTrigger value="tab-2">{t("productDetails.vitaminsAndMinerals")}</TabsTrigger>
-                        <TabsTrigger value="tab-3">{t("productDetails.omega3")}</TabsTrigger>
+                        <TabsTrigger value="tab-1">
+                          {t("productDetails.basic")}
+                        </TabsTrigger>
+                        <TabsTrigger value="tab-2">
+                          {t("productDetails.vitaminsAndMinerals")}
+                        </TabsTrigger>
+                        <TabsTrigger value="tab-3">
+                          {t("productDetails.omega3")}
+                        </TabsTrigger>
                       </TabsList>
                       <TabsContent value="tab-1">
                         <div className="flex flex-col gap-4">
@@ -227,7 +269,9 @@ const ProductDetailsPage: FC = () => {
                               <NutritionalChart productDetails={data.data} />
                             </div>
                             <div className="flex-1 sm:min-w-[450px]">
-                              <MacronutrientsInformation productDetails={data.data} />
+                              <MacronutrientsInformation
+                                productDetails={data.data}
+                              />
                             </div>
                           </div>
                           <div className="flex flex-col min-w-full gap-4 sm:flex-row flex-nowrap sm:flex-wrap">
@@ -247,7 +291,9 @@ const ProductDetailsPage: FC = () => {
                         </div>
                       </TabsContent>
                       <TabsContent value="tab-3">
-                        <Omega3Table productDetails={data.data} />
+                        <div className="flex-1 sm:min-w-[450px]">
+                          <Omega3Information productDetails={data.data} />
+                        </div>
                       </TabsContent>
                     </Tabs>
                   </CardContent>
@@ -257,10 +303,10 @@ const ProductDetailsPage: FC = () => {
                 <ProducerInfo productDetails={data.data} />
               </TabsContent>
             </Tabs>
-          </div >
-        </div >
+          </div>
+        </div>
       )}
-    </div >
+    </div>
   );
 };
 
