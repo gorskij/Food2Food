@@ -266,6 +266,22 @@ const ingredients = {
 
 const allergens = {
   tooltip: "Alergen",
+  sezam: "sezam",
+  "mąka pszenna": "mąka pszenna",
+  gorczyca: "gorczyca",
+  migdały: "migdały",
+  "orzeszki arachidowe": "orzeszki arachidowe",
+  orzechy: "orzechy",
+  "kasza jęczmienna": "kasza jęczmienna",
+  mleko: "mleko",
+  seler: "seler",
+  jaja: "jaja",
+  łubin: "łubin",
+  gluten: "gluten",
+  soja: "soja",
+  kakao: "kakao",
+  pszenica: "pszenica",
+  "orzeszki ziemne": "orzeszki ziemne",
 };
 
 const sugarChart = {

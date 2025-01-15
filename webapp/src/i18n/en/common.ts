@@ -268,7 +268,22 @@ const ingredients = {
 
 const allergens = {
   tooltip: "Allergen",
-  noData: "No allergens present",
+  sezam: "sesame",
+  "mąka pszenna": "wheat flour",
+  gorczyca: "mustard",
+  migdały: "almonds",
+  "orzeszki arachidowe": "peanuts",
+  orzechy: "nuts",
+  "kasza jęczmienna": "barley groats",
+  mleko: "milk",
+  seler: "celery",
+  jaja: "eggs",
+  łubin: "lupin",
+  gluten: "gluten",
+  soja: "soy",
+  kakao: "cocoa",
+  pszenica: "wheat",
+  "orzeszki ziemne": "peanuts",
 };
 
 const sugarChart = {

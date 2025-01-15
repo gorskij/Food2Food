@@ -30,7 +30,7 @@ const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
                 variant="outline"
                 className="whitespace-nowrap"
               >
-                {allergen.name}
+                {t(`allergens.${allergen.name}`)}
               </Badge>
             </TooltipTrigger>
             <TooltipContent>{t("allergens.tooltip")}</TooltipContent>
