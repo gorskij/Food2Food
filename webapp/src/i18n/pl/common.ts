@@ -40,7 +40,7 @@ const errors = {
 const mineralsInformation = {
   title: "Zawartość minerałów w produkcie",
   description:
-    "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100\u00A0{{unit}} produktu",
   mineralDataUnavailable: "Brak danych o minerałach do wyświetlenia",
   table: {
     mineral: "Minerał",
@@ -72,7 +72,7 @@ const minerals = {
 const vitaminsInformation = {
   title: "Zawartość witamin w produkcie",
   description:
-    "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+    "W odniesieniu do Rekomendowanej Wartości (RWS) Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
   vitaminDataUnavailable: "Brak danych o witaminach do wyświetlenia",
   table: {
     vitamin: "Witamina",
@@ -352,7 +352,7 @@ const macronutrientsInformation = {
   Błonnik: "Błonnik",
   title: "Makroskładniki w produkcie",
   description:
-    "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100\u00A0{{unit}} produktu",
   dataUnavailable: "Brak danych o makroskładnikach do wyświetlenia",
   macronutrient: "Makroskładnik",
   quantity: "Ilość",
@@ -481,7 +481,7 @@ const omega3 = {
 const omega3Information = {
   title: "Zawartość Omega-3 w produkcie",
   description:
-    "W odniesieniu do Rekomendowanej Wartości Spożycia dla osoby dorosłej na 100 {{unit}} produktu",
+    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100 {{unit}} produktu",
   dataUnavailable: "Brak danych o Omega-3 do wyświetlenia",
   table: {
     name: "Omega-3",
