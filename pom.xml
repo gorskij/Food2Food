@@ -122,6 +122,16 @@
             <artifactId>spring-security-oauth2-jose</artifactId>
             <version>6.2.4</version>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.16</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.5.16</version>
+        </dependency>
     </dependencies>
 
     <build>
