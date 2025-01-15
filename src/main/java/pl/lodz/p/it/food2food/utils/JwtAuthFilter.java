@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
 import pl.lodz.p.it.food2food.exceptions.messages.ExceptionMessages;
@@ -23,7 +25,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-
+        logger.info("Authorization header: " + header);
         if (header != null) {
             String[] elements = header.split(" ");
             if (elements.length == 2 && "Bearer".equals(elements[0])) {

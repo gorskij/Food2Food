@@ -3,6 +3,8 @@ package pl.lodz.p.it.food2food.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.dto.auth.GithubOAuth2TokenPayload;
 import pl.lodz.p.it.food2food.dto.auth.GoogleOAuth2TokenPayload;
 import pl.lodz.p.it.food2food.exceptions.CreationException;
@@ -17,6 +19,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final JwtService jwtService;

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
 import pl.lodz.p.it.food2food.exceptions.messages.ExceptionMessages;
@@ -14,6 +16,7 @@ import pl.lodz.p.it.food2food.services.ProductService;
 import java.util.UUID;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;

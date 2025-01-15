@@ -1,17 +1,16 @@
 package pl.lodz.p.it.food2food.controllers;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.dto.responses.BooleanResponse;
@@ -22,9 +21,11 @@ import pl.lodz.p.it.food2food.exceptions.ProductNotInFavorites;
 import pl.lodz.p.it.food2food.mappers.ProductMapper;
 import pl.lodz.p.it.food2food.services.FavoriteProductsService;
 import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
 
 @RestController
 @RequestMapping("/api/v1/favorite-products")
+@Transactional(propagation = Propagation.NEVER)
 @RequiredArgsConstructor
 public class FavoriteProductsController {
     private final FavoriteProductsService favoriteProductsService;

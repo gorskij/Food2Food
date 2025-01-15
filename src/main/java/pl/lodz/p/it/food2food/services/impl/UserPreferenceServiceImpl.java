@@ -2,6 +2,8 @@ package pl.lodz.p.it.food2food.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.dto.UserPreferenceDto;
 import pl.lodz.p.it.food2food.exceptions.ApplicationOptimisticLockException;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 @RequiredArgsConstructor
 public class UserPreferenceServiceImpl implements UserPreferenceService {
     public final UserPreferenceRepository userPreferenceRepository;
@@ -31,6 +34,7 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
     private final AllergenRepository allergenRepository;
     private final RatingRepository ratingRepository;
     private final EtagSignVerifier etagSignVerifier;
+
     @Override
     public UserPreference createUserPreference(UserPreference userPreference) {
         return userPreferenceRepository.save(userPreference);

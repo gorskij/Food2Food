@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.dto.UserPreferenceDto;
@@ -21,6 +23,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@Transactional(propagation = Propagation.NEVER)
 @RequestMapping("/api/v1/user-preference")
 public class UserPreferenceController {
     private final UserPreferenceService userPreferenceService;

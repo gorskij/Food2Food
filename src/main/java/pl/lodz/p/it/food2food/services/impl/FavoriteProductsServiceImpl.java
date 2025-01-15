@@ -4,28 +4,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import pl.lodz.p.it.food2food.dto.responses.ProductDto;
+import org.springframework.transaction.annotation.Propagation;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.ProductAlreadyInFavorites;
 import pl.lodz.p.it.food2food.exceptions.ProductNotInFavorites;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
 import pl.lodz.p.it.food2food.exceptions.messages.ExceptionMessages;
 import pl.lodz.p.it.food2food.exceptions.messages.UserExceptionMessages;
-import pl.lodz.p.it.food2food.mappers.ProductMapper;
 import pl.lodz.p.it.food2food.model.Product;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.repositories.ProductRepository;
 import pl.lodz.p.it.food2food.repositories.UserRepository;
 import pl.lodz.p.it.food2food.services.FavoriteProductsService;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 @RequiredArgsConstructor
 public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
-    private final ProductMapper productMapper;
 
     @Override
     public Page<Product> getFavoriteProducts(UUID userId, String name, Pageable pageable) throws NotFoundException {

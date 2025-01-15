@@ -22,7 +22,7 @@ public class NutritionalValue extends AbstractEntity {
     @ManyToOne
     private Unit unit;
 
-    private Double nrv; // Referencja wartości spożycia - RWS
+    private Double nrv;
 
 }
 

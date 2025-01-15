@@ -5,6 +5,8 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.exceptions.CreationException;
 import pl.lodz.p.it.food2food.exceptions.IdenticalFieldValueException;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @PreAuthorize("permitAll()")
+    @Transactional(propagation = Propagation.MANDATORY)
     @Override
     public User createUser(User newUser) throws CreationException, IdenticalFieldValueException {
         if (userRepository.existsByUsername(newUser.getUsername())) {
@@ -53,19 +56,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @PreAuthorize("permitAll()")
+    @Transactional(propagation = Propagation.MANDATORY)
     @Override
     public User getUserByGoogleId(String googleId) throws NotFoundException {
         return userRepository.findByGoogleId(googleId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
     }
 
     @PreAuthorize("permitAll()")
+    @Transactional(propagation = Propagation.MANDATORY)
     @Override
     public User getUserByGithubId(String githubId) throws NotFoundException {
         return userRepository.findByGithubId(githubId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
     }
 
-    @PreAuthorize("permitAll()")
-    public User getUserById(UUID id) throws NotFoundException {
-        return userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
-    }
+//    @PreAuthorize("permitAll()")
+//    public User getUserById(UUID id) throws NotFoundException {
+//        return userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+//    }
 }

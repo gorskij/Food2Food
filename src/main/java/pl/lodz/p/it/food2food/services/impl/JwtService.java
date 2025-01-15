@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
 import pl.lodz.p.it.food2food.exceptions.messages.UserExceptionMessages;
@@ -25,6 +27,7 @@ public class JwtService {
     private final String secret_key = "very_secret_key_123!";
     private final UserRepository userRepository;
 
+    @Transactional(propagation = Propagation.MANDATORY)
     public String createToken(User user) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime validity = now.plusHours(1);
