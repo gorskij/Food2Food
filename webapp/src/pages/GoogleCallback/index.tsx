@@ -30,7 +30,7 @@ const GoogleCallback: FC = () => {
         if (result.status === 201) {
           toast({
             variant: "success",
-            title: t("login.acountCreated"),
+            title: t("login.accountCreated"),
             description: t("login.accountCreatedDescription"),
           });
         } else if (result.status === 200) {

@@ -30,7 +30,7 @@ const GithubCallback: FC = () => {
         if (result.status === 201) {
           toast({
             variant: "success",
-            title: t("loginPage.acountCreated"),
+            title: t("loginPage.accountCreated"),
             description: t("login.acountCreatedDescription"),
           });
         } else if (result.status === 200) {
