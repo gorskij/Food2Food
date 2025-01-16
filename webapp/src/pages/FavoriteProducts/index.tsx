@@ -4,12 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useGetFavoriteProducts } from "@/data/products/useGetFavoriteProducts";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
-import {
-  ChevronsLeft,
-  ChevronsRight,
-  FilterX,
-  Search,
-} from "lucide-react";
+import { ChevronsLeft, ChevronsRight, FilterX, Search } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ProductCard from "@/components/ProductCard";
@@ -42,7 +37,10 @@ const FavouriteProductsPage: FC = () => {
 
   const breadcrumbs = useBreadcrumbs([
     { title: t("favouriteProducts.breadcrumbs.home"), path: "/" },
-    { title: t("favouriteProducts.breadcrumbs.list"), path: "/favorite-products" },
+    {
+      title: t("favouriteProducts.breadcrumbs.list"),
+      path: "/favorite-products",
+    },
   ]);
 
   if (isLoading) return <LoadingData />;
@@ -50,7 +48,7 @@ const FavouriteProductsPage: FC = () => {
     return (
       <div>
         {t("error.loadingError")}
-        <RefreshQueryButton queryKeys={["products"]} />
+        <RefreshQueryButton queryKeys={["favoriteProducts"]} />
       </div>
     );
 

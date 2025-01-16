@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { NavLink } from "react-router-dom";
-import { Ellipsis, Plus, RefreshCcw, Search, Trash } from "lucide-react";  // Added Trash icon
+import { Ellipsis, Plus, RefreshCcw, Search, Trash } from "lucide-react"; // Added Trash icon
 import { useTranslation } from "react-i18next";
 import { useComparisonStore } from "@/store/comparisonStore";
 
@@ -22,7 +22,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { t } = useTranslation();
-  const { addProduct, removeProduct, replaceProduct, product1, product2 } = useComparisonStore();
+  const { addProduct, removeProduct, replaceProduct, product1, product2 } =
+    useComparisonStore();
 
   const productImg = product.labelImage
     ? `data:image/jpeg;base64,${product.labelImage}`
@@ -32,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     if (product1?.id === product.id) {
       removeProduct("product1");
     } else if (product2?.id === product.id) {
-      replaceProduct(product, "product1")
+      replaceProduct(product, "product1");
     } else {
       addProduct(product, "product1");
     }
@@ -42,16 +43,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     if (product2?.id === product.id) {
       removeProduct("product2");
     } else if (product1?.id === product.id) {
-      replaceProduct(product, "product2")
+      replaceProduct(product, "product2");
     } else {
       addProduct(product, "product2");
     }
   };
 
   return (
-    <div
-      className="flex flex-col items-center p-4 border rounded shadow-md w-full sm:w-[400px]"
-    >
+    <div className="flex flex-col items-center p-4 border rounded shadow-md w-full sm:w-[400px]">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="ml-auto py-2 px-4">
@@ -59,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent side="bottom" className="w-auto">
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <NavLink
               to={`/products/${product.id}`}
               className="flex items-center space-x-2 w-full"
@@ -83,8 +82,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product1?.id === product.id
               ? t("productCard.dropdown.removeProduct")
               : product1
-                ? `${t("productCard.dropdown.replaceProduct")} (${product1.productName})`
-                : t("productCard.dropdown.addToComparison")}
+              ? `${t("productCard.dropdown.replaceProduct")} (${
+                  product1.productName
+                })`
+              : t("productCard.dropdown.addToComparison")}
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -101,8 +102,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product2?.id === product.id
               ? t("productCard.dropdown.removeProduct")
               : product2
-                ? `${t("productCard.dropdown.replaceProduct")} (${product2.productName})`
-                : t("productCard.dropdown.addToComparison")}
+              ? `${t("productCard.dropdown.replaceProduct")} (${
+                  product2.productName
+                })`
+              : t("productCard.dropdown.addToComparison")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
