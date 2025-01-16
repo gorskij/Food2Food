@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,14 +20,17 @@ import java.util.Set;
 @SecondaryTable(name = "github_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 public class User extends AbstractEntity {
     @Setter
+    @ToString.Exclude
     @Column(name = "google_id", table = "google_auth", unique = true)
     private String googleId;
 
     @Setter
+    @ToString.Exclude
     @Column(name = "github_id", table = "github_auth", unique = true)
     private String githubId;
 
     @Setter
+    @ToString.Exclude
     @Column(name = "email", table = "personal_data", nullable = false, length = 50)
     private String email;
 

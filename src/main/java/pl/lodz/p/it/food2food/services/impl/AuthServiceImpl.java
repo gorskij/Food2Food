@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pl.lodz.p.it.food2food.dto.auth.AuthResponse; // Import the new record
 import pl.lodz.p.it.food2food.dto.auth.GithubOAuth2TokenPayload;
 import pl.lodz.p.it.food2food.dto.auth.GoogleOAuth2TokenPayload;
 import pl.lodz.p.it.food2food.exceptions.CreationException;
@@ -15,8 +16,6 @@ import pl.lodz.p.it.food2food.model.UserPreference;
 import pl.lodz.p.it.food2food.services.AuthService;
 import pl.lodz.p.it.food2food.services.UserService;
 
-import java.util.Map;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -26,17 +25,11 @@ public class AuthServiceImpl implements AuthService {
 
     @PreAuthorize("permitAll()")
     @Override
-    public Map<String, String> singInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
+    public AuthResponse singInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
         try {
             User user = userService.getUserByGoogleId(payload.sub());
-
             String userToken = jwtService.createToken(user);
-
-            return Map.of(
-                    "token", userToken
-//                    "theme", theme
-            );
-
+            return new AuthResponse(userToken, null);
         } catch (NotFoundException e) {
             String email = payload.email();
             String username = email.split("@")[0];
@@ -46,40 +39,26 @@ public class AuthServiceImpl implements AuthService {
                     email,
                     userPreference
             );
-
             newUser.setGoogleId(payload.sub());
 
             User user = userService.createUser(newUser);
             String userToken = jwtService.createToken(user);
-
-            return Map.of(
-                    "token", userToken,
-                    "created", "true"
-            );
+            return new AuthResponse(userToken, "true");
         }
     }
 
     @PreAuthorize("permitAll()")
     @Override
-    public Map<String, String> singInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
+    public AuthResponse singInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
         try {
             User user = userService.getUserByGithubId(payload.id());
-
             String userToken = jwtService.createToken(user);
-
-            return Map.of(
-                    "token", userToken
-            );
+            return new AuthResponse(userToken, null);
         } catch (NotFoundException e) {
             User newUser = newUserFromGithubTokenPayload(payload);
-
             User user = userService.createUser(newUser);
             String userToken = jwtService.createToken(user);
-
-            return Map.of(
-                    "token", userToken,
-                    "created", "true"
-            );
+            return new AuthResponse(userToken, "true");
         }
     }
 

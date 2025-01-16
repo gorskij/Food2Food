@@ -9,7 +9,6 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor
-@ToString
 @Entity
 public class Label extends AbstractEntity {
 
@@ -30,5 +29,6 @@ public class Label extends AbstractEntity {
 
     private String preparation;
 
+    @ToString.Exclude
     private byte[] image;
 }

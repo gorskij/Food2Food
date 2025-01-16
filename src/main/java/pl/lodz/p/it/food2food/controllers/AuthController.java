@@ -81,7 +81,7 @@ public class AuthController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/google-oauth/token/")
-    public ResponseEntity<Map<String, String>> signInOAuth(
+    public ResponseEntity<AuthResponse> signInOAuth(
             @RequestParam String code
     ) {
         String tokenRequestUrl = UriComponentsBuilder
@@ -113,7 +113,7 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage(), e);
         }
 
-        Map<String, String> response;
+        AuthResponse response;
         try {
             response = authService.singInGoogleOAuth(payload);
         } catch (CreationException e) {
@@ -122,7 +122,7 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
 
-        if (response.containsKey("created")) {
+        if (response.created() != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
 
@@ -147,7 +147,7 @@ public class AuthController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/github-oauth/token/")
-    public ResponseEntity<Map<String, String>> signInOAuthGithub(@RequestParam String code) {
+    public ResponseEntity<AuthResponse> signInOAuthGithub(@RequestParam String code) {
         String tokenRequestUrl = UriComponentsBuilder
                 .fromUriString(oAuthGithubTokenUri)
                 .queryParam("client_id", oAuthGithubClientId)
@@ -200,7 +200,7 @@ public class AuthController {
                 (String) userInfo.get("name")
         );
 
-        Map<String, String> response;
+        AuthResponse response;
         try {
             response = authService.singInGithubOAuth(payload);
         } catch (CreationException e) {
@@ -209,7 +209,7 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
 
-        if (response.containsKey("created")) {
+        if (response.created() != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
 
