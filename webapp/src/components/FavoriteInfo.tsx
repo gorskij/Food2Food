@@ -24,8 +24,7 @@ const FavoriteInfo: FC<FavoriteInfoProps> = ({ favoriteCount, id }) => {
   const [isProductFavorite, setIsProductFavorite] = useState<boolean>(false);
   const { t } = useTranslation();
   useEffect(() => {
-
-    if (isAuthenticated() === true && isLoading === false) {
+    if (isAuthenticated() && !isLoading) {
       setIsProductFavorite(isFavorite?.result ?? false);
     }
   }, [isAuthenticated, isFavorite, isLoading]);
@@ -46,35 +45,39 @@ const FavoriteInfo: FC<FavoriteInfoProps> = ({ favoriteCount, id }) => {
 
   return (
     <Tooltip>
-      <TooltipTrigger className="flex items-center cursor-pointer">
-        <button
-          onClick={
-            isProductFavorite ? handleRemoveFromFavorites : handleAddToFavorites
-          }
-          className="flex items-center"
-          disabled={!isAuthenticated()}
-        >
-          {isProductFavorite ? (
-            <>
-              {isAuthenticated() && (
+      <TooltipTrigger className="flex items-center" asChild>
+        {isAuthenticated() ? (
+          <button
+            onClick={
+              isProductFavorite
+                ? handleRemoveFromFavorites
+                : handleAddToFavorites
+            }
+            className="flex items-center"
+          >
+            {isProductFavorite ? (
+              <>
                 <div className="mt-2 mr-2 text-sm text-gray-600">
                   <span>{t("favoriteInfo.productInFavorites")}</span>
                 </div>
-              )}
-              <Heart className="fill-red-500 text-red-500 mr-1" />
-            </>
-          ) : (
-            <>
-              {isAuthenticated() && (
+                <Heart className="fill-red-500 text-red-500 mr-1" />
+              </>
+            ) : (
+              <>
                 <div className="mt-2 mr-2 text-sm text-gray-600">
                   <span>{t("favoriteInfo.addToFavorites")}</span>
                 </div>
-              )}
-              <Heart className="text-red-500 mr-1" />
-            </>
-          )}
-          <span>{favoriteCount}</span>
-        </button>
+                <Heart className="text-red-500 mr-1" />
+              </>
+            )}
+            <span>{favoriteCount}</span>
+          </button>
+        ) : (
+          <div className="flex items-center">
+            <Heart className="text-red-500 mr-1" />
+            <span className="text-gray-600">{favoriteCount}</span>
+          </div>
+        )}
       </TooltipTrigger>
       <TooltipContent>
         {t("favoriteInfo.countFavorites", { count: favoriteCount })}
