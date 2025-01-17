@@ -22,7 +22,7 @@ const ProductAllergens: FC<ProductAllergensProps> = ({ productDetails }) => {
   return (
     <div className="flex flex-row flex-wrap">
       {allergens.map((allergen) => (
-        <TooltipProvider>
+        <TooltipProvider key={allergen.id}>
           <Tooltip>
             <TooltipTrigger>
               <Badge

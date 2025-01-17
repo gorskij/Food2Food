@@ -26,7 +26,7 @@ const ProductRatings: FC<ProductRatingsProps> = ({
   return (
     <div className="flex flex-row flex-wrap">
       {filteredRatings.map((rating) => (
-        <TooltipProvider>
+        <TooltipProvider key={rating.id}>
           <Tooltip>
             <TooltipTrigger>
               <Badge
