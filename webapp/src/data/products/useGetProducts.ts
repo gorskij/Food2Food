@@ -48,7 +48,10 @@ export const useGetProducts = (request: ProductsRequest) => {
           variant: "destructive",
           title: t("error.baseTitle"),
           description: t(
-            `errors.${(axiosError.response!.data as ErrorCode).exceptionCode}`
+            `errors.${
+              (axiosError.response?.data as ErrorCode)?.exceptionCode ||
+              "unknownError"
+            }`
           ),
         });
         return Promise.reject(axiosError);

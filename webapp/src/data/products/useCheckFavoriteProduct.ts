@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../useAxiosPrivate";
 import { AxiosError } from "axios";
 import { toast } from "@/hooks/use-toast";
-import { t } from "i18next";
 import { ErrorCode } from "@/types/ErrorCode";
 import { useUserStore } from "@/store/userStore";
+import { useTranslation } from "react-i18next";
 
 interface BooleanResponse {
   result: boolean;
@@ -13,6 +13,7 @@ interface BooleanResponse {
 export const useCheckFavoriteProduct = (productId: string) => {
   const { api } = useAxiosPrivate();
   const { isAuthenticated } = useUserStore();
+  const { t } = useTranslation();
 
   return useQuery({
     queryKey: ["checkFavoriteProduct", productId],
@@ -28,7 +29,10 @@ export const useCheckFavoriteProduct = (productId: string) => {
           variant: "destructive",
           title: t("error.baseTitle"),
           description: t(
-            `errors.${(axiosError.response!.data as ErrorCode).exceptionCode}`
+            `errors.${
+              (axiosError.response?.data as ErrorCode)?.exceptionCode ||
+              "unknownError"
+            }`
           ),
         });
         return Promise.reject(axiosError);

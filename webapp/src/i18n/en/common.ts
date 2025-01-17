@@ -34,6 +34,7 @@ const errors = {
   rollback: "Rollback",
   transaction: "Transaction",
   unexpectedRollback: "Unexpected rollback",
+  unknownError: "Something went wrong...",
 } satisfies {
   [key in ExceptionCode]: string;
 };

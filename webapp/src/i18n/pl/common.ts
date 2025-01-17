@@ -33,6 +33,7 @@ const errors = {
   rollback: "Operacja została cofnięta",
   unexpectedRollback: "Nieoczekiwane cofnięcie operacji",
   transaction: "Błąd transakcji",
+  unknownError: "Coś poszło nie tak...",
 } satisfies {
   [key in ExceptionCode]: string;
 };

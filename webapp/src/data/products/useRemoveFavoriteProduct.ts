@@ -21,12 +21,15 @@ export const useRemoveFavoriteProduct = () => {
         description: t("removeFavoriteProduct.successDescription"),
       });
     },
-    onError: (error: AxiosError) => {
+    onError: (axiosError: AxiosError) => {
       toast({
         variant: "destructive",
         title: t("removeFavoriteProduct.error"),
         description: t(
-          `errors.${(error.response?.data as ErrorCode).exceptionCode}`
+          `errors.${
+            (axiosError.response?.data as ErrorCode)?.exceptionCode ||
+            "unknownError"
+          }`
         ),
       });
       queryClient.invalidateQueries({ queryKey: ["checkFavoriteProduct"] });

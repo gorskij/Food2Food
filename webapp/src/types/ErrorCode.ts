@@ -20,4 +20,5 @@ export type ExceptionCode =
   | "validationError"
   | "rollback"
   | "unexpectedRollback"
-  | "transaction";
+  | "transaction"
+  | "unknownError";
