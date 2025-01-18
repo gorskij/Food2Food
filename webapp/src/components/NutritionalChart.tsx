@@ -86,10 +86,11 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
     })
     .filter(Boolean);
 
-  const unit = productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
+  const unit =
+    productDetails.unit.name === "l" ? "ml" : productDetails.unit.name;
 
   return (
-    <Card className="flex-1 flex-col min-w-[400px]">
+    <Card className="flex-1 flex-col min-w-[450px] hidden sm:block">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-center">
           {t("nutritionalChart.title")}
@@ -149,9 +150,7 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {energyValue.value
-                            .toLocaleString()
-                            .replace(",", ".")}
+                          {energyValue.value.toLocaleString().replace(",", ".")}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

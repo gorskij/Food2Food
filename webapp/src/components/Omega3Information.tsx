@@ -101,7 +101,7 @@ const Omega3Information: FC<Omega3InformationProps> = ({ productDetails }) => {
 
   return (
     <>
-      <Card className="flex-1 h-full hidden sm:block">
+      <Card className="flex-1 hidden sm:block min-w-[450px]">
         <CardHeader>
           <CardTitle className="text-center">
             {t("omega3Information.title")}

@@ -264,36 +264,26 @@ const ProductDetailsPage: FC = () => {
                       </TabsList>
                       <TabsContent value="tab-1">
                         <div className="flex flex-col gap-4">
-                          <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4">
-                            <div className="flex-1 sm:min-w-[450px] hidden sm:block">
-                              <NutritionalChart productDetails={data.data} />
-                            </div>
-                            <div className="flex-1 sm:min-w-[450px]">
-                              <MacronutrientsInformation
-                                productDetails={data.data}
-                              />
-                            </div>
+                          <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4 items-stretch">
+                            <NutritionalChart productDetails={data.data} />
+                            <MacronutrientsInformation
+                              productDetails={data.data}
+                            />
                           </div>
-                          <div className="flex flex-col min-w-full gap-4 sm:flex-row flex-nowrap sm:flex-wrap">
+                          <div className="flex flex-col min-w-full gap-4 sm:flex-row flex-nowrap sm:flex-wrap items-stretch">
                             <FatSaturationChart productDetails={data.data} />
                             <SugarContentChart productDetails={data.data} />
                           </div>
                         </div>
                       </TabsContent>
                       <TabsContent value="tab-2">
-                        <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4">
-                          <div className="flex-1 sm:min-w-[450px]">
-                            <VitaminsInformation productDetails={data.data} />
-                          </div>
-                          <div className="flex-1 sm:min-w-[450px]">
-                            <MineralsInformation productDetails={data.data} />
-                          </div>
+                        <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4 items-stretch">
+                          <VitaminsInformation productDetails={data.data} />
+                          <MineralsInformation productDetails={data.data} />
                         </div>
                       </TabsContent>
                       <TabsContent value="tab-3">
-                        <div className="flex-1 sm:min-w-[450px]">
-                          <Omega3Information productDetails={data.data} />
-                        </div>
+                        <Omega3Information productDetails={data.data} />
                       </TabsContent>
                     </Tabs>
                   </CardContent>

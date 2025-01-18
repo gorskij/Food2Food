@@ -159,7 +159,7 @@ const MacronutrientsInformation: FC<MacronutrientsInformationProps> = ({
 
   return (
     <>
-      <Card className="flex-1 hidden sm:block">
+      <Card className="flex-1 hidden sm:block min-w-[450px]">
         <CardHeader>
           <CardTitle className="text-center">
             {t("macronutrientsInformation.title")}
