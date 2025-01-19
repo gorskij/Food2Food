@@ -3,17 +3,15 @@ import { AxiosError } from "axios";
 import { api } from "../api";
 import { ErrorCode } from "@/types/ErrorCode";
 import { toast } from "@/hooks/use-toast";
-
-interface Allergen {
-  id: string;
-  name: string;
-}
+import { useTranslation } from "react-i18next";
+import { Allergen } from "@/types/Allergen";
 
 interface AllergensResponse {
   content: Allergen[];
 }
 
 export const useGetAllergens = () => {
+  const { t } = useTranslation();
   return useQuery({
     queryKey: ["allergens"],
     queryFn: async () => {
