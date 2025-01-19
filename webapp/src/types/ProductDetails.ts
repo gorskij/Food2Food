@@ -1,7 +1,6 @@
-type Allergen = {
-  id: string;
-  name: string;
-};
+import { Allergen } from "./Allergen";
+import { NutritionalValueName } from "./NutritionalValueName";
+import { Rating } from "./Rating";
 
 type Producer = {
   id: string;
@@ -74,22 +73,9 @@ type Portion = {
   unit: Unit;
 };
 
-type Rating = {
-  id: string;
-  groupName: string;
-  name: string;
-};
-
 type NutritionalValue = {
   id: string;
-  nutritionalValueName: {
-    id: string;
-    group: {
-      id: string;
-      groupName: string;
-    };
-    name: string;
-  };
+  nutritionalValueName: NutritionalValueName
   quantity: number;
   unit: Unit;
   nrv: number;
