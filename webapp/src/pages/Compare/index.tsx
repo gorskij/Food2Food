@@ -18,13 +18,13 @@ const ComparePage: FC = () => {
     data: product1Data,
     isLoading: isLoading1,
     isError: isError1,
-  } = useGetProductDetails(product1?.id);
+  } = useGetProductDetails(product1.id);
 
   const {
     data: product2Data,
     isLoading: isLoading2,
     isError: isError2,
-  } = useGetProductDetails(product2?.id);
+  } = useGetProductDetails(product2.id);
 
   const breadcrumbs = useBreadcrumbs([
     { title: t("compare.homePage"), path: "/" },
@@ -57,8 +57,8 @@ const ComparePage: FC = () => {
         <CardContent className="flex flex-col gap-6">
           {product1 && product2 ? (
             <ProductComparison
-              product1={product1Data?.data}
-              product2={product2Data?.data}
+              product1={product1Data}
+              product2={product2Data}
             />
           ) : (
             <div className="text-center text-lg text-gray-500">

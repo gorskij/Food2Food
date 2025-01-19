@@ -40,26 +40,30 @@ const ProductDetailsPage: FC = () => {
   const breadcrumbs = useBreadcrumbs([
     { title: t("productDetails.breadcrumbs.home"), path: "/" },
     { title: t("productDetails.breadcrumbs.productList"), path: "/products" },
-    { title: data?.data.productName ?? "", path: `/products/${id}` },
+    { title: data?.productName ?? "", path: `/products/${id}` },
   ]);
 
   const handleUseProduct1 = () => {
-    if (product1?.id === data?.data.id) {
+    if (data === undefined) return;
+
+    if (product1?.id === data?.id) {
       removeProduct("product1");
-    } else if (product2?.id === data?.data.id) {
-      replaceProduct(data.data, "product1");
+    } else if (product2?.id === data?.id) {
+      replaceProduct(data, "product1");
     } else {
-      addProduct(data.data, "product1");
+      addProduct(data, "product1");
     }
   };
 
   const handleUseProduct2 = () => {
-    if (product2?.id === data?.data.id) {
+    if (data === undefined) return;
+
+    if (product2?.id === data?.id) {
       removeProduct("product2");
-    } else if (product1?.id === data?.data.id) {
-      replaceProduct(data.data, "product2");
+    } else if (product1?.id === data?.id) {
+      replaceProduct(data, "product2");
     } else {
-      addProduct(data.data, "product2");
+      addProduct(data, "product2");
     }
   };
 
@@ -100,7 +104,7 @@ const ProductDetailsPage: FC = () => {
                     <CardTitle className="text-center">
                       <div className="flex font-normal w-full justify-end items-center mb-2">
                         <FavoriteInfo
-                          favoriteCount={data.data.favoriteCount}
+                          favoriteCount={data.favoriteCount}
                           id={id}
                         />
                         <DropdownMenu>
@@ -114,14 +118,14 @@ const ProductDetailsPage: FC = () => {
                               onClick={handleUseProduct1}
                               className="cursor-pointer"
                             >
-                              {product1?.id === data.data.id ? (
+                              {product1?.id === data.id ? (
                                 <Trash className="mr-2" />
                               ) : product1 ? (
                                 <RefreshCcw className="mr-2" />
                               ) : (
                                 <Plus className="mr-2" />
                               )}
-                              {product1?.id === data.data.id
+                              {product1?.id === data.id
                                 ? t("productCard.dropdown.removeProduct")
                                 : product1
                                 ? `${t(
@@ -134,14 +138,14 @@ const ProductDetailsPage: FC = () => {
                               onClick={handleUseProduct2}
                               className="cursor-pointer"
                             >
-                              {product2?.id === data.data.id ? (
+                              {product2?.id === data.id ? (
                                 <Trash className="mr-2" />
                               ) : product2 ? (
                                 <RefreshCcw className="mr-2" />
                               ) : (
                                 <Plus className="mr-2" />
                               )}
-                              {product2?.id === data.data.id
+                              {product2?.id === data.id
                                 ? t("productCard.dropdown.removeProduct")
                                 : product2
                                 ? `${t(
@@ -152,7 +156,7 @@ const ProductDetailsPage: FC = () => {
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </div>
-                      {data.data.productName ?? t("productDetails.noData")}
+                      {data.productName ?? t("productDetails.noData")}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="flex flex-wrap">
@@ -160,8 +164,8 @@ const ProductDetailsPage: FC = () => {
                       <div className="sm:w-1/2 w-full pr-2 sm:pr-4">
                         <img
                           src={
-                            data.data.label.image
-                              ? `data:image/jpeg;base64,${data.data.label.image}`
+                            data.label.image
+                              ? `data:image/jpeg;base64,${data.label.image}`
                               : placeholderImg
                           }
                           className="w-full max-h-48 object-contain rounded hidden sm:block"
@@ -171,21 +175,21 @@ const ProductDetailsPage: FC = () => {
                         <DataField
                           label={`${t("productDetails.description")}:`}
                           value={
-                            data.data.productDescription ??
+                            data.productDescription ??
                             t("productDetails.noData")
                           }
                         />
                         <DataField
                           label={`${t("productDetails.eanCode")}:`}
-                          value={data.data.ean ?? t("productDetails.noData")}
+                          value={data.ean ?? t("productDetails.noData")}
                           className="my-2"
                         />
                         <DataField
                           label={`${t("productDetails.quantity")}:`}
                           value={
-                            data.data.productQuantity && data.data.unit?.name
-                              ? `${data.data.productQuantity.toString()} ${
-                                  data.data.unit.name
+                            data.productQuantity && data.unit?.name
+                              ? `${data.productQuantity.toString()} ${
+                                  data.unit.name
                                 }`
                               : t("productDetails.noData")
                           }
@@ -193,16 +197,13 @@ const ProductDetailsPage: FC = () => {
                         />
                         <DataField
                           label={`${t("productDetails.countryOfOrigin")}:`}
-                          value={
-                            data.data.country ?? t("productDetails.noData")
-                          }
+                          value={data.country ?? t("productDetails.noData")}
                           className="my-2"
                         />
                         <DataField
                           label={`${t("productDetails.packageType")}:`}
                           value={
-                            data.data.packageType?.name ??
-                            t("productDetails.noData")
+                            data.packageType?.name ?? t("productDetails.noData")
                           }
                           className="my-2"
                         />
@@ -215,30 +216,30 @@ const ProductDetailsPage: FC = () => {
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="flex flex-row flex-wrap">
-                        <ProductAllergens productDetails={data.data} />
+                        <ProductAllergens productDetails={data} />
                         <ProductRatings
-                          productDetails={data.data}
+                          productDetails={data}
                           groupName="Posiadane Certyfikaty"
                         />
                         <ProductRatings
-                          productDetails={data.data}
+                          productDetails={data}
                           groupName="Specyficzne Cechy"
                         />
                         <ProductRatings
-                          productDetails={data.data}
+                          productDetails={data}
                           groupName="Bez dodatków do żywności"
                         />
                         <ProductRatings
-                          productDetails={data.data}
+                          productDetails={data}
                           groupName="Zastosowane procesy technologiczne"
                         />
                         <ProductRatings
-                          productDetails={data.data}
+                          productDetails={data}
                           groupName="Parametry bez składników"
                         />
                       </CardContent>
                     </Card>
-                    <ProductIngredientsList productDetails={data.data} />
+                    <ProductIngredientsList productDetails={data} />
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -265,32 +266,30 @@ const ProductDetailsPage: FC = () => {
                       <TabsContent value="tab-1">
                         <div className="flex flex-col gap-4">
                           <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4 items-stretch">
-                            <NutritionalChart productDetails={data.data} />
-                            <MacronutrientsInformation
-                              productDetails={data.data}
-                            />
+                            <NutritionalChart productDetails={data} />
+                            <MacronutrientsInformation productDetails={data} />
                           </div>
                           <div className="flex flex-col min-w-full gap-4 sm:flex-row flex-nowrap sm:flex-wrap items-stretch">
-                            <FatSaturationChart productDetails={data.data} />
-                            <SugarContentChart productDetails={data.data} />
+                            <FatSaturationChart productDetails={data} />
+                            <SugarContentChart productDetails={data} />
                           </div>
                         </div>
                       </TabsContent>
                       <TabsContent value="tab-2">
                         <div className="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-4 items-stretch">
-                          <VitaminsInformation productDetails={data.data} />
-                          <MineralsInformation productDetails={data.data} />
+                          <VitaminsInformation productDetails={data} />
+                          <MineralsInformation productDetails={data} />
                         </div>
                       </TabsContent>
                       <TabsContent value="tab-3">
-                        <Omega3Information productDetails={data.data} />
+                        <Omega3Information productDetails={data} />
                       </TabsContent>
                     </Tabs>
                   </CardContent>
                 </Card>
               </TabsContent>
               <TabsContent value="producer">
-                <ProducerInfo productDetails={data.data} />
+                <ProducerInfo productDetails={data} />
               </TabsContent>
             </Tabs>
           </div>
