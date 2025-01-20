@@ -19,6 +19,7 @@ import pl.lodz.p.it.food2food.exceptions.handlers.ExceptionResponse;
 import java.io.IOException;
 
 @RequiredArgsConstructor
+@Transactional(propagation = Propagation.NEVER)
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 

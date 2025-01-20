@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,15 @@ import java.util.Collections;
 import java.util.Date;
 
 @Service
+@Transactional(propagation = Propagation.MANDATORY)
 @AllArgsConstructor
 public class JwtService {
     private final String secret_key = "very_secret_key_123!";
     private final UserRepository userRepository;
 
-    @Transactional(propagation = Propagation.MANDATORY)
     public String createToken(User user) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime validity = now.plusHours(1);
+        LocalDateTime validity = now.plusHours(2);
 
         return JWT.create()
                 .withSubject(user.getUsername())
@@ -41,6 +42,7 @@ public class JwtService {
                 .sign(Algorithm.HMAC256(secret_key));
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Authentication validateToken(String token) throws NotFoundException {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret_key)).build();
         DecodedJWT decodedJWT = verifier.verify(token);
