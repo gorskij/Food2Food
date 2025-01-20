@@ -11,7 +11,7 @@ interface BooleanResponse {
 }
 
 export const useCheckFavoriteProduct = (productId: string) => {
-  const { api } = useAxiosPrivate();
+  const { apiAxios } = useAxiosPrivate();
   const { isAuthenticated } = useUserStore();
   const { t } = useTranslation();
 
@@ -19,7 +19,7 @@ export const useCheckFavoriteProduct = (productId: string) => {
     queryKey: ["checkFavoriteProduct", productId],
     queryFn: async () => {
       try {
-        const response = await api.get<BooleanResponse>(
+        const response = await apiAxios.get<BooleanResponse>(
           `/favorite-products/${productId}`
         );
         return response.data;

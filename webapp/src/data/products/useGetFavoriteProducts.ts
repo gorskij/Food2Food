@@ -30,7 +30,7 @@ interface ProductsResponse {
 }
 
 export const useGetFavoriteProducts = (request: ProductsRequest) => {
-  const { api } = useAxiosPrivate();
+  const { apiAxios } = useAxiosPrivate();
   return useQuery({
     queryKey: [
       "favoriteProducts",
@@ -40,13 +40,16 @@ export const useGetFavoriteProducts = (request: ProductsRequest) => {
     ],
     queryFn: async () => {
       try {
-        const response = await api.get<ProductsResponse>("/favorite-products", {
-          params: {
-            page: request.pageNumber,
-            size: request.pageSize,
-            name: request.name || undefined,
-          },
-        });
+        const response = await apiAxios.get<ProductsResponse>(
+          "/favorite-products",
+          {
+            params: {
+              page: request.pageNumber,
+              size: request.pageSize,
+              name: request.name || undefined,
+            },
+          }
+        );
         return response.data;
       } catch (error) {
         const axiosError = error as AxiosError;

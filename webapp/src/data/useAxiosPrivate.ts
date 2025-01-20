@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { apiAxios } from "./api";
 import { useEffect } from "react";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ const useAxiosPrivate = () => {
   const navigation = useNavigate();
 
   useEffect(() => {
-    const requestInterceptor = api.interceptors.request.use(
+    const requestInterceptor = apiAxios.interceptors.request.use(
       (config) => {
         const token = localStorage.getItem("token");
         if (token && !config.url?.includes("auth")) {
@@ -25,7 +25,7 @@ const useAxiosPrivate = () => {
       }
     );
 
-    const responseInterceptor = api.interceptors.response.use(
+    const responseInterceptor = apiAxios.interceptors.response.use(
       (response) => response,
       (error) => {
         error = error as AxiosError;
@@ -44,12 +44,12 @@ const useAxiosPrivate = () => {
     );
 
     return () => {
-      api.interceptors.request.eject(requestInterceptor);
-      api.interceptors.response.eject(responseInterceptor);
+      apiAxios.interceptors.request.eject(requestInterceptor);
+      apiAxios.interceptors.response.eject(responseInterceptor);
     };
   }, [token, clearToken, navigation, setToken, t]);
 
-  return { api };
+  return { apiAxios };
 };
 
 export default useAxiosPrivate;

@@ -6,13 +6,13 @@ import { toast } from "@/hooks/use-toast";
 import { ErrorCode } from "@/types/ErrorCode";
 
 export const useAddFavoriteProduct = () => {
-  const { api } = useAxiosPrivate();
+  const { apiAxios } = useAxiosPrivate();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   const { mutateAsync } = useMutation({
     mutationFn: async (id: string) => {
-      await api.post(`/favorite-products/${id}`);
+      await apiAxios.post(`/favorite-products/${id}`);
     },
     onSuccess: () => {
       toast({

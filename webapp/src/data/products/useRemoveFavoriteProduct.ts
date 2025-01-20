@@ -6,13 +6,13 @@ import { toast } from "@/hooks/use-toast";
 import { ErrorCode } from "@/types/ErrorCode";
 
 export const useRemoveFavoriteProduct = () => {
-  const { api } = useAxiosPrivate();
+  const { apiAxios } = useAxiosPrivate();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   const { mutateAsync } = useMutation({
     mutationFn: async (id: string) => {
-      await api.delete(`/favorite-products/${id}`);
+      await apiAxios.delete(`/favorite-products/${id}`);
     },
     onSuccess: () => {
       toast({
