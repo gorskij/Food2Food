@@ -6,12 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.model.Product;
 
 import java.util.UUID;
 
+@Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public interface ProductRepository extends JpaRepository<Product, UUID> {
     Page<Product> findByProductNameContainingIgnoreCase(String name, Pageable pageable);
