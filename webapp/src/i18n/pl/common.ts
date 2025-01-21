@@ -492,7 +492,52 @@ const omega3Information = {
   },
 };
 
+const packageTypes = {
+  "tacka z tworzywa sztucznego przykryta folią typu  otwórz/zamknij":
+    "tacka z tworzywa sztucznego przykryta folią typu otwórz/zamknij",
+  "torebka folia": "torebka folia",
+  butelka: "butelka",
+  "butelka HDPE": "butelka HDPE",
+  folia: "folia",
+  "pergamin + folia": "pergamin + folia",
+  "tacka, pakowano w atmosferze ochronnej":
+    "tacka, pakowano w atmosferze ochronnej",
+  pergamin: "pergamin",
+  tacka: "tacka",
+  "kubek PP": "kubek PP",
+  "folia karton": "folia karton",
+  Kubek: "Kubek",
+  "tacka, pakowany w atmosferze ochronnej":
+    "tacka, pakowany w atmosferze ochronnej",
+  "folia PET": "folia PET",
+  "butelka PET": "butelka PET",
+  PET: "PET",
+  "wiaderko PP": "wiaderko PP",
+  "szklana butelka": "szklana butelka",
+  słoik: "słoik",
+  "pojemnik PET": "pojemnik PET",
+  "torebka foliowa": "torebka foliowa",
+  "folia PAPE, pakowany próżniowo": "folia PAPE, pakowany próżniowo",
+  TetraPak: "TetraPak",
+  "pojemnik PP": "pojemnik PP",
+  "torba folia": "torba folia",
+  "butelka szklana": "butelka szklana",
+  "kubek PS": "kubek PS",
+  "Tetra Pak": "Tetra Pak",
+  "folia, karton": "folia, karton",
+  torebka: "torebka",
+  "tacka biodegradowalna": "tacka biodegradowalna",
+  karton: "karton",
+  "Woreczek papierowy, strunowy": "Woreczek papierowy, strunowy",
+  foila: "foila",
+  "butelka PP": "butelka PP",
+  "blister foliowy, torebka foliowo papierowa":
+    "blister foliowy, torebka foliowo papierowa",
+  "kubełek PP": "kubełek PP",
+};
+
 export default {
+  packageTypes,
   omega3Information,
   omega3,
   ratings,

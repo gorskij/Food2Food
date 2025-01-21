@@ -485,7 +485,51 @@ const omega3Information = {
   },
 };
 
+const packageTypes = {
+  "tacka z tworzywa sztucznego przykryta folią typu  otwórz/zamknij":
+    "plastic tray covered with open/close film",
+  "torebka folia": "foil bag",
+  butelka: "bottle",
+  "butelka HDPE": "HDPE bottle",
+  folia: "film",
+  "pergamin + folia": "parchment + film",
+  "tacka, pakowano w atmosferze ochronnej":
+    "tray, packed in protective atmosphere",
+  pergamin: "parchment",
+  tacka: "tray",
+  "kubek PP": "PP cup",
+  "folia karton": "film carton",
+  Kubek: "Cup",
+  "tacka, pakowany w atmosferze ochronnej":
+    "tray, packed in protective atmosphere",
+  "folia PET": "PET film",
+  "butelka PET": "PET bottle",
+  PET: "PET",
+  "wiaderko PP": "PP bucket",
+  "szklana butelka": "glass bottle",
+  słoik: "jar",
+  "pojemnik PET": "PET container",
+  "torebka foliowa": "plastic bag",
+  "folia PAPE, pakowany próżniowo": "PAPE film, vacuum packed",
+  TetraPak: "Tetra Pak",
+  "pojemnik PP": "PP container",
+  "torba folia": "plastic bag",
+  "butelka szklana": "glass bottle",
+  "kubek PS": "PS cup",
+  "Tetra Pak": "Tetra Pak",
+  "folia, karton": "film, carton",
+  torebka: "bag",
+  "tacka biodegradowalna": "biodegradable tray",
+  karton: "carton",
+  "Woreczek papierowy, strunowy": "paper zip-lock bag",
+  foila: "film",
+  "butelka PP": "PP bottle",
+  "blister foliowy, torebka foliowo papierowa": "foil blister, foil-paper bag",
+  "kubełek PP": "PP bucket",
+};
+
 export default {
+  packageTypes,
   omega3Information,
   omega3,
   ratings,
