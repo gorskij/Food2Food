@@ -203,7 +203,9 @@ const ProductDetailsPage: FC = () => {
                         <DataField
                           label={`${t("productDetails.packageType")}:`}
                           value={
-                            data.packageType?.name ?? t("productDetails.noData")
+                            data.packageType?.name
+                              ? t(`packageTypes.${data.packageType.name}`)
+                              : t("productDetails.noData")
                           }
                           className="my-2"
                         />

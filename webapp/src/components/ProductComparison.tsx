@@ -14,6 +14,7 @@ import { ProductDetails } from "@/types/ProductDetails";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import ProductRatings from "./ProductRatings";
 import FavoriteInfo from "./FavoriteInfo";
+import { useTranslation } from "react-i18next";
 
 interface ProductComparisonProps {
   product1: ProductDetails | undefined;
@@ -25,7 +26,7 @@ const ProductComparison: FC<ProductComparisonProps> = ({
   product2,
 }) => {
   const placeholder = "Brak danych";
-
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col min-w-full">
       <Tabs defaultValue="basic-info">
@@ -82,6 +83,24 @@ const ProductComparison: FC<ProductComparisonProps> = ({
             <DataField
               label="Kraj pochodzenia:"
               value={product2?.country ?? placeholder}
+            />
+            <DataField
+              label={`${t("productDetails.packageType")}:`}
+              value={
+                product1?.packageType?.name
+                  ? t(`packageTypes.${product1.packageType.name}`)
+                  : t("productDetails.noData")
+              }
+              className="my-2"
+            />
+            <DataField
+              label={`${t("productDetails.packageType")}:`}
+              value={
+                product2?.packageType?.name
+                  ? t(`packageTypes.${product2.packageType.name}`)
+                  : t("productDetails.noData")
+              }
+              className="my-2"
             />
             <Card className="w-full mt-2">
               <CardHeader>
