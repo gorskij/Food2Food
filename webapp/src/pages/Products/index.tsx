@@ -1,12 +1,7 @@
 import { useGetProducts } from "@/data/products/useGetProducts";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import {
-  ChevronsLeft,
-  ChevronsRight,
-  FilterX,
-  Search,
-} from "lucide-react";
+import { ChevronsLeft, ChevronsRight, FilterX, Search } from "lucide-react";
 import { LoadingData } from "@/components/LoadingData";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
@@ -116,7 +111,7 @@ const ProductsPage = () => {
       <div className="relative mt-1 flex flex-col justify-center align-content mr-4">
         <div className="flex flex-wrap justify-center gap-4">
           {data?.content.map((product) => (
-            <ProductCard product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
@@ -125,4 +120,3 @@ const ProductsPage = () => {
 };
 
 export default ProductsPage;
-

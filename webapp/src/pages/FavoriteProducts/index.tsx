@@ -113,7 +113,7 @@ const FavouriteProductsPage: FC = () => {
       <div className="relative mt-1 flex flex-col justify-center align-content mr-4">
         <div className="flex flex-wrap justify-center gap-4">
           {data?.content.map((product) => (
-            <ProductCard product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
