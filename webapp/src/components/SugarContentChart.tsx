@@ -70,9 +70,7 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
 
   return (
     <Card
-      className={`flex-1 flex-col ${
-        isCarbohydrateAbsent ? "bg-green-300" : ""
-      }`}
+      className={`flex-1 flex-col ${isCarbohydrateAbsent ? "bg-positive" : ""}`}
     >
       <CardHeader className="items-center pb-0">
         <CardTitle>{t("sugarChart.title")}</CardTitle>
