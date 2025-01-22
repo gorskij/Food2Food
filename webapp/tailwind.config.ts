@@ -14,10 +14,8 @@ export default {
         xs: "400px",
       },
       colors: {
-        toggle: {
-          positive: "hsl(var(--toggle-positive))",
-          negative: "hsl(var(--toggle-negative))",
-        },
+        positive: "hsl(var(--positive))",
+        negative: "hsl(var(--negative))",
         success: "hsl(var(--success))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

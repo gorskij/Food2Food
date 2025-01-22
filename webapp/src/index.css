@@ -51,8 +51,8 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --toggle-positive: 136, 82%, 51%, 0.556;
-    --toggle-negative: 0, 78%, 48%, 0.62;
+    --positive: 136, 82%, 51%, 0.556;
+    --negative: 0, 78%, 48%, 0.62;
   }
 
   .dark {
@@ -100,8 +100,8 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --toggle-positive: 136, 78%, 43%;
-    --togle-negative: 0, 66%, 20%;
+    --positive: 136, 78%, 43%;
+    --negative: 0, 66%, 20%;
   }
 
   .dropdown-button:focus,

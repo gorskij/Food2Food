@@ -538,6 +538,7 @@ const packageTypes = {
 
 const userPreference = {
   title: "Preferencje Żywieniowe",
+  description: `Wprowadź swoje preferencje żywieniowe w kategorii "{{category}}" lub wybierz inną interesującą cię kategorię preferencji.`,
   breadcrumbs: {
     home: "Strona Główna",
     userPreference: "Preferencje Żywieniowe",

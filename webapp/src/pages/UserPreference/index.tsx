@@ -17,7 +17,13 @@ import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Frown, RefreshCcw, Save, Smile, Trash } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useGetPackageTypes } from "@/data/packageTypes/useGetPackageTypes";
 import { UserPreference } from "@/types/UserPreference";
 import { Allergen } from "@/types/Allergen";
@@ -247,18 +253,24 @@ const UserPreferencePage: FC = () => {
         {t("userPreference.title")}
       </div>
       {breadcrumbs}
-
+      <div className="flex w-full justify-end">
+        <Button variant={"ghost"} size={"icon"} onClick={handleRefreshData}>
+          <RefreshCcw />
+        </Button>
+      </div>
       <Card>
         <CardHeader>
           <CardTitle className="text-center">
             {t(`userPreference.${selectedCategory}`)}
           </CardTitle>
+          <CardDescription>
+            {t("userPreference.description", {
+              category: t(`userPreference.${selectedCategory}`),
+            })}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-row gap-2 justify-start flex-wrap">
-            <Button variant={"ghost"} size={"icon"} onClick={handleRefreshData}>
-              <RefreshCcw />
-            </Button>
             <Select
               value={selectedCategory}
               onValueChange={setSelectedCategory}
@@ -382,7 +394,7 @@ const UserPreferencePage: FC = () => {
                         >
                           <ToggleGroupItem
                             value="positive"
-                            className="data-[state=on]:bg-toggle-positive"
+                            className="data-[state=on]:bg-positive"
                             onClick={() =>
                               handleToggle(
                                 "positiveNutritionalValueNames",
@@ -395,7 +407,7 @@ const UserPreferencePage: FC = () => {
                           </ToggleGroupItem>
                           <ToggleGroupItem
                             value="negative"
-                            className="data-[state=on]:bg-toggle-negative"
+                            className="data-[state=on]:bg-negative"
                             onClick={() =>
                               handleToggle(
                                 "negativeNutritionalValueNames",

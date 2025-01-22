@@ -530,6 +530,7 @@ const packageTypes = {
 
 const userPreference = {
   title: "Dietary Preferences",
+  description: `Enter your dietary preferences in the "{{category}}" category or choose another category of interest to you.`,
   breadcrumbs: {
     home: "Home Page",
     userPreference: "Dietary Preferences",

@@ -73,7 +73,7 @@ const ToggleableItemList: FC<ToggleableItemListProps> = ({
                 {negativeCategory === "allergens" ? (
                   <ToggleGroupItem
                     value="negative"
-                    className="data-[state=on]:bg-toggle-negative"
+                    className="data-[state=on]:bg-negative"
                     onClick={() => onToggle(negativeCategory, item.id)}
                   >
                     <Frown />
@@ -82,7 +82,7 @@ const ToggleableItemList: FC<ToggleableItemListProps> = ({
                   <>
                     <ToggleGroupItem
                       value="positive"
-                      className="data-[state=on]:bg-toggle-positive"
+                      className="data-[state=on]:bg-positive"
                       onClick={() =>
                         onToggle(positiveCategory, item.id, negativeCategory)
                       }
@@ -91,7 +91,7 @@ const ToggleableItemList: FC<ToggleableItemListProps> = ({
                     </ToggleGroupItem>
                     <ToggleGroupItem
                       value="negative"
-                      className="data-[state=on]:bg-toggle-negative"
+                      className="data-[state=on]:bg-negative"
                       onClick={() =>
                         onToggle(negativeCategory, item.id, positiveCategory)
                       }
