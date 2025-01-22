@@ -11,7 +11,6 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor
-@ToString
 @Entity
 public class Product extends AbstractEntity {
 

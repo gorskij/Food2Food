@@ -536,7 +536,43 @@ const packageTypes = {
   "kubełek PP": "kubełek PP",
 };
 
+const userPreference = {
+  title: "Preferencje Żywieniowe",
+  breadcrumbs: {
+    home: "Strona Główna",
+    userPreference: "Preferencje Żywieniowe",
+  },
+  saveButton: "Zapisz zmiany",
+  allergens: "Alergeny",
+  macronutrients: "Makroskładniki",
+  nutrients: "Składniki odżywcze",
+  vitamins: "witaminy",
+  minerals: "minerały",
+  omega3: "Omega-3",
+  appliedTechnologicalProcesses: "Zastosowane procesy technologiczne",
+  parametersWithoutIngredients: "Parametry bez składników",
+  withoutFoodAdditives: "Bez dodatków do żywności",
+  certificatesHeld: "Posiadane certyfikaty",
+  packageTypes: "Typ opakowania",
+  specificFeatures: "Specyficzne cechy",
+  dialog: {
+    title: "Czy na pewno chcesz zapisać zmiany?",
+    description:
+      "Po zapisaniu, zmiany zostaną utrwalone w twoich preferencjach żywieniowych.",
+    confirm: "Potwierdź",
+  },
+  resetPreferences: "Wyczyść preferencje",
+};
+
+const editUserPreference = {
+  successTitle: "Zapisano preferencje żywieniowe",
+  successDescription: "Zapisano nowe preferencje żywieniowe użytkownika.",
+  errorTitle: "Wystąpił błąd przy zapisie preferencji żywieniowych",
+};
+
 export default {
+  editUserPreference,
+  userPreference,
   packageTypes,
   omega3Information,
   omega3,

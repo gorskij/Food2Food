@@ -7,6 +7,7 @@ import ComparePage from "./pages/Compare";
 import FavouriteProductsPage from "./pages/FavoriteProducts";
 import GoogleCallback from "./pages/GoogleCallback";
 import GithubCallback from "./pages/GithubCallback";
+import UserPreferencePage from "./pages/UserPreference";
 
 export const UnprotectedRoutes: RouteObject[] = [
   {
@@ -26,6 +27,7 @@ export const UnprotectedRoutes: RouteObject[] = [
 const UserRoutes: RouteObject[] = [
   { index: true, Component: HomePage },
   { path: "favorite-products", Component: FavouriteProductsPage },
+  { path: "user-preference", Component: UserPreferencePage },
 ];
 
 const AdminRoutes: RouteObject[] = [{ index: true, Component: HomePage }];

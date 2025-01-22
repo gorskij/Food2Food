@@ -1,0 +1,114 @@
+import { Allergen } from "@/types/Allergen";
+import { NutritionalValueName } from "@/types/NutritionalValueName";
+import { PackageType } from "@/types/PackageType";
+import { Rating } from "@/types/Rating";
+import { UserPreference } from "@/types/UserPreference";
+import { FC } from "react";
+import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
+import { Frown, Smile } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+type preferenceCategoryTypesArrays =
+  | Allergen[]
+  | Rating[]
+  | NutritionalValueName[]
+  | PackageType[];
+
+type ToggleableItemListProps = {
+  data: preferenceCategoryTypesArrays;
+  positiveCategory?: keyof UserPreference;
+  negativeCategory: keyof UserPreference;
+  tempPreferences: UserPreference;
+  translationCategory: string;
+  group?: string;
+  onToggle: (
+    addToCategory: keyof UserPreference,
+    itemId: string,
+    removeFromCategory?: keyof UserPreference
+  ) => void;
+};
+
+const ToggleableItemList: FC<ToggleableItemListProps> = ({
+  data,
+  positiveCategory,
+  negativeCategory,
+  translationCategory,
+  tempPreferences,
+  group,
+  onToggle,
+}) => {
+  const { t } = useTranslation();
+
+  const shouldFilterByGroup = data.length > 0 && "groupName" in data[0];
+
+  return (
+    <ul>
+      {data
+        .filter((item) => {
+          if ("group" in item) {
+            return item.group.groupName === group;
+          }
+          return shouldFilterByGroup ? item.groupName === group : true;
+        })
+        .map((item) => {
+          const isNegative = tempPreferences?.[negativeCategory]?.some(
+            (prefItem) => prefItem.id === item.id
+          );
+
+          let isPositive;
+
+          if (positiveCategory) {
+            isPositive = tempPreferences?.[positiveCategory]?.some(
+              (prefItem) => prefItem.id === item.id
+            );
+          }
+
+          return (
+            <li key={item.id} className="flex items-center gap-2 my-2">
+              <ToggleGroup
+                type="single"
+                variant="outline"
+                value={isNegative ? "negative" : isPositive ? "positive" : ""}
+              >
+                {negativeCategory === "allergens" ? (
+                  <ToggleGroupItem
+                    value="negative"
+                    className="data-[state=on]:bg-toggle-negative"
+                    onClick={() => onToggle(negativeCategory, item.id)}
+                  >
+                    <Frown />
+                  </ToggleGroupItem>
+                ) : positiveCategory !== undefined ? (
+                  <>
+                    <ToggleGroupItem
+                      value="positive"
+                      className="data-[state=on]:bg-toggle-positive"
+                      onClick={() =>
+                        onToggle(positiveCategory, item.id, negativeCategory)
+                      }
+                    >
+                      <Smile />
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value="negative"
+                      className="data-[state=on]:bg-toggle-negative"
+                      onClick={() =>
+                        onToggle(negativeCategory, item.id, positiveCategory)
+                      }
+                    >
+                      <Frown />
+                    </ToggleGroupItem>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </ToggleGroup>
+              {t(`${translationCategory}.${item.name}`)}
+            </li>
+          );
+        })}
+    </ul>
+  );
+};
+
+export default ToggleableItemList;

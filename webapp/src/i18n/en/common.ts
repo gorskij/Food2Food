@@ -309,7 +309,7 @@ const appSidebar = {
   compareProducts: "Compare Products",
   yourSection: "Your Section",
   favorites: "Favorite Products",
-  userPreferences: "Nutritional Preferences",
+  userPreferences: "Dietary Preferences",
   clearComparison: "Clear comparison products",
   comparisonSection: "Product comparison",
   slot1: "Product 1",
@@ -528,7 +528,43 @@ const packageTypes = {
   "kubełek PP": "PP bucket",
 };
 
+const userPreference = {
+  title: "Dietary Preferences",
+  breadcrumbs: {
+    home: "Home Page",
+    userPreference: "Dietary Preferences",
+  },
+  saveButton: "Save Changes",
+  allergens: "Allergens",
+  macronutrients: "Macronutrients",
+  nutrients: "Nutrients",
+  vitamins: "Vitamins",
+  minerals: "Minerals",
+  omega3: "Omega-3",
+  appliedTechnologicalProcesses: "Applied Technological Processes",
+  parametersWithoutIngredients: "Parameters Without Ingredients",
+  withoutFoodAdditives: "Without Food Additives",
+  certificatesHeld: "Held Certificates",
+  packageTypes: "Package Types",
+  specificFeatures: "Specific Features",
+  dialog: {
+    title: "Are you sure you want to save the changes?",
+    description:
+      "Once saved, the changes will be applied to your dietary preferences.",
+    confirm: "Confirm",
+  },
+  resetPreferences: "Reset preferences",
+};
+
+const editUserPreference = {
+  successTitle: "Dietary Preferences Saved",
+  successDescription: "The user's new dietary preferences have been saved.",
+  errorTitle: "An error occurred while saving dietary preferences",
+};
+
 export default {
+  editUserPreference,
+  userPreference,
   packageTypes,
   omega3Information,
   omega3,

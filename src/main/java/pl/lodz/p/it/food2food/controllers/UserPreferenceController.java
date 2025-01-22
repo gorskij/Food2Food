@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import pl.lodz.p.it.food2food.dto.UserPreferenceDto;
+import pl.lodz.p.it.food2food.dto.requests.UserPreferenceRequest;
+import pl.lodz.p.it.food2food.dto.responses.UserPreferenceResponse;
 import pl.lodz.p.it.food2food.exceptions.ApplicationOptimisticLockException;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.mappers.UserPreferenceMapper;
@@ -32,13 +33,13 @@ public class UserPreferenceController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping()
-    public ResponseEntity<UserPreferenceDto> getUserPreference() {
+    public ResponseEntity<UserPreferenceResponse> getUserPreference() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UUID userId = (UUID) authentication.getPrincipal();
 
         try {
             UserPreference userPreference = userPreferenceService.getUserPreference(userId);
-            UserPreferenceDto userPreferenceDto = userPreferenceMapper.toUserPreferenceDto(userPreference);
+            UserPreferenceResponse userPreferenceDto = userPreferenceMapper.toUserPreferenceResponse(userPreference);
             return ResponseEntity.ok().eTag(signer.generateSignature(userPreference.getId(), userPreference.getVersion())).body(userPreferenceDto);
         } catch (NotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
@@ -47,16 +48,20 @@ public class UserPreferenceController {
 
     @PreAuthorize("isAuthenticated()")
     @PutMapping()
-    public ResponseEntity<UserPreferenceDto> updateUserPreference(
-            @RequestBody UserPreferenceDto newUserPreference,
+    public ResponseEntity<UserPreferenceResponse> updateUserPreference(
+            @RequestBody UserPreferenceRequest newUserPreference,
             @RequestHeader(HttpHeaders.IF_MATCH) String tagValue) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UUID userId = (UUID) authentication.getPrincipal();
+
         try {
-            return ResponseEntity.ok(
-                    userPreferenceMapper.toUserPreferenceDto(
-                            userPreferenceService.updateUserPreference(
-                                    userId, newUserPreference, tagValue)));
+            UserPreference updatedUserPreference = userPreferenceService.updateUserPreference(userId, newUserPreference, tagValue);
+
+            String newETag = signer.generateSignature(updatedUserPreference.getId(), updatedUserPreference.getVersion());
+
+            return ResponseEntity.ok()
+                    .eTag(newETag)
+                    .body(userPreferenceMapper.toUserPreferenceResponse(updatedUserPreference));
         } catch (NotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         } catch (ApplicationOptimisticLockException e) {

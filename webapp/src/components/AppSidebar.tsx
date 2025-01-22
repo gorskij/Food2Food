@@ -80,9 +80,9 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <NavLink to="/user/preferences">
+                      <NavLink to="/user/user-preference">
                         <NotebookPen />
-                        {t("appSidebar.editPreferences")}
+                        {t("appSidebar.userPreferences")}
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -107,7 +107,7 @@ export function AppSidebar() {
                 </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem >
+            <SidebarMenuItem>
               <SidebarMenuButton onClick={clearProducts}>
                 <Eraser />
                 {t("appSidebar.clearComparison")}
@@ -116,21 +116,17 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>
-            {t("appSidebar.slot1")}
-          </SidebarGroupLabel>
+          <SidebarGroupLabel>{t("appSidebar.slot1")}</SidebarGroupLabel>
           <SidebarMenu>
-            <SidebarMenuItem >
+            <SidebarMenuItem>
               <SidebarComparisonSlot slot="product1" />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>
-            {t("appSidebar.slot2")}
-          </SidebarGroupLabel>
+          <SidebarGroupLabel>{t("appSidebar.slot2")}</SidebarGroupLabel>
           <SidebarMenu>
-            <SidebarMenuItem >
+            <SidebarMenuItem>
               <SidebarComparisonSlot slot="product2" />
             </SidebarMenuItem>
           </SidebarMenu>
