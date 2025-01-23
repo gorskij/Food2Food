@@ -9,7 +9,13 @@ import VitaminsInformation from "@/components/VitaminsInformation";
 import ProductAllergens from "@/components/ProductAllergens";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
 import SugarContentChart from "@/components/SugarContentChart";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useGetProductDetails } from "@/data/products/useProductDetails";
 import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { FC } from "react";
@@ -217,6 +223,9 @@ const ProductDetailsPage: FC = () => {
                           {t("productDetails.ratingsTitle")}
                         </CardTitle>
                       </CardHeader>
+                      <CardDescription className="text-center text-pretty mx-2">
+                        {t("productDetails.productCharacteristicsDescription")}
+                      </CardDescription>
                       <CardContent className="flex flex-row flex-wrap">
                         <ProductAllergens productDetails={data} />
                         <ProductRatings
