@@ -42,7 +42,7 @@ const ToggleableItemList: FC<ToggleableItemListProps> = ({
   const shouldFilterByGroup = data.length > 0 && "groupName" in data[0];
 
   return (
-    <ul>
+    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-2">
       {data
         .filter((item) => {
           if ("group" in item) {

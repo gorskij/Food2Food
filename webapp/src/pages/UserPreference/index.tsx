@@ -263,7 +263,7 @@ const UserPreferencePage: FC = () => {
           <CardTitle className="text-center">
             {t(`userPreference.${selectedCategory}`)}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-center">
             {t("userPreference.description", {
               category: t(`userPreference.${selectedCategory}`),
             })}
@@ -435,38 +435,50 @@ const UserPreferencePage: FC = () => {
             {selectedCategory === "nutrients" && (
               <div>
                 <ul>
-                  <h2>{t("userPreference.vitamins")}</h2>
                   {nutritionalValuesData && tempPreferences && (
                     <>
-                      <ToggleableItemList
-                        data={nutritionalValuesData}
-                        positiveCategory="positiveNutritionalValueNames"
-                        negativeCategory="negativeNutritionalValueNames"
-                        tempPreferences={tempPreferences}
-                        translationCategory="vitamins"
-                        group="Witaminy"
-                        onToggle={handleToggle}
-                      />
-                      <h2>{t("userPreference.minerals")}</h2>
-                      <ToggleableItemList
-                        data={nutritionalValuesData}
-                        positiveCategory="positiveNutritionalValueNames"
-                        negativeCategory="negativeNutritionalValueNames"
-                        tempPreferences={tempPreferences}
-                        translationCategory="minerals"
-                        group="Minerały"
-                        onToggle={handleToggle}
-                      />
-                      <h2>{t("userPreference.omega3")}</h2>
-                      <ToggleableItemList
-                        data={nutritionalValuesData}
-                        positiveCategory="positiveNutritionalValueNames"
-                        negativeCategory="negativeNutritionalValueNames"
-                        tempPreferences={tempPreferences}
-                        translationCategory="omega3"
-                        group="Omega-3"
-                        onToggle={handleToggle}
-                      />
+                      <div>
+                        <h2 className="text-center">
+                          {t("userPreference.vitamins")}
+                        </h2>
+                        <ToggleableItemList
+                          data={nutritionalValuesData}
+                          positiveCategory="positiveNutritionalValueNames"
+                          negativeCategory="negativeNutritionalValueNames"
+                          tempPreferences={tempPreferences}
+                          translationCategory="vitamins"
+                          group="Witaminy"
+                          onToggle={handleToggle}
+                        />
+                      </div>
+                      <div>
+                        <h2 className="text-center">
+                          {t("userPreference.minerals")}
+                        </h2>
+                        <ToggleableItemList
+                          data={nutritionalValuesData}
+                          positiveCategory="positiveNutritionalValueNames"
+                          negativeCategory="negativeNutritionalValueNames"
+                          tempPreferences={tempPreferences}
+                          translationCategory="minerals"
+                          group="Minerały"
+                          onToggle={handleToggle}
+                        />
+                      </div>
+                      <div>
+                        <h2 className="text-center">
+                          {t("userPreference.omega3")}
+                        </h2>
+                        <ToggleableItemList
+                          data={nutritionalValuesData}
+                          positiveCategory="positiveNutritionalValueNames"
+                          negativeCategory="negativeNutritionalValueNames"
+                          tempPreferences={tempPreferences}
+                          translationCategory="omega3"
+                          group="Omega-3"
+                          onToggle={handleToggle}
+                        />
+                      </div>
                     </>
                   )}
                 </ul>
