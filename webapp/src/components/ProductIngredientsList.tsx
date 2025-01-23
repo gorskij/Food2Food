@@ -20,7 +20,7 @@ import { Banana, Carrot } from "lucide-react";
 
 interface ProductIngredientsListProps {
   productDetails: ProductDetails;
-  icon: string;
+  icon?: string;
 }
 
 const ProductIngredientsList: FC<ProductIngredientsListProps> = ({

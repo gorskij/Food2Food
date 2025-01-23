@@ -25,7 +25,7 @@ import { Banana, Carrot } from "lucide-react";
 
 interface SugarContentChartProps {
   productDetails: ProductDetails;
-  icon: string;
+  icon?: string;
 }
 
 const SugarContentChart: FC<SugarContentChartProps> = ({

@@ -21,7 +21,7 @@ import { Banana, Carrot } from "lucide-react";
 
 interface MacronutrientsInformationProps {
   productDetails: ProductDetails;
-  icon: string;
+  icon?: string;
 }
 
 const RWS_VALUES: Record<string, number> = {

@@ -25,7 +25,7 @@ import { Banana, Carrot } from "lucide-react";
 
 interface FatSaturationChartProps {
   productDetails: ProductDetails;
-  icon: string;
+  icon?: string;
 }
 
 const FatSaturationChart: FC<FatSaturationChartProps> = ({

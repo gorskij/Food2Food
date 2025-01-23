@@ -19,7 +19,7 @@ import { Banana, Carrot } from "lucide-react";
 
 interface NutritionalChartProps {
   productDetails: ProductDetails;
-  icon: string;
+  icon?: string;
 }
 
 const NutritionalChart: FC<NutritionalChartProps> = ({
