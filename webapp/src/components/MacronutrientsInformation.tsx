@@ -17,9 +17,11 @@ import {
 import RWSChart from "./RWSChart";
 import { useTranslation } from "react-i18next";
 import { FC } from "react";
+import { Banana, Carrot } from "lucide-react";
 
 interface MacronutrientsInformationProps {
   productDetails: ProductDetails;
+  icon: string;
 }
 
 const RWS_VALUES: Record<string, number> = {
@@ -33,6 +35,7 @@ const RWS_VALUES: Record<string, number> = {
 
 const MacronutrientsInformation: FC<MacronutrientsInformationProps> = ({
   productDetails,
+  icon,
 }) => {
   const macronutrientNames = [
     { groupName: "Wartość Energetyczna", name: "Wartość Energetyczna" },
@@ -161,8 +164,10 @@ const MacronutrientsInformation: FC<MacronutrientsInformationProps> = ({
     <>
       <Card className="flex-1 hidden sm:block min-w-[450px]">
         <CardHeader>
-          <CardTitle className="text-center">
+          <CardTitle className="text-center flex flex-row items-center justify-center gap-2">
             {t("macronutrientsInformation.title")}
+            {icon === "banana" && <Banana />}
+            {icon === "carrot" && <Carrot />}
           </CardTitle>
           <CardDescription className="text-center">
             {t("macronutrientsInformation.description", { unit: unit })}

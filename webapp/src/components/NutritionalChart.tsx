@@ -15,12 +15,17 @@ import {
   ChartTooltipContent,
 } from "./ui/chart";
 import { useTranslation } from "react-i18next";
+import { Banana, Carrot } from "lucide-react";
 
 interface NutritionalChartProps {
   productDetails: ProductDetails;
+  icon: string;
 }
 
-const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
+const NutritionalChart: FC<NutritionalChartProps> = ({
+  productDetails,
+  icon,
+}) => {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -90,8 +95,10 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
   return (
     <Card className="flex-1 flex-col min-w-[450px] hidden sm:block">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-center">
+        <CardTitle className="text-center flex flex-row items-center justify-center gap-2">
           {t("nutritionalChart.title")}
+          {icon === "banana" && <Banana />}
+          {icon === "carrot" && <Carrot />}
         </CardTitle>
         <CardDescription>
           {t("nutritionalChart.description", {

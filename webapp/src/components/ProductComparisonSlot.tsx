@@ -5,7 +5,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Ellipsis, Heart, Plus, Search, Trash, Utensils } from "lucide-react";
+import {
+  Banana,
+  Carrot,
+  Ellipsis,
+  Heart,
+  Plus,
+  Search,
+  Trash,
+  Utensils,
+} from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useUserStore } from "@/store/userStore";
 import { useComparisonStore } from "@/store/comparisonStore";
@@ -19,9 +28,13 @@ interface ProductComparisonSlotProps {
     labelImage?: string | null;
     ean: string;
   };
-};
+  icon: string;
+}
 
-const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }) => {
+const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({
+  product,
+  icon,
+}) => {
   const { t } = useTranslation();
   const { isAuthenticated } = useUserStore();
   const { product1, product2, removeProduct } = useComparisonStore();
@@ -36,14 +49,10 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
     return (
       <div className="flex flex-col items-center w-full rounded">
         <div className="flex flex-col items-center">
-          <div
-          >
+          <div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="secondary"
-                  size="icon"
-                >
+                <Button variant="secondary" size="icon">
                   <Plus />
                 </Button>
               </DropdownMenuTrigger>
@@ -91,10 +100,11 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
     : "https://via.placeholder.com/150";
 
   return (
-    <div
-      className="flex flex-col items-center w-full"
-    >
+    <div className="flex flex-col items-center w-full">
       <div className="w-full h-full flex justify-end">
+        {icon === "banana" && <Banana />}
+        {icon === "carrot" && <Carrot />}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="ml-auto py-2 px-4">
@@ -125,14 +135,14 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({ product }
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-
       </div>
       <img
         src={productImg}
         alt={product.productName}
-        className="w-full max-h-48 object-contain rounded hidden sm:block"
+        className="w-full h-auto max-h-48 object-contain rounded hidden sm:block"
       />
-      <h3 className="mt-2 text-lg font-bold text-center">
+
+      <h3 className="mt-2 text-base md:text-lg font-bold text-center">
         {product.productName}
       </h3>
     </div>

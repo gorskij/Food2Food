@@ -1,6 +1,12 @@
 import { ProductDetails } from "@/types/ProductDetails";
 import { FC } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import {
   Table,
   TableBody,
@@ -10,13 +16,16 @@ import {
   TableRow,
 } from "./ui/table";
 import { useTranslation } from "react-i18next";
+import { Banana, Carrot } from "lucide-react";
 
 interface ProductIngredientsListProps {
   productDetails: ProductDetails;
+  icon: string;
 }
 
 const ProductIngredientsList: FC<ProductIngredientsListProps> = ({
   productDetails,
+  icon,
 }) => {
   const { t } = useTranslation();
 
@@ -31,9 +40,14 @@ const ProductIngredientsList: FC<ProductIngredientsListProps> = ({
   return (
     <Card className="flex-1 max-w-full mt-4">
       <CardHeader>
-        <CardTitle className="text-center">
+        <CardTitle className="text-center text-md flex flex-row items-center justify-center gap-2">
           {t("ingredients.title")}
+          {icon === "banana" && <Banana />}
+          {icon === "carrot" && <Carrot />}
         </CardTitle>
+        <CardDescription className="text-center">
+          {t("ingredients.description")}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-wrap gap-2">
         {noData ? (
@@ -45,7 +59,9 @@ const ProductIngredientsList: FC<ProductIngredientsListProps> = ({
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>{t("ingredients.ingredientsHeader")}</TableHead>
+                      <TableHead>
+                        {t("ingredients.ingredientsHeader")}
+                      </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>

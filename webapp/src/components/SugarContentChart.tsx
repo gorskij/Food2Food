@@ -21,12 +21,17 @@ import {
 } from "./ui/chart";
 import { ProductDetails } from "@/types/ProductDetails";
 import { useTranslation } from "react-i18next";
+import { Banana, Carrot } from "lucide-react";
 
 interface SugarContentChartProps {
   productDetails: ProductDetails;
+  icon: string;
 }
 
-const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
+const SugarContentChart: FC<SugarContentChartProps> = ({
+  productDetails,
+  icon,
+}) => {
   const { t } = useTranslation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -94,8 +99,12 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
       className={`flex-1 flex-col ${isCarbohydrateAbsent ? "bg-positive" : ""}`}
     >
       <CardHeader className="items-center pb-0">
-        <CardTitle>{t("sugarChart.title")}</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-center flex flex-row items-center justify-center gap-2">
+          {t("sugarChart.title")}
+          {icon === "banana" && <Banana />}
+          {icon === "carrot" && <Carrot />}
+        </CardTitle>
+        <CardDescription className="text-foreground">
           {t("sugarChart.description", { unit: unit })}
         </CardDescription>
       </CardHeader>

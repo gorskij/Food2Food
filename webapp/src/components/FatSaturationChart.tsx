@@ -21,13 +21,16 @@ import {
 } from "./ui/chart";
 import { ProductDetails } from "@/types/ProductDetails";
 import { useTranslation } from "react-i18next";
+import { Banana, Carrot } from "lucide-react";
 
 interface FatSaturationChartProps {
   productDetails: ProductDetails;
+  icon: string;
 }
 
 const FatSaturationChart: FC<FatSaturationChartProps> = ({
   productDetails,
+  icon,
 }) => {
   const { t } = useTranslation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -93,8 +96,12 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
       className={`flex-1 flex-col ${isSaturatedAbsent ? "bg-positive" : ""}`}
     >
       <CardHeader className="items-center pb-0">
-        <CardTitle>{t("fatSaturation.title")}</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-center flex flex-row items-center justify-center gap-2">
+          {t("fatSaturation.title")}
+          {icon === "banana" && <Banana />}
+          {icon === "carrot" && <Carrot />}
+        </CardTitle>
+        <CardDescription className="text-foreground">
           {t("fatSaturation.description", {
             unit: unit,
           })}
@@ -145,7 +152,7 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
                           </tspan>
                           <tspan
                             x={viewBox.cx}
-                            y={(viewBox.cy || 0) + 75}
+                            y={(viewBox.cy || 0) + 65}
                             className="text-sm fill-foreground"
                           >
                             {fatLevelInfo}
