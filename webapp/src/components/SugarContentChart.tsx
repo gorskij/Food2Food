@@ -6,7 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { RadialBarChart, PolarRadiusAxis, Label, RadialBar } from "recharts";
+import {
+  RadialBarChart,
+  PolarRadiusAxis,
+  Label,
+  RadialBar,
+  Legend,
+} from "recharts";
 import {
   ChartConfig,
   ChartContainer,
@@ -56,6 +62,21 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
     },
   ];
 
+  const sugarContentChartDataForLegend = [
+    {
+      value: t("sugarChart.labels.nonSugarCarbs"),
+      color: "hsl(var(--chart-yellow))",
+      label: t("sugarChart.labels.nonSugarCarbs"),
+      type: "square",
+    },
+    {
+      value: t("sugarChart.labels.sugar"),
+      color: "hsl(var(--chart-red))",
+      label: t("sugarChart.labels.sugar"),
+      type: "square",
+    },
+  ];
+
   const isCarbohydrateAbsent = totalCarbohydrates === 0;
 
   const sugarLevelInfo =
@@ -78,7 +99,7 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
           {t("sugarChart.description", { unit: unit })}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-1 items-center pb-0">
+      <CardContent className="flex flex-1 items-center pb-0 min-h-[240px]">
         {isCarbohydrateAbsent ? (
           <p className="flex-1 text-center justify-center">
             {t("sugarChart.noCarbs")}
@@ -156,6 +177,13 @@ const SugarContentChart: FC<SugarContentChartProps> = ({ productDetails }) => {
                 className="stroke-transparent stroke-2"
                 onMouseEnter={() => setHoveredIndex(1)}
                 onMouseLeave={() => setHoveredIndex(null)}
+              />
+              <Legend
+                layout="vertical"
+                verticalAlign="bottom"
+                payload={sugarContentChartDataForLegend}
+                align="left"
+                iconType="square"
               />
             </RadialBarChart>
           </ChartContainer>

@@ -318,27 +318,6 @@ const ChartLegendContent = React.forwardRef<
 );
 ChartLegendContent.displayName = "ChartLegend";
 
-const CustomLegend = ({ payload }) => {
-  return (
-    <div className="flex items-center justify-center gap-4 pt-3">
-      {payload.map((entry, index) => {
-        return (
-          <div
-            key={`legend-item-${index}`}
-            className="flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
-          >
-            <div
-              className="h-2 w-2 shrink-0 rounded-[2px]"
-              style={{ backgroundColor: entry.color }}
-            />
-            <div>{entry.value}</div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
 function getPayloadConfigFromPayload(
   config: ChartConfig,
   payload: unknown,
@@ -384,5 +363,4 @@ export {
   ChartLegend,
   ChartLegendContent,
   ChartStyle,
-  CustomLegend,
 };

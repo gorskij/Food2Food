@@ -6,7 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { RadialBarChart, PolarRadiusAxis, Label, RadialBar } from "recharts";
+import {
+  RadialBarChart,
+  PolarRadiusAxis,
+  Label,
+  RadialBar,
+  Legend,
+} from "recharts";
 import {
   ChartConfig,
   ChartContainer,
@@ -46,7 +52,18 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
       unsaturated: unsaturatedFat,
     },
   ];
-
+  const fatSaturationChartDataForLegend = [
+    {
+      value: t("fatSaturation.unsaturatedFatLabel"),
+      color: "hsl(var(--chart-yellow))",
+      type: "square",
+    },
+    {
+      value: t("fatSaturation.saturatedFatLabel"),
+      color: "hsl(var(--chart-red))",
+      type: "square",
+    },
+  ];
   const fatSaturationChartConfig = {
     saturated: {
       label: t("fatSaturation.saturatedFatLabel"),
@@ -156,6 +173,13 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
                 className="stroke-transparent stroke-2"
                 onMouseEnter={() => setHoveredIndex(1)}
                 onMouseLeave={() => setHoveredIndex(null)}
+              />
+              <Legend
+                layout="vertical"
+                verticalAlign="bottom"
+                payload={fatSaturationChartDataForLegend}
+                align="left"
+                iconType="square"
               />
             </RadialBarChart>
           </ChartContainer>

@@ -563,7 +563,13 @@ const editUserPreference = {
   errorTitle: "An error occurred while saving dietary preferences",
 };
 
+const favoriteComparison = {
+  more: "Product is more popular with our users",
+  less: "Product is less popular with our users",
+};
+
 export default {
+  favoriteComparison,
   editUserPreference,
   userPreference,
   packageTypes,

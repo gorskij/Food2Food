@@ -251,7 +251,7 @@ const fatSaturation = {
   description: "na 100 {{unit}} produktu",
   noFat: "Brak tłuszczu w produkcie",
   saturatedFatLabel: "Nasycone Kwasy Tłuszczowe",
-  unsaturatedFatLabel: "Pozostałe tłuszcze",
+  unsaturatedFatLabel: "Pozostałe Tłuszcze",
   chartLabel: "nasycone kwasy tłuszczowe / total tłuszcze",
   lowSaturatedFat: "Niska zawartość tłuszczów nasyconych",
   highSaturatedFat: "Wysoka zawartość tłuszczów nasyconych",
@@ -290,7 +290,7 @@ const sugarChart = {
   description: "na 100 {{unit}} produktu",
   labels: {
     sugar: "Zawartość Cukru",
-    nonSugarCarbs: "Pozostałe węglowodany",
+    nonSugarCarbs: "Pozostałe Węglowodany",
   },
   info: {
     lowSugar: "Niska zawartość cukru",
@@ -571,7 +571,24 @@ const editUserPreference = {
   errorTitle: "Wystąpił błąd przy zapisie preferencji żywieniowych",
 };
 
+const favoriteComparison = {
+  more: "Produkt jest bardziej popularny wśród naszych użytkowników",
+  less: "Produkt jest mniej popularny wśród naszych użytkowników",
+};
+
+const productComparison = {
+  basicInfo: "Podstawowe Informacje",
+  macronutrients: "Makroskładniki",
+  nutrients: "Składniki odżywcze",
+  productDescription: "Opis produktu:",
+  ean: "Kod EAN:",
+  countryOfOrigin: "Kraj pochodzenia:",
+  packageType: "Typ Opakowania:",
+};
+
 export default {
+  productComparison,
+  favoriteComparison,
   editUserPreference,
   userPreference,
   packageTypes,

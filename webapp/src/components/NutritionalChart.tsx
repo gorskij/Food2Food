@@ -1,6 +1,6 @@
 import { ProductDetails } from "@/types/ProductDetails";
 import { FC, useState } from "react";
-import { Pie, Sector, Label, PieChart } from "recharts";
+import { Pie, Sector, Legend, Label, PieChart } from "recharts";
 import {
   Card,
   CardHeader,
@@ -13,8 +13,6 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  ChartLegend,
-  CustomLegend,
 } from "./ui/chart";
 import { useTranslation } from "react-i18next";
 
@@ -165,9 +163,11 @@ const NutritionalChart: FC<NutritionalChartProps> = ({ productDetails }) => {
                 }}
               />
             </Pie>
-            <ChartLegend
-              content={<CustomLegend payload="name" />}
-              className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+            <Legend
+              layout="vertical"
+              verticalAlign="bottom"
+              align="center"
+              iconType="square"
             />
           </PieChart>
         </ChartContainer>
