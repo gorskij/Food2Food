@@ -213,17 +213,12 @@ const UserPreferencePage: FC = () => {
     };
     const etag = userPreferenceData.headers.etag;
 
-    mutation.mutate(
-      {
-        userPreference: simplifiedPreferences,
-        etag: etag.substring(1, etag.length - 1),
-      },
-      {
-        onSuccess: () => {
-          setIsChanged(false);
-        },
-      }
-    );
+    mutation.mutate({
+      userPreference: simplifiedPreferences,
+      etag: etag.substring(1, etag.length - 1),
+    });
+    setIsChanged(false);
+    setTempPreferences(userPreferenceData.data);
   };
 
   const handleRefreshData = () => {
