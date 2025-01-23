@@ -6,7 +6,7 @@ import { toast } from "@/hooks/use-toast";
 import { t } from "i18next";
 import { ErrorCode } from "@/types/ErrorCode";
 
-export const useGetProductDetails = (id: string) => {
+export const useGetProductDetails = (id: string | undefined) => {
   return useQuery({
     queryKey: ["productDetails", id],
     queryFn: async () => {

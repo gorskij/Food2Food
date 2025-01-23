@@ -14,12 +14,13 @@ import { Button } from "./ui/button";
 import GoogleLoginButton from "./SignInGoogleButton";
 import GithubLoginButton from "./SignInGithubButton";
 import { toast } from "@/hooks/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const SessionExpiredDialog: FC = () => {
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const { token, clearToken } = useUserStore();
-
+  const queryClient = useQueryClient();
   useEffect(() => {
     const interval = setInterval(() => {
       if (token !== undefined && !isTokenValid(token)) {
@@ -40,6 +41,7 @@ const SessionExpiredDialog: FC = () => {
     });
     clearToken();
     setOpen(false);
+    queryClient.invalidateQueries({ queryKey: ["userPreference"] });
   };
 
   return (

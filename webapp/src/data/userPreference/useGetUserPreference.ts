@@ -5,12 +5,16 @@ import { toast } from "@/hooks/use-toast";
 import { t } from "i18next";
 import { ErrorCode } from "@/types/ErrorCode";
 import useAxiosPrivate from "../useAxiosPrivate";
+import { useUserStore } from "@/store/userStore";
 
 export const useGetUserPreference = () => {
   const { apiAxios } = useAxiosPrivate();
+  const { isAuthenticated } = useUserStore();
+
   return useQuery({
     queryKey: ["userPreference"],
     queryFn: async () => {
+      if (!isAuthenticated()) return null;
       try {
         return await apiAxios.get<UserPreference>(`/user-preference`);
       } catch (error) {
@@ -28,5 +32,6 @@ export const useGetUserPreference = () => {
         return Promise.reject(axiosError);
       }
     },
+    enabled: isAuthenticated(),
   });
 };
