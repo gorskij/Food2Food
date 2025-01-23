@@ -41,7 +41,7 @@ const errors = {
 const mineralsInformation = {
   title: "Zawartość minerałów w produkcie",
   description:
-    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100\u00A0{{unit}} produktu.",
   mineralDataUnavailable: "Brak danych o minerałach do wyświetlenia",
   table: {
     mineral: "Minerał",
@@ -73,7 +73,7 @@ const minerals = {
 const vitaminsInformation = {
   title: "Zawartość witamin w produkcie",
   description:
-    "W odniesieniu do Rekomendowanej Wartości (RWS) Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+    "W odniesieniu do Rekomendowanej Wartości (RWS) Spożycia dla osoby dorosłej na 100\u00A0{{unit}} produktu.",
   vitaminDataUnavailable: "Brak danych o witaminach do wyświetlenia",
   table: {
     vitamin: "Witamina",
@@ -110,19 +110,19 @@ const loginButton = {
 
 const axiosPrivate = {
   unauthorized: "Nieautoryzowany dostęp",
-  unauthorizedDescription: "Brak autoryzacji dla tej akcji",
+  unauthorizedDescription: "Brak autoryzacji dla tej akcji.",
 };
 
 const sessionExpiredDialog = {
   title: "Sesja wygasła",
   description:
-    "Zaloguj się ponownie lub kontynuuj z ograniczoną funkcjonalnością",
+    "Zaloguj się ponownie lub kontynuuj z ograniczoną funkcjonalnością.",
   signOut: "Kontynuuj bez ponownego logowania",
 };
 
 const authGuard = {
   noAccess: "Brak dostępu",
-  noAccessDescription: "Brak dostępu do tego zasobu",
+  noAccessDescription: "Brak dostępu do tego zasobu.",
 };
 
 const login = {
@@ -204,7 +204,9 @@ const productDetails = {
   productTabTrigger: "Produkt",
   nutritionalValueTabTrigger: "Wartość Odżywcza",
   producerTabTrigger: "Producent",
-  ratingsTitle: "Cechy produktu",
+  ratingsTitle: "Cechy Produktu",
+  productCharacteristicsDescription:
+    "Cechy produktu, takie jak alergeny, posiadane certyfikaty, zastosowane procesy technologiczne, specjalne cechy produktu oraz informacje o braku określonych dodatków lub składników.",
 };
 
 const notFound = {
@@ -238,7 +240,7 @@ const favouriteProducts = {
 
 const nutritionalChart = {
   title: "Podstawowe makroskładniki",
-  description: "na 100 {{unit}} produktu",
+  description: "na 100 {{unit}} produktu.",
   energyUnit: "kcal",
   carbohydrates: "Węglowodany",
   fat: "Tłuszcz",
@@ -248,7 +250,7 @@ const nutritionalChart = {
 
 const fatSaturation = {
   title: "Tłuszcze",
-  description: "na 100 {{unit}} produktu",
+  description: "na 100 {{unit}} produktu.",
   noFat: "Brak tłuszczu w produkcie",
   saturatedFatLabel: "Nasycone Kwasy Tłuszczowe",
   unsaturatedFatLabel: "Pozostałe Tłuszcze",
@@ -263,6 +265,7 @@ const ingredients = {
   noData: "Brak dostępnych danych dotyczących składników oraz dodatków.",
   ingredientsHeader: "Składniki",
   additionsHeader: "Numery Dodatków",
+  description: "Lista składników i numerów dodatków użytych w tym produkcie.",
 };
 
 const allergens = {
@@ -287,7 +290,7 @@ const allergens = {
 
 const sugarChart = {
   title: "Węglowodany",
-  description: "na 100 {{unit}} produktu",
+  description: "na 100 {{unit}} produktu.",
   labels: {
     sugar: "Zawartość Cukru",
     nonSugarCarbs: "Pozostałe Węglowodany",
@@ -334,6 +337,8 @@ const compare = {
   homePage: "Strona Główna",
   comparePage: "Porównanie Produktów",
   title: "Porównanie Produktów",
+  largerScreenInfo:
+    "Rozważ użycie urządzenia z większym ekranem, aby uzyskać lepsze doświadczenie porównania.",
 };
 
 const sidebarComparisonSlot = {
@@ -353,7 +358,7 @@ const macronutrientsInformation = {
   Błonnik: "Błonnik",
   title: "Makroskładniki w produkcie",
   description:
-    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100\u00A0{{unit}} produktu",
+    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100\u00A0{{unit}} produktu.",
   dataUnavailable: "Brak danych o makroskładnikach do wyświetlenia",
   macronutrient: "Makroskładnik",
   quantity: "Ilość",
@@ -482,7 +487,7 @@ const omega3 = {
 const omega3Information = {
   title: "Zawartość Omega-3 w produkcie",
   description:
-    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100 {{unit}} produktu",
+    "W odniesieniu do Rekomendowanej Wartości Spożycia (RWS) dla osoby dorosłej na 100 {{unit}} produktu.",
   dataUnavailable: "Brak danych o Omega-3 do wyświetlenia",
   table: {
     name: "Omega-3",
@@ -584,9 +589,25 @@ const productComparison = {
   ean: "Kod EAN:",
   countryOfOrigin: "Kraj pochodzenia:",
   packageType: "Typ Opakowania:",
+  productCharacteristicsTitle: "Cechy Produktu",
+  productCharacteristicsDescription:
+    "Cechy produktu, takie jak alergeny, posiadane certyfikaty, zastosowane procesy technologiczne, specjalne cechy produktu oraz informacje o braku określonych dodatków lub składników.",
+};
+
+const packageTypeComparison = {
+  negative: "Niezgodny z preferencjami typ opakowania",
+  positive: "Zgodny z preferencjami typ opakowania",
+};
+
+const macronutrientsComparison = {
+  title: "Makroskładniki w produktach",
+  description:
+    "Różnica musi być większa niż 5% Referencyjnej Wartości Spożycia (RWS) dla osoby dorosłej na 100g produktu, aby została oceniona.",
 };
 
 export default {
+  macronutrientsComparison,
+  packageTypeComparison,
   productComparison,
   favoriteComparison,
   editUserPreference,

@@ -11,49 +11,56 @@ import SugarContentChart from "@/components/SugarContentChart";
 import VitaminsInformation from "@/components/VitaminsInformation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProductDetails } from "@/types/ProductDetails";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import ProductRatings from "./ProductRatings";
 import FavoriteInfo from "./FavoriteInfo";
 import { useTranslation } from "react-i18next";
+import { UserPreference } from "@/types/UserPreference";
+import FavoriteCountComparison from "./FavoriteCountComparison";
+import PackageTypeComparison from "./PackageTypeComparison";
+import { useUserStore } from "@/store/userStore";
+import MacronutrientsComparison from "./MacronutrientsComparison";
+import { Banana, Carrot } from "lucide-react";
 
 interface ProductComparisonProps {
   product1: ProductDetails | undefined;
   product2: ProductDetails | undefined;
+  userPreference?: UserPreference | undefined;
 }
 
 const ProductComparison: FC<ProductComparisonProps> = ({
   product1,
   product2,
+  userPreference,
 }) => {
-  const placeholder = "Brak danych";
   const { t } = useTranslation();
+  const noDataInfo = t("base.noData");
+  const { isAuthenticated } = useUserStore();
+  if (!product1 || !product2) return <></>;
+
   return (
     <div className="flex flex-col min-w-full">
       <Tabs defaultValue="basic-info">
-        <TabsList className="flex justify-start flex-wrap sm:flex-nowrap h-auto w-fit">
+        <TabsList className="flex justify-start flex-wrap h-auto w-fit">
           <TabsTrigger value="basic-info" className="sm:flex-1 text-center">
-            Podstawowe Informacje
+            {t("productComparison.basicInfo")}
           </TabsTrigger>
-          <TabsTrigger
-            value="nutritional-info"
-            className="sm:flex-1 text-center"
-          >
-            Wartości Odżywcze
+          <TabsTrigger value="macronutrients" className="sm:flex-1 text-center">
+            {t("productComparison.macronutrients")}
           </TabsTrigger>
-          <TabsTrigger
-            value="vitamins-minerals"
-            className="sm:flex-1 text-center"
-          >
-            Witaminy i Minerały
-          </TabsTrigger>
-          <TabsTrigger value="omega3" className="sm:flex-1 text-center">
-            Kwasy Omega-3
+          <TabsTrigger value="nutrients" className="sm:flex-1 text-center">
+            {t("productComparison.nutrients")}
           </TabsTrigger>
         </TabsList>
 
-        {/* Basic Information */}
         <TabsContent value="basic-info">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 text-sm md:text-base">
             <div className="flex w-full justify-end">
               <FavoriteInfo
                 favoriteCount={product1.favoriteCount}
@@ -66,142 +73,194 @@ const ProductComparison: FC<ProductComparisonProps> = ({
                 id={product2.id}
               />
             </div>
-            <DataField
-              label="Opis:"
-              value={product1?.productDescription ?? placeholder}
+            <FavoriteCountComparison
+              product1FavoriteCount={product1.favoriteCount}
+              product2FavoriteCount={product2.favoriteCount}
             />
             <DataField
-              label="Opis:"
-              value={product2?.productDescription ?? placeholder}
-            />
-            <DataField label="Kod EAN:" value={product1?.ean ?? placeholder} />
-            <DataField label="Kod EAN:" value={product2?.ean ?? placeholder} />
-            <DataField
-              label="Kraj pochodzenia:"
-              value={product1?.country ?? placeholder}
+              label={t("productComparison.productDescription")}
+              value={product1?.productDescription ?? noDataInfo}
             />
             <DataField
-              label="Kraj pochodzenia:"
-              value={product2?.country ?? placeholder}
+              label={t("productComparison.productDescription")}
+              value={product2?.productDescription ?? noDataInfo}
             />
             <DataField
-              label={`${t("productDetails.packageType")}:`}
+              label={t("productComparison.ean")}
+              value={product1?.ean ?? noDataInfo}
+            />
+            <DataField
+              label={t("productComparison.ean")}
+              value={product2?.ean ?? noDataInfo}
+            />
+            <DataField
+              label={t("productComparison.countryOfOrigin")}
+              value={product1?.country ?? noDataInfo}
+            />
+            <DataField
+              label={t("productComparison.countryOfOrigin")}
+              value={product2?.country ?? noDataInfo}
+            />
+            <DataField
+              label={t("productComparison.packageType")}
               value={
                 product1?.packageType?.name
                   ? t(`packageTypes.${product1.packageType.name}`)
-                  : t("productDetails.noData")
+                  : noDataInfo
               }
-              className="my-2"
             />
             <DataField
-              label={`${t("productDetails.packageType")}:`}
+              label={t("productComparison.packageType")}
               value={
                 product2?.packageType?.name
                   ? t(`packageTypes.${product2.packageType.name}`)
-                  : t("productDetails.noData")
+                  : noDataInfo
               }
-              className="my-2"
             />
+
+            {userPreference && isAuthenticated() && (
+              <PackageTypeComparison
+                product1PackageType={product1.packageType}
+                product2PackageType={product2.packageType}
+                userPreference={userPreference}
+              />
+            )}
+
             <Card className="w-full mt-2">
               <CardHeader>
-                <CardTitle className="text-center text-md">
-                  Cechy Produktu {product1?.productName}
+                <CardTitle className="text-center text-md flex flex-row items-center justify-center gap-2">
+                  <div>
+                    {t("productComparison.productCharacteristicsTitle")}
+                  </div>
+                  <Banana />
                 </CardTitle>
+                <CardDescription className="text-center text-pretty mx-2">
+                  {t("productComparison.productCharacteristicsDescription")}
+                </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-row flex-wrap">
-                <ProductAllergens productDetails={product1} />
+                <ProductAllergens
+                  productDetails={product1}
+                  userPreference={userPreference}
+                />
                 <ProductRatings
                   productDetails={product1}
+                  userPreference={userPreference}
                   groupName="Posiadane Certyfikaty"
                 />
                 <ProductRatings
                   productDetails={product1}
+                  userPreference={userPreference}
                   groupName="Specyficzne Cechy"
                 />
                 <ProductRatings
                   productDetails={product1}
+                  userPreference={userPreference}
                   groupName="Bez dodatków do żywności"
                 />
                 <ProductRatings
                   productDetails={product1}
+                  userPreference={userPreference}
                   groupName="Zastosowane procesy technologiczne"
                 />
                 <ProductRatings
                   productDetails={product1}
+                  userPreference={userPreference}
                   groupName="Parametry bez składników"
                 />
               </CardContent>
             </Card>
             <Card className="w-full mt-2">
               <CardHeader>
-                <CardTitle className="text-center text-md">
-                  Cechy produktu {product2?.productName}
+                <CardTitle className="text-center text-md flex flex-row items-center justify-center gap-2">
+                  <div>
+                    {t("productComparison.productCharacteristicsTitle")}
+                  </div>
+                  <Carrot />
                 </CardTitle>
+                <CardDescription className="text-center text-pretty mx-2">
+                  {t("productComparison.productCharacteristicsDescription")}
+                </CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-row flex-wrap">
-                <ProductAllergens productDetails={product2} />
+              <CardContent className="flex flex-row items-start flex-wrap">
+                <ProductAllergens
+                  productDetails={product2}
+                  userPreference={userPreference}
+                />
                 <ProductRatings
                   productDetails={product2}
+                  userPreference={userPreference}
                   groupName="Posiadane Certyfikaty"
                 />
                 <ProductRatings
                   productDetails={product2}
+                  userPreference={userPreference}
                   groupName="Specyficzne Cechy"
                 />
                 <ProductRatings
                   productDetails={product2}
+                  userPreference={userPreference}
                   groupName="Bez dodatków do żywności"
                 />
                 <ProductRatings
                   productDetails={product2}
+                  userPreference={userPreference}
                   groupName="Zastosowane procesy technologiczne"
                 />
                 <ProductRatings
                   productDetails={product2}
+                  userPreference={userPreference}
                   groupName="Parametry bez składników"
                 />
               </CardContent>
             </Card>
-            <ProductIngredientsList productDetails={product1} />
-            <ProductIngredientsList productDetails={product2} />
+            <ProductIngredientsList productDetails={product1} icon="banana" />
+            <ProductIngredientsList productDetails={product2} icon="carrot" />
           </div>
         </TabsContent>
 
-        {/* Nutritional Information */}
-        <TabsContent value="nutritional-info">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex-1 min-w-full">
-              <NutritionalChart productDetails={product1} />
-              <MacronutrientsInformation productDetails={product1} />
-              <FatSaturationChart productDetails={product1} />
-              <SugarContentChart productDetails={product1} />
-            </div>
-            <div className="flex-1 min-w-full">
-              <NutritionalChart productDetails={product2} />
-              <MacronutrientsInformation productDetails={product2} />
-              <FatSaturationChart productDetails={product2} />
-              <SugarContentChart productDetails={product2} />
-            </div>
-          </div>
-        </TabsContent>
-
-        {/* Vitamins and Minerals */}
-        <TabsContent value="vitamins-minerals">
+        <TabsContent value="macronutrients">
           <div className="flex flex-wrap gap-4">
-            <VitaminsInformation productDetails={product1} />
-            <VitaminsInformation productDetails={product2} />
+            <NutritionalChart productDetails={product1} icon="banana" />
+            <NutritionalChart productDetails={product2} icon="carrot" />
           </div>
           <div className="flex flex-wrap gap-4 mt-4">
-            <MineralsInformation productDetails={product1} />
-            <MineralsInformation productDetails={product2} />
+            <MacronutrientsInformation
+              productDetails={product1}
+              icon="banana"
+            />
+            <MacronutrientsInformation
+              productDetails={product2}
+              icon="carrot"
+            />
+          </div>
+          <MacronutrientsComparison
+            product1={product1}
+            product2={product2}
+            userPreference={userPreference}
+          />
+          <div className="flex flex-wrap gap-4 mt-4">
+            <FatSaturationChart productDetails={product1} icon="banana" />
+            <FatSaturationChart productDetails={product2} icon="carrot" />
+          </div>
+          <div className="flex flex-wrap gap-4 mt-4">
+            <SugarContentChart productDetails={product1} icon="banana" />
+            <SugarContentChart productDetails={product2} icon="carrot" />
           </div>
         </TabsContent>
 
-        {/* Omega-3 */}
-        <TabsContent value="omega3">
-          <div className="grid grid-cols-2 gap-4">
-            <Omega3Information productDetails={product1} />
-            <Omega3Information productDetails={product2} />
+        <TabsContent value="nutrients">
+          <div className="flex flex-wrap gap-4">
+            <VitaminsInformation productDetails={product1} icon="banana" />
+            <VitaminsInformation productDetails={product2} icon="carrot" />
+          </div>
+          <div className="flex flex-wrap gap-4 mt-4">
+            <MineralsInformation productDetails={product1} icon="banana" />
+            <MineralsInformation productDetails={product2} icon="carrot" />
+          </div>
+          <div className="flex flex-wrap gap-4 mt-4">
+            <Omega3Information productDetails={product1} icon="banana" />
+            <Omega3Information productDetails={product2} icon="carrot" />
           </div>
         </TabsContent>
       </Tabs>

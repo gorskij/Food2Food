@@ -9,6 +9,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import ProductComparison from "@/components/ProductComparison";
 import ProductComparisonSlot from "@/components/ProductComparisonSlot";
+import { useGetUserPreference } from "@/data/userPreference/useGetUserPreference";
 
 const ComparePage: FC = () => {
   const { t } = useTranslation();
@@ -18,13 +19,15 @@ const ComparePage: FC = () => {
     data: product1Data,
     isLoading: isLoading1,
     isError: isError1,
-  } = useGetProductDetails(product1.id);
+  } = useGetProductDetails(product1?.id);
 
   const {
     data: product2Data,
     isLoading: isLoading2,
     isError: isError2,
-  } = useGetProductDetails(product2.id);
+  } = useGetProductDetails(product2?.id);
+
+  const { data: userPreferenceData } = useGetUserPreference();
 
   const breadcrumbs = useBreadcrumbs([
     { title: t("compare.homePage"), path: "/" },
@@ -46,12 +49,19 @@ const ComparePage: FC = () => {
         {t("compare.title")}
       </div>
       {breadcrumbs}
+      <div className="block md:hidden">
+        <div className="flex justify-center items-center text-center">
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t("compare.largerScreenInfo")}
+          </p>
+        </div>
+      </div>
       <Card className="flex-1 min-w-full max-w-full">
         <CardHeader>
           <CardTitle className="flex justify-between items-center text-center ">
-            <ProductComparisonSlot product={product1} />
-            <Scale className="w-12 h-12 flex-shrink-0 m-2" />
-            <ProductComparisonSlot product={product2} />
+            <ProductComparisonSlot product={product1} icon="banana" />
+            <Scale className="w-6 md:w-12 h-6  md:h-12 flex-shrink-0 m-2" />
+            <ProductComparisonSlot product={product2} icon="carrot" />
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
@@ -59,9 +69,10 @@ const ComparePage: FC = () => {
             <ProductComparison
               product1={product1Data}
               product2={product2Data}
+              userPreference={userPreferenceData?.data}
             />
           ) : (
-            <div className="text-center text-lg text-gray-500">
+            <div className="text-center text-lg text-muted-foreground">
               {t("compare.selectProducts")}
             </div>
           )}

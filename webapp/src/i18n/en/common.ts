@@ -42,7 +42,7 @@ const errors = {
 const mineralsInformation = {
   title: "Mineral Content in the Product",
   description:
-    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product",
+    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product.",
   mineralDataUnavailable: "No mineral data available to display",
   mineralNutritionalValues: {
     table: {
@@ -79,7 +79,7 @@ const base = {
 const vitaminsInformation = {
   title: "Vitamin Content in the Product",
   description:
-    "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product",
+    "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product.",
   vitaminDataUnavailable: "No vitamin data available to display",
   vitaminNutritionalValues: {
     table: {
@@ -114,18 +114,18 @@ const loginButton = {
 
 const axiosPrivate = {
   unauthorized: "Unauthorized access",
-  unauthorizedDescription: "Unauthorized access for this action",
+  unauthorizedDescription: "Unauthorized access for this action.",
 };
 
 const sessionExpiredDialog = {
   title: "Session expired",
   description: "Sign in or continue with basic functionality",
-  signOut: "Continue without signing in again",
+  signOut: "Continue without signing in again.",
 };
 
 const authGuard = {
   noAccess: "No access",
-  noAccessDescription: "No access to this resource",
+  noAccessDescription: "No access to this resource.",
 };
 
 const login = {
@@ -207,7 +207,9 @@ const productDetails = {
   productTabTrigger: "Product",
   nutritionalValueTabTrigger: "Nutritional Value",
   producerTabTrigger: "Producer",
-  ratingsTitle: "Product characteristics",
+  ratingsTitle: "Product Characteristics",
+  productCharacteristicsDescription:
+    "Product characteristics, such as allergens, certifications, applied technological processes, unique product features, and information about the absence of specific additives or ingredients.",
 };
 const notFound = {
   title: "Page not found",
@@ -240,7 +242,7 @@ const favouriteProducts = {
 
 const nutritionalChart = {
   title: "Basic Macronutrients",
-  description: "per 100 {{unit}} of the product",
+  description: "per 100 {{unit}} of the product.",
   energyUnit: "kcal",
   carbohydrates: "Carbohydrates",
   fat: "Fat",
@@ -249,7 +251,7 @@ const nutritionalChart = {
 
 const fatSaturation = {
   title: "Fats",
-  description: "per 100 {{unit}} of the product",
+  description: "per 100 {{unit}} of the product.",
   noFat: "No fat in the product",
   saturatedFatLabel: "Saturated Fatty Acids",
   unsaturatedFatLabel: "Unsaturated Fats",
@@ -265,6 +267,8 @@ const ingredients = {
   noData: "No data available about ingredients and additions.",
   ingredientsHeader: "Ingredients",
   additionsHeader: "Additive Numbers",
+  description:
+    "A detailed breakdown of the ingredients and additive numbers used in this product.",
 };
 
 const allergens = {
@@ -289,7 +293,7 @@ const allergens = {
 
 const sugarChart = {
   title: "Carbohydrates",
-  description: "per 100 {{unit}} of the product",
+  description: "per 100 {{unit}} of the product.",
   labels: {
     sugar: "Sugar Content",
     nonSugarCarbs: "Other Carbohydrates",
@@ -336,6 +340,8 @@ const compare = {
   homePage: "Home",
   comparePage: "Product Comparison",
   title: "Product Comparison",
+  largerScreenInfo:
+    "Consider using a device with a larger screen for a better comparison experience.",
 };
 
 const sidebarComparisonSlot = {
@@ -355,7 +361,7 @@ const macronutrientsInformation = {
   Błonnik: "Fibers",
   title: "Macronutrients in product",
   description:
-    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product",
+    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product.",
   dataUnavailable: "No macronutrient data available to display",
   macronutrient: "Macronutrient",
   quantity: "Quantity",
@@ -475,7 +481,7 @@ const omega3 = {
 const omega3Information = {
   title: "Omega-3 Content in the Product",
   description:
-    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product",
+    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product.",
   dataUnavailable: "No Omega-3 data available to display",
   table: {
     name: "Omega-3",
@@ -568,7 +574,34 @@ const favoriteComparison = {
   less: "Product is less popular with our users",
 };
 
+const packageTypeComparison = {
+  negative: "Package type inconsistent with preferences",
+  positive: "Package type consistent with preferences",
+};
+
+const productComparison = {
+  basicInfo: "Basic Information",
+  macronutrients: "Macronutrients",
+  nutrients: "Nutrients",
+  productDescription: "Product Description:",
+  ean: "EAN Code:",
+  countryOfOrigin: "Country of Origin:",
+  packageType: "Package Type:",
+  productCharacteristicsTitle: "Product Characteristics",
+  productCharacteristicsDescription:
+    "Product characteristics, such as allergens, certifications, applied technological processes, unique product features, and information about the absence of specific additives or ingredients.",
+};
+
+const macronutrientsComparison = {
+  title: "Macronutrients in products",
+  description:
+    "The difference must be larger then 5% of Dietary Reference Value (DRV) for an adult per 100g of the product to be evaluated.",
+};
+
 export default {
+  macronutrientsComparison,
+  productComparison,
+  packageTypeComparison,
   favoriteComparison,
   editUserPreference,
   userPreference,
