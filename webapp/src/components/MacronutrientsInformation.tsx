@@ -190,8 +190,10 @@ const MacronutrientsInformation: FC<MacronutrientsInformationProps> = ({
 
       <Card className="flex-1 block sm:hidden">
         <CardHeader>
-          <CardTitle className="text-center">
+          <CardTitle className="text-center flex flex-row items-center justify-center gap-2">
             {t("macronutrientsInformation.title")}
+            {icon === "banana" && <Banana />}
+            {icon === "carrot" && <Carrot />}
           </CardTitle>
           <CardDescription className="text-center">
             {t("macronutrientsInformation.description", { unit: unit })}

@@ -17,9 +17,11 @@ import {
 import RWSChart from "./RWSChart";
 import { useTranslation } from "react-i18next";
 import { FC } from "react";
+import { Banana, Carrot } from "lucide-react";
 
 interface Omega3InformationProps {
   productDetails: ProductDetails;
+  icon?: string;
 }
 
 const OMEGA3_RWS_VALUES: Record<string, number> = {
@@ -27,7 +29,10 @@ const OMEGA3_RWS_VALUES: Record<string, number> = {
   "EPA+DHA": 250,
 };
 
-const Omega3Information: FC<Omega3InformationProps> = ({ productDetails }) => {
+const Omega3Information: FC<Omega3InformationProps> = ({
+  productDetails,
+  icon,
+}) => {
   const omega3Names = Object.keys(OMEGA3_RWS_VALUES);
   const { t } = useTranslation();
 
@@ -103,8 +108,10 @@ const Omega3Information: FC<Omega3InformationProps> = ({ productDetails }) => {
     <>
       <Card className="flex-1 hidden sm:block min-w-[450px]">
         <CardHeader>
-          <CardTitle className="text-center">
+          <CardTitle className="text-center text-md flex flex-row items-center justify-center gap-2">
             {t("omega3Information.title")}
+            {icon === "banana" && <Banana />}
+            {icon === "carrot" && <Carrot />}
           </CardTitle>
           <CardDescription className="text-center">
             {t("omega3Information.description", { unit: unit })}
@@ -127,8 +134,10 @@ const Omega3Information: FC<Omega3InformationProps> = ({ productDetails }) => {
 
       <Card className="flex-1 h-full block sm:hidden">
         <CardHeader>
-          <CardTitle className="text-center">
+          <CardTitle className="text-center text-md flex flex-row items-center justify-center gap-2">
             {t("omega3Information.title")}
+            {icon === "banana" && <Banana />}
+            {icon === "carrot" && <Carrot />}
           </CardTitle>
           <CardDescription className="text-center">
             {t("omega3Information.description", { unit: unit })}

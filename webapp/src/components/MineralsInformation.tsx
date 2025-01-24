@@ -17,9 +17,11 @@ import {
 import RWSChart from "./RWSChart";
 import { useTranslation } from "react-i18next";
 import { FC } from "react";
+import { Banana, Carrot } from "lucide-react";
 
 interface MineralsTableProps {
   productDetails: ProductDetails;
+  icon?: string;
 }
 
 const RWS_VALUES: Record<string, number> = {
@@ -38,7 +40,10 @@ const RWS_VALUES: Record<string, number> = {
   Chrom: 0.04,
 };
 
-const MineralsInformation: FC<MineralsTableProps> = ({ productDetails }) => {
+const MineralsInformation: FC<MineralsTableProps> = ({
+  productDetails,
+  icon,
+}) => {
   const mineralNames = Object.keys(RWS_VALUES);
   const { t } = useTranslation();
 
@@ -117,8 +122,10 @@ const MineralsInformation: FC<MineralsTableProps> = ({ productDetails }) => {
     <>
       <Card className="flex-1 hidden sm:block min-w-[450px]">
         <CardHeader>
-          <CardTitle className="text-center">
+          <CardTitle className="text-center text-md flex flex-row items-center justify-center gap-2">
             {t("mineralsInformation.title")}
+            {icon === "banana" && <Banana />}
+            {icon === "carrot" && <Carrot />}
           </CardTitle>
           <CardDescription className="text-center">
             {t("mineralsInformation.description", { unit: unit })}
@@ -141,8 +148,10 @@ const MineralsInformation: FC<MineralsTableProps> = ({ productDetails }) => {
 
       <Card className="flex-1 h-full block sm:hidden">
         <CardHeader>
-          <CardTitle className="text-center">
+          <CardTitle className="text-center text-md flex flex-row items-center justify-center gap-2">
             {t("mineralsInformation.title")}
+            {icon === "banana" && <Banana />}
+            {icon === "carrot" && <Carrot />}
           </CardTitle>
           <CardDescription className="text-center">
             {t("mineralsInformation.description", { unit: unit })}
