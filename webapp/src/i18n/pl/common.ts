@@ -592,6 +592,8 @@ const productComparison = {
   productCharacteristicsTitle: "Cechy Produktu",
   productCharacteristicsDescription:
     "Cechy produktu, takie jak alergeny, posiadane certyfikaty, zastosowane procesy technologiczne, specjalne cechy produktu oraz informacje o braku określonych dodatków lub składników.",
+  nutrientsComparisonTitle: "Składniki Odżywcze",
+  nutrientsComparisonDescription: "Uwzględniając Twój profil dietetyczny.",
 };
 
 const packageTypeComparison = {
@@ -605,7 +607,13 @@ const macronutrientsComparison = {
     "Różnica musi być większa niż 5% Referencyjnej Wartości Spożycia (RWS) dla osoby dorosłej na 100g produktu, aby została oceniona.",
 };
 
+const nutrientComparison = {
+  noNutrients:
+    "Brak składników odżywczych pasujących do Twojego profilu dietetycznego.",
+};
+
 export default {
+  nutrientComparison,
   macronutrientsComparison,
   packageTypeComparison,
   productComparison,

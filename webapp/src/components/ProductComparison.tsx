@@ -27,6 +27,7 @@ import PackageTypeComparison from "./PackageTypeComparison";
 import { useUserStore } from "@/store/userStore";
 import MacronutrientsComparison from "./MacronutrientsComparison";
 import { Banana, Carrot } from "lucide-react";
+import NutrientsComparison from "./NutrientsComparison";
 
 interface ProductComparisonProps {
   product1: ProductDetails | undefined;
@@ -250,6 +251,40 @@ const ProductComparison: FC<ProductComparisonProps> = ({
         </TabsContent>
 
         <TabsContent value="nutrients">
+          {userPreference && isAuthenticated() && (
+            <Card className="my-4">
+              <CardHeader>
+                <CardTitle className="text-center">
+                  {t("productComparison.nutrientsComparisonTitle")}
+                </CardTitle>
+                <CardDescription className="text-center">
+                  {t("productComparison.nutrientsComparisonDescription")}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 px-4">
+                  <div className="flex flex-1">
+                    <Banana />
+                  </div>
+                  <div className="flex flex-1 justify-end">
+                    <Carrot />
+                  </div>
+                  <div className="flex flex-1">
+                    <NutrientsComparison
+                      product={product1}
+                      userPreference={userPreference}
+                    />
+                  </div>
+                  <div className="flex flex-1 justify-end">
+                    <NutrientsComparison
+                      product={product2}
+                      userPreference={userPreference}
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
           <div className="flex flex-wrap gap-4">
             <VitaminsInformation productDetails={product1} icon="banana" />
             <VitaminsInformation productDetails={product2} icon="carrot" />

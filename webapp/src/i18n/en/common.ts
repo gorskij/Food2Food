@@ -590,6 +590,9 @@ const productComparison = {
   productCharacteristicsTitle: "Product Characteristics",
   productCharacteristicsDescription:
     "Product characteristics, such as allergens, certifications, applied technological processes, unique product features, and information about the absence of specific additives or ingredients.",
+  nutrientsComparisonTitle: "Nutrients",
+  nutrientsComparisonDescription:
+    "Nutrients present in the compared products, taking into account your dietary preferences.",
 };
 
 const macronutrientsComparison = {
@@ -598,7 +601,12 @@ const macronutrientsComparison = {
     "The difference must be larger then 5% of Dietary Reference Value (DRV) for an adult per 100g of the product to be evaluated.",
 };
 
+const nutrientComparison = {
+  noNutrients: "No nutrient matching your diatary profile.",
+};
+
 export default {
+  nutrientComparison,
   macronutrientsComparison,
   productComparison,
   packageTypeComparison,
