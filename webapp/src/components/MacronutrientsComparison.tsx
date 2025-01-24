@@ -128,7 +128,7 @@ const MacronutrientsComparison: FC<MacronutrientsComparisonProps> = ({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex justify-between w-full px-2 md:px-10">
+        <div className="flex justify-between w-full px-4">
           <Banana />
           <Carrot />
         </div>
@@ -155,32 +155,48 @@ const MacronutrientsComparison: FC<MacronutrientsComparisonProps> = ({
             );
 
             return (
-              <div key={nutrientName} className="flex flex-col">
-                <div className="flex items-center justify-between">
-                  <p className="text-center font-bold w-full">
-                    {t(
-                      `macronutrientsInformation.${nutrientName.replace(
-                        /\s+/g,
-                        ""
-                      )}`
-                    )}
-                  </p>
-                </div>
-                <div className="flex items-center justify-between px-2 md:px-10">
-                  <div className="flex items-center space-x-2">
-                    <p className="flex flex-row flex-nowrap">
+              <div key={nutrientName} className="text-xs sm:text-base">
+                <div className="grid grid-cols-2 items-center px-4">
+                  <div>
+                    <div className="flex flex-row flex-nowrap">
                       {renderImpactIcon(impactProduct1)}
-                      {product1Value.quantity !== null
-                        ? `${product1Value.quantity}${product1Value.unit}`
-                        : t("base.noData")}
-                    </p>
+                      <p className="ml-2">
+                        {t(
+                          `macronutrientsInformation.${nutrientName.replace(
+                            /\s+/g,
+                            ""
+                          )}`
+                        )}
+                      </p>
+                      <span className="ml-2">
+                        {product1Value.quantity !== null
+                          ? `${product1Value.quantity}${product1Value.unit}`
+                          : `0${product1Value.unit}`}
+                      </span>
+                    </div>
                   </div>
-                  <p className="flex flex-row flex-nowrap">
-                    {product2Value.quantity !== null
-                      ? `${product2Value.quantity}${product2Value.unit}`
-                      : t("base.noData")}
-                    {renderImpactIcon(impactProduct2)}
-                  </p>
+                  <div className="flex w-full justify-end">
+                    <div className="w-fit">
+                      <div className="flex flex-row flex-nowrap">
+                        <p className="hidden sm:block">
+                          {t(
+                            `macronutrientsInformation.${nutrientName.replace(
+                              /\s+/g,
+                              ""
+                            )}`
+                          )}
+                        </p>
+                        <span className="ml-2">
+                          {product2Value.quantity !== null
+                            ? `${product2Value.quantity}${product2Value.unit}`
+                            : t("base.noData")}
+                        </span>
+                        <span className="ml-2">
+                          {renderImpactIcon(impactProduct2)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             );
