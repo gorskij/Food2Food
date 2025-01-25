@@ -124,7 +124,11 @@ const MacronutrientsComparison: FC<MacronutrientsComparisonProps> = ({
           {t("macronutrientsComparison.title")}
         </CardTitle>
         <CardDescription className="text-center">
-          {t("macronutrientsComparison.description")}
+          {t(
+            userPreference
+              ? "macronutrientsComparison.descriptionWithUserPreferece"
+              : "macronutrientsComparison.description"
+          )}
         </CardDescription>
       </CardHeader>
       <CardContent>

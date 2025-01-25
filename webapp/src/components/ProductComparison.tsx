@@ -225,6 +225,11 @@ const ProductComparison: FC<ProductComparisonProps> = ({
             <NutritionalChart productDetails={product1} icon="banana" />
             <NutritionalChart productDetails={product2} icon="carrot" />
           </div>
+          <MacronutrientsComparison
+            product1={product1}
+            product2={product2}
+            userPreference={userPreference}
+          />
           <div className="flex flex-wrap gap-4 mt-4">
             <MacronutrientsInformation
               productDetails={product1}
@@ -235,11 +240,6 @@ const ProductComparison: FC<ProductComparisonProps> = ({
               icon="carrot"
             />
           </div>
-          <MacronutrientsComparison
-            product1={product1}
-            product2={product2}
-            userPreference={userPreference}
-          />
           <div className="flex flex-wrap gap-4 mt-4">
             <FatSaturationChart productDetails={product1} icon="banana" />
             <FatSaturationChart productDetails={product2} icon="carrot" />
