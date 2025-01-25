@@ -42,7 +42,7 @@ const errors = {
 const mineralsInformation = {
   title: "Mineral Content in the Product",
   description:
-    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product.",
+    "In reference to the DRV (Dietary Reference Value) for an adult per 100 {{unit}} of the product.",
   mineralDataUnavailable: "No mineral data available to display",
   mineralNutritionalValues: {
     table: {
@@ -79,7 +79,7 @@ const base = {
 const vitaminsInformation = {
   title: "Vitamin Content in the Product",
   description:
-    "In reference to the Dietary Reference Value for an adult per 100 {{unit}} of the product.",
+    "In reference to the DRV (Dietary Reference Value) for an adult per 100 {{unit}} of the product.",
   vitaminDataUnavailable: "No vitamin data available to display",
   vitaminNutritionalValues: {
     table: {
@@ -361,7 +361,7 @@ const macronutrientsInformation = {
   Błonnik: "Fibers",
   title: "Macronutrients in product",
   description:
-    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product.",
+    "In reference to the DRV (Dietary Reference Value) for an adult per 100 {{unit}} of the product.",
   dataUnavailable: "No macronutrient data available to display",
   macronutrient: "Macronutrient",
   quantity: "Quantity",
@@ -481,7 +481,7 @@ const omega3 = {
 const omega3Information = {
   title: "Omega-3 Content in the Product",
   description:
-    "In reference to the Dietary Reference Value (DRV) for an adult per 100 {{unit}} of the product.",
+    "In reference to the DRV (Dietary Reference Value) for an adult per 100 {{unit}} of the product.",
   dataUnavailable: "No Omega-3 data available to display",
   table: {
     name: "Omega-3",
@@ -598,7 +598,9 @@ const productComparison = {
 const macronutrientsComparison = {
   title: "Macronutrients in products",
   description:
-    "The difference must be larger then 5% of Dietary Reference Value (DRV) for an adult per 100g of the product to be evaluated.",
+    "The difference must be larger then 5% of DRV (Dietary Reference Value) for an adult per 100g of the product to be evaluated.",
+  descriptionWithUserPreferece:
+    "Based on user dietary preference. The difference must be larger then 5% of DRV (Dietary Reference Value) for an adult per 100g of the product to be evaluated.",
 };
 
 const nutrientComparison = {
