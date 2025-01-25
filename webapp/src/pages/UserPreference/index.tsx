@@ -43,6 +43,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { toast } from "@/hooks/use-toast";
 
 const UserPreferencePage: FC = () => {
   const mutation = useMutateUserPreference();
@@ -194,7 +195,14 @@ const UserPreferencePage: FC = () => {
   };
 
   const handleSave = () => {
-    if (!tempPreferences || !userPreferenceData?.headers.etag) return;
+    if (!tempPreferences || !userPreferenceData?.headers.etag) {
+      toast({
+        variant: "destructive",
+        title: t("editUserPreference.errorTitle"),
+        description: t("editUserPreference.errorTitle"),
+      });
+      return;
+    }
 
     const simplifiedPreferences: UserPreferenceSimplified = {
       allergens: tempPreferences.allergens.map((item) => item.id),
