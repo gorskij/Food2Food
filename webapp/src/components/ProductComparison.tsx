@@ -45,6 +45,19 @@ const ProductComparison: FC<ProductComparisonProps> = ({
   const { isAuthenticated } = useUserStore();
   if (!product1 || !product2) return <></>;
 
+  const product1IndexS = product1.productIndexes.find(
+    (index) => index.indexName === "S"
+  );
+  const product1IndexT = product1.productIndexes.find(
+    (index) => index.indexName === "T"
+  );
+  const product2IndexS = product2.productIndexes.find(
+    (index) => index.indexName === "S"
+  );
+  const product2IndexT = product2.productIndexes.find(
+    (index) => index.indexName === "T"
+  );
+
   return (
     <div className="flex flex-col min-w-full">
       <Tabs defaultValue="basic-info">
@@ -126,6 +139,39 @@ const ProductComparison: FC<ProductComparisonProps> = ({
                 userPreference={userPreference}
               />
             )}
+
+            <DataField
+              label={`${t("productDetails.indexS")}:`}
+              value={
+                product1IndexS
+                  ? product1IndexS.indexValue.toString()
+                  : t("productDetails.noData")
+              }
+            />
+            <DataField
+              label={`${t("productDetails.indexS")}:`}
+              value={
+                product2IndexS
+                  ? product2IndexS.indexValue.toString()
+                  : t("productDetails.noData")
+              }
+            />
+            <DataField
+              label={`${t("productDetails.indexT")}:`}
+              value={
+                product1IndexT
+                  ? product1IndexT.indexValue.toString()
+                  : t("productDetails.noData")
+              }
+            />
+            <DataField
+              label={`${t("productDetails.indexT")}:`}
+              value={
+                product2IndexT
+                  ? product2IndexT.indexValue.toString()
+                  : t("productDetails.noData")
+              }
+            />
 
             <Card className="w-full mt-2">
               <CardHeader>

@@ -82,6 +82,13 @@ const ProductDetailsPage: FC = () => {
       </div>
     );
 
+  const productIndexS = data?.productIndexes.find(
+    (index) => index.indexName === "S"
+  );
+  const productIndexT = data?.productIndexes.find(
+    (index) => index.indexName === "T"
+  );
+
   return (
     <div className="flex flex-col gap-2 min-w-full">
       <div className="text-center text-3xl font-bold my-4">
@@ -211,6 +218,24 @@ const ProductDetailsPage: FC = () => {
                           value={
                             data.packageType?.name
                               ? t(`packageTypes.${data.packageType.name}`)
+                              : t("productDetails.noData")
+                          }
+                          className="my-2"
+                        />
+                        <DataField
+                          label={`${t("productDetails.indexS")}:`}
+                          value={
+                            productIndexS
+                              ? productIndexS.indexValue.toString()
+                              : t("productDetails.noData")
+                          }
+                          className="my-2"
+                        />
+                        <DataField
+                          label={`${t("productDetails.indexT")}:`}
+                          value={
+                            productIndexT
+                              ? productIndexT.indexValue.toString()
                               : t("productDetails.noData")
                           }
                           className="my-2"

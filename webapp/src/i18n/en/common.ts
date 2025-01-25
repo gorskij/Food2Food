@@ -210,6 +210,8 @@ const productDetails = {
   ratingsTitle: "Product Characteristics",
   productCharacteristicsDescription:
     "Product characteristics, such as allergens, certifications, applied technological processes, unique product features, and information about the absence of specific additives or ingredients.",
+  indexS: "Sum Index",
+  indexT: "FFood Index",
 };
 const notFound = {
   title: "Page not found",

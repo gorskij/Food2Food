@@ -207,6 +207,8 @@ const productDetails = {
   ratingsTitle: "Cechy Produktu",
   productCharacteristicsDescription:
     "Cechy produktu, takie jak alergeny, posiadane certyfikaty, zastosowane procesy technologiczne, specjalne cechy produktu oraz informacje o braku określonych dodatków lub składników.",
+  indexS: "Indeks Sumaryczny",
+  indexT: "Indeks FFood",
 };
 
 const notFound = {
