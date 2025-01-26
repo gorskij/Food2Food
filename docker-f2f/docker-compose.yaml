@@ -10,13 +10,14 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: database
     volumes:
-      - ./init_dump.sql:/docker-entrypoint-initdb.d/dump_sql_new.sql
+      - ./dump_sql_new.sql:/docker-entrypoint-initdb.d/dump_sql_new.sql
     ports:
       - "5432:5432"
 
   pgadmin:
     image: dpage/pgadmin4
     container_name: f2f-db-pgadmin
+    restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
