@@ -234,6 +234,7 @@ const favouriteProducts = {
   clearFiltersButton: "Wyczyść filtry",
   pageIndicator: "Strona {{currentPage}} z {{totalPages}}",
   noProducts: "Brak dostępnych ulubionych produktów.",
+  browseProducts: "Przejdź do Listy Produktów",
   breadcrumbs: {
     home: "Strona Główna",
     list: "Lista Ulubionych Produktów",
