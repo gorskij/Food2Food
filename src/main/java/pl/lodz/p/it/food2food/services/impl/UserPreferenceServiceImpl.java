@@ -37,6 +37,7 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
         return user.getUserPreference();
     }
 
+    @Transactional(rollbackFor = ApplicationOptimisticLockException.class ,propagation = Propagation.REQUIRES_NEW)
     @Override
     public UserPreference updateUserPreference(UUID userId, UserPreferenceRequest userPreferenceRequest, String tagValue) throws NotFoundException, ApplicationOptimisticLockException {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));

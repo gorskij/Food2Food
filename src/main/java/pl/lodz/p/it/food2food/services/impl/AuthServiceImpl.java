@@ -13,8 +13,13 @@ import pl.lodz.p.it.food2food.exceptions.IdenticalFieldValueException;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.model.UserPreference;
+import pl.lodz.p.it.food2food.repositories.AdministratorAccessLevelRepository;
+import pl.lodz.p.it.food2food.repositories.UserAccessLevelRepository;
 import pl.lodz.p.it.food2food.services.AuthService;
 import pl.lodz.p.it.food2food.services.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +27,26 @@ import pl.lodz.p.it.food2food.services.UserService;
 public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final JwtService jwtService;
+    private final AdministratorAccessLevelRepository administratorAccessLevelRepository;
+    private final UserAccessLevelRepository userAccessLevelRepository;
+
+    @Transactional(propagation = Propagation.MANDATORY)
+    @PreAuthorize("permitAll()")
+    public List<String> getUserRoles(User user) {
+        List<String> roles = new ArrayList<>();
+
+        administratorAccessLevelRepository.findByUserIdAndActive(user.getId(), true).ifPresent(admin -> roles.add("ADMINISTRATOR"));
+        userAccessLevelRepository.findByUserIdAndActive(user.getId(), true).ifPresent(admin -> roles.add("USER"));
+
+        return roles;
+    }
 
     @PreAuthorize("permitAll()")
     @Override
     public AuthResponse singInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
         try {
             User user = userService.getUserByGoogleId(payload.sub());
-            String userToken = jwtService.createToken(user);
+            String userToken = jwtService.createToken(user, getUserRoles(user));
             return new AuthResponse(userToken, null);
         } catch (NotFoundException e) {
             String email = payload.email();
@@ -42,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
             newUser.setGoogleId(payload.sub());
 
             User user = userService.createUser(newUser);
-            String userToken = jwtService.createToken(user);
+            String userToken = jwtService.createToken(user, getUserRoles(user));
             return new AuthResponse(userToken, "true");
         }
     }
@@ -52,12 +70,12 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse singInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
         try {
             User user = userService.getUserByGithubId(payload.id());
-            String userToken = jwtService.createToken(user);
+            String userToken = jwtService.createToken(user, getUserRoles(user));
             return new AuthResponse(userToken, null);
         } catch (NotFoundException e) {
             User newUser = newUserFromGithubTokenPayload(payload);
             User user = userService.createUser(newUser);
-            String userToken = jwtService.createToken(user);
+            String userToken = jwtService.createToken(user, getUserRoles(user));
             return new AuthResponse(userToken, "true");
         }
     }

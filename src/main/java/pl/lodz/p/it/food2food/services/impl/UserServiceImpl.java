@@ -13,6 +13,8 @@ import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
 import pl.lodz.p.it.food2food.exceptions.messages.UserExceptionMessages;
 import pl.lodz.p.it.food2food.model.User;
+import pl.lodz.p.it.food2food.model.UserAccessLevel;
+import pl.lodz.p.it.food2food.repositories.UserAccessLevelRepository;
 import pl.lodz.p.it.food2food.repositories.UserRepository;
 import pl.lodz.p.it.food2food.services.UserService;
 
@@ -22,11 +24,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final UserAccessLevelRepository userAccessLevelRepository;
 
-    @PreAuthorize("permitAll()")
-    @Transactional(propagation = Propagation.MANDATORY)
     @Override
+    @PreAuthorize("permitAll()")
+    @Transactional(rollbackFor = {IdenticalFieldValueException.class}, propagation = Propagation.MANDATORY)
     public User createUser(User newUser) throws CreationException, IdenticalFieldValueException {
+        UserAccessLevel newUserAccessLevel = new UserAccessLevel();
+        newUserAccessLevel.setActive(true);
+        newUserAccessLevel.setUser(newUser);
+
         if (userRepository.existsByUsername(newUser.getUsername())) {
             String baseUsername = newUser.getUsername();
             String uniqueUsername = generateUniqueUsername(baseUsername);
@@ -36,9 +43,10 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(newUser.getEmail())) {
             throw new IdenticalFieldValueException(UserExceptionMessages.IDENTICAL_EMAIL, ErrorCodes.IDENTICAL_EMAIL);
         }
-
+        UserAccessLevel userAccesslevel;
         try {
-            return userRepository.save(newUser);
+            userAccesslevel = userAccessLevelRepository.saveAndFlush(newUserAccessLevel);
+            return userAccesslevel.getUser();
         } catch (Exception e) {
             throw new CreationException(UserExceptionMessages.CREATION_FAILED, ErrorCodes.REGISTRATION_ERROR);
         }
@@ -68,9 +76,4 @@ public class UserServiceImpl implements UserService {
     public User getUserByGithubId(String githubId) throws NotFoundException {
         return userRepository.findByGithubId(githubId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
     }
-
-//    @PreAuthorize("permitAll()")
-//    public User getUserById(UUID id) throws NotFoundException {
-//        return userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
-//    }
 }

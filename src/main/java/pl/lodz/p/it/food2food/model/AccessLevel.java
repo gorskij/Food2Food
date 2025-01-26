@@ -32,4 +32,7 @@ public abstract class AccessLevel extends AbstractEntity implements Serializable
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private User user;
+
+    @Column(insertable = false, updatable = false)
+    private String level;
 }

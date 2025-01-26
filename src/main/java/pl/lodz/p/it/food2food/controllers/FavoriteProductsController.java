@@ -32,7 +32,7 @@ public class FavoriteProductsController {
     private final ProductMapper productMapper;
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Page<ProductDto>> getFavoriteProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -48,9 +48,7 @@ public class FavoriteProductsController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @Transactional
-    @Retryable
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/{productId}")
     public ResponseEntity<?> addFavoriteProduct(@PathVariable UUID productId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -65,9 +63,7 @@ public class FavoriteProductsController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @Transactional
-    @Retryable
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/{productId}")
     public ResponseEntity<?> removeFavoriteProduct(@PathVariable UUID productId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -82,7 +78,7 @@ public class FavoriteProductsController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{productId}")
     public ResponseEntity<BooleanResponse> checkFavoriteProduct(@PathVariable UUID productId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
