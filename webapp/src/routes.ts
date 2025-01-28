@@ -8,13 +8,15 @@ import FavouriteProductsPage from "./pages/FavoriteProducts";
 import GoogleCallback from "./pages/GoogleCallback";
 import GithubCallback from "./pages/GithubCallback";
 import UserPreferencePage from "./pages/UserPreference";
+import UserLayout from "./layouts/UserLayout";
+import AdminLayout from "./layouts/AdminLayout";
 
 export const UnprotectedRoutes: RouteObject[] = [
   {
     path: "/",
     Component: BaseLayout,
     children: [
-      { index: true, Component: HomePage },
+      { index: true, Component: ProductsPage },
       { path: "products", Component: ProductsPage },
       { path: "products/:id", Component: ProductDetailsPage },
       { path: "compare", Component: ComparePage },
@@ -25,7 +27,7 @@ export const UnprotectedRoutes: RouteObject[] = [
 ];
 
 const UserRoutes: RouteObject[] = [
-  { index: true, Component: HomePage },
+  { index: true, Component: FavouriteProductsPage },
   { path: "favorite-products", Component: FavouriteProductsPage },
   { path: "user-preference", Component: UserPreferencePage },
 ];
@@ -35,12 +37,12 @@ const AdminRoutes: RouteObject[] = [{ index: true, Component: HomePage }];
 export const ProtectedRoutes: RouteObject[] = [
   {
     path: "user",
-    Component: BaseLayout,
+    Component: UserLayout,
     children: UserRoutes,
   },
   {
     path: "admin",
-    Component: BaseLayout,
+    Component: AdminLayout,
     children: AdminRoutes,
   },
 ];

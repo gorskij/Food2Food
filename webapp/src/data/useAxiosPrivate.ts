@@ -30,8 +30,16 @@ const useAxiosPrivate = () => {
       (error) => {
         error = error as AxiosError;
 
-        if (error.response?.status === 401 || error.response?.status === 403) {
+        if (error.response?.status === 401) {
           clearToken();
+          toast({
+            variant: "destructive",
+            title: t("axiosPrivate.unauthorized"),
+            description: t("axiosPrivate.unauthorizedDescription"),
+          });
+        }
+
+        if (error.response?.status === 403) {
           toast({
             variant: "destructive",
             title: t("axiosPrivate.unauthorized"),
