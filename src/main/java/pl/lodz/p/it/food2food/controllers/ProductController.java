@@ -3,6 +3,7 @@ package pl.lodz.p.it.food2food.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,8 +35,13 @@ public class ProductController {
     public ResponseEntity<Page<ProductDto>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String name) {
-        Pageable pageable = PageRequest.of(page, size);
+            @RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "favoriteCount") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDirection) {
+
+        Pageable pageable = PageRequest.of(page, size,
+                sortDirection.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending());
+
         return ResponseEntity.ok(productService.getAllProducts(name, pageable).map(productMapper::toProductDto));
     }
 
