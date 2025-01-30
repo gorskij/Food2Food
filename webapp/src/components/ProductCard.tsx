@@ -6,18 +6,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { NavLink } from "react-router-dom";
-import { Ellipsis, Plus, RefreshCcw, Search, Trash } from "lucide-react"; // Added Trash icon
+import { Ellipsis, Heart, Plus, RefreshCcw, Search, Trash } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useComparisonStore } from "@/store/comparisonStore";
+import { SimplifiedProduct } from "@/types/SimplifiedProduct";
 
 interface ProductCardProps {
-  product: {
-    id: string;
-    productName: string;
-    productDescription: string;
-    labelImage?: string | null;
-    ean: string;
-  };
+  product: SimplifiedProduct;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
@@ -109,6 +104,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <div className="ml-auto mb-2">
+        <div className="flex items-center">
+          <Heart className="text-red-500 mr-1" />
+          <span className="text-gray-600 text-bold">
+            {product.favoriteCount}
+          </span>
+        </div>
+      </div>
       <img
         src={productImg}
         alt={product.productName}
