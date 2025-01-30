@@ -16,7 +16,7 @@ export const UnprotectedRoutes: RouteObject[] = [
     path: "/",
     Component: BaseLayout,
     children: [
-      { index: true, Component: ProductsPage },
+      { index: true, Component: HomePage },
       { path: "products", Component: ProductsPage },
       { path: "products/:id", Component: ProductDetailsPage },
       { path: "compare", Component: ComparePage },
@@ -27,7 +27,7 @@ export const UnprotectedRoutes: RouteObject[] = [
 ];
 
 const UserRoutes: RouteObject[] = [
-  { index: true, Component: FavouriteProductsPage },
+  { index: true, Component: HomePage },
   { path: "favorite-products", Component: FavouriteProductsPage },
   { path: "user-preference", Component: UserPreferencePage },
 ];

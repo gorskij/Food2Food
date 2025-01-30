@@ -1,17 +1,60 @@
+import { LoadingData } from "@/components/LoadingData";
+import ProductCard from "@/components/ProductCard";
+import RefreshQueryButton from "@/components/RefreshQueryButton";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { useGetTopProducts } from "@/data/products/useGetProducts";
+import { useBreadcrumbs } from "@/hooks/useBreacrumbs";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 const HomePage: FC = () => {
+  const { data: products, isLoading, isError } = useGetTopProducts();
+  const { t } = useTranslation();
+  const breadcrumbs = useBreadcrumbs([
+    { title: t("homePage.breadcrumbs.home"), path: "/" },
+  ]);
+
+  if (isLoading) return <LoadingData />;
+  if (isError)
+    return (
+      <div>
+        {t("error.loadingError")}
+        <RefreshQueryButton queryKeys={["top-products"]} />
+      </div>
+    );
+
   return (
-    <main className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4">Food2Food</h1>
-      <p className="text-lg text-center mb-8">Page under construction.</p>
-      <a
-        href="/about"
-        className="px-6 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 transition"
-      >
-        Learn More
-      </a>
-    </main>
+    <div>
+      <div className="text-center text-3xl font-bold mt-5 mb-2">
+        {t("homePage.title")}
+      </div>
+      {breadcrumbs}
+      <div className="p-20">
+        <Carousel
+          className="w-full max-w-xs sm:max-w-sm md:max-w-md max-h-xs "
+          opts={{
+            align: "center",
+            loop: true,
+          }}
+        >
+          <CarouselContent className="items-center">
+            {products?.map((product) => (
+              <CarouselItem key={product.id}>
+                <ProductCard product={product} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
+    </div>
   );
 };
 
