@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const productImg = product.labelImage
     ? `data:image/jpeg;base64,${product.labelImage}`
-    : "https://via.placeholder.com/150";
+    : "public\\150.png";
 
   const handleUseProduct1 = () => {
     if (product1?.id === product.id) {

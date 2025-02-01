@@ -97,7 +97,7 @@ const ProductComparisonSlot: React.FC<ProductComparisonSlotProps> = ({
 
   const productImg = product.labelImage
     ? `data:image/jpeg;base64,${product.labelImage}`
-    : "https://via.placeholder.com/150";
+    : "public\\150.png";
 
   return (
     <div className="flex flex-col items-center w-full">
