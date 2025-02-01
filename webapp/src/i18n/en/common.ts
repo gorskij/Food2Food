@@ -610,7 +610,23 @@ const nutrientComparison = {
   noNutrients: "No nutrient matching your diatary profile.",
 };
 
+const homePage = {
+  breadcrumbs: {
+    home: "Home",
+  },
+  title: "Home Page",
+  popularItems: "Most Popular Products",
+  descriptionOfFunctionality:
+    "Select F-Food certified products from the list, then proceed to compare them.",
+  productList: "Product List",
+  compareProducts: "Compare Products",
+  knowMore:
+    "You can find more information about the products in the F-Food catalog below.",
+  FFoodLink: "F-Food",
+};
+
 export default {
+  homePage,
   nutrientComparison,
   macronutrientsComparison,
   productComparison,

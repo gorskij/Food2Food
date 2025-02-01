@@ -618,7 +618,23 @@ const nutrientComparison = {
     "Brak składników odżywczych pasujących do Twojego profilu dietetycznego.",
 };
 
+const homePage = {
+  breadcrumbs: {
+    home: "Strona Głowna",
+  },
+  title: "Strona Główna",
+  popularItems: "Najpopularniejsze Produkty",
+  descriptionOfFunctionality:
+    "Wybierz produkty certyfikowane znakiem F-Food z listy, następnie przejdź do ich porównania.",
+  productList: "Lista Produktów",
+  compareProducts: "Porównaj Produkty",
+  knowMore:
+    "Więcej informacji na temat produktów z katalogu F-Food znajdziesz poniżej.",
+  FFoodLink: "F-Food",
+};
+
 export default {
+  homePage,
   nutrientComparison,
   macronutrientsComparison,
   packageTypeComparison,
