@@ -18,6 +18,7 @@ import java.util.Set;
 @SecondaryTable(name = "personal_data", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @SecondaryTable(name = "google_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @SecondaryTable(name = "github_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@ToString
 public class User extends AbstractEntity {
     @Setter
     @ToString.Exclude
@@ -42,22 +43,20 @@ public class User extends AbstractEntity {
     private List<AccessLevel> accessLevels = new ArrayList<>();
 
     @Setter
+    @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_preference_id", referencedColumnName = "id")
     private UserPreference userPreference;
 
     @Setter
     @ManyToMany
+    @ToString.Exclude
     @JoinTable(
             name = "user_favorite_product",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private Set<Product> favoriteProducts = new HashSet<>();
-
-    @Setter
-    @ManyToOne
-    private Theme theme;
 
     public User(String username,
                 String email, UserPreference userPreference) {
