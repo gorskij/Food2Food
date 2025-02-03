@@ -625,7 +625,14 @@ const homePage = {
   FFoodLink: "F-Food",
 };
 
+const changeLanguage = {
+  successTitle: "Language changed",
+  successDescription: "Prefered language saved.",
+  error: "Error changing language",
+};
+
 export default {
+  changeLanguage,
   homePage,
   nutrientComparison,
   macronutrientsComparison,

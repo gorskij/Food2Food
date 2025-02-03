@@ -8,9 +8,21 @@ import {
 import { Button } from "./ui/button";
 import { Languages } from "lucide-react";
 import { useLanguageStore } from "@/store/languageStore";
+import { useMutateUserLanguage } from "@/data/account/useMutateUserLanguage";
+import { useUserStore } from "@/store/userStore";
 
 const LanguageSelector: FC = () => {
   const { setLanguage } = useLanguageStore();
+  const { mutateUserLanguage } = useMutateUserLanguage();
+  const { isAuthenticated } = useUserStore();
+
+  const handleLanguageChange = (language: "en" | "pl") => {
+    setLanguage(language);
+    if (isAuthenticated()) {
+      mutateUserLanguage({ language: language });
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -20,17 +32,13 @@ const LanguageSelector: FC = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem
-          onClick={() => {
-            setLanguage("en");
-          }}
+          onClick={() => handleLanguageChange("en")}
           className="cursor-pointer"
         >
           English
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => {
-            setLanguage("pl");
-          }}
+          onClick={() => handleLanguageChange("pl")}
           className="cursor-pointer"
         >
           Polski

@@ -1,8 +1,6 @@
 package pl.lodz.p.it.food2food.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -12,6 +10,7 @@ import pl.lodz.p.it.food2food.exceptions.IdenticalFieldValueException;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
 import pl.lodz.p.it.food2food.exceptions.messages.UserExceptionMessages;
+import pl.lodz.p.it.food2food.model.Language;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.model.UserAccessLevel;
 import pl.lodz.p.it.food2food.repositories.UserAccessLevelRepository;
@@ -52,16 +51,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @PreAuthorize("permitAll()")
-    private String generateUniqueUsername(String baseUsername) {
-        String uniqueUsername = baseUsername;
-        int counter = 1;
-        while (userRepository.existsByUsername(uniqueUsername)) {
-            uniqueUsername = baseUsername + counter;
-            counter++;
-        }
-        return uniqueUsername;
-    }
 
     @PreAuthorize("permitAll()")
     @Transactional(propagation = Propagation.MANDATORY)
@@ -75,5 +64,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByGithubId(String githubId) throws NotFoundException {
         return userRepository.findByGithubId(githubId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @PreAuthorize("isAuthenticated()")
+    public String changeLanguage(UUID id, String language) throws NotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+
+        user.setLanguage(Language.valueOf(language));
+        userRepository.save(user);
+
+        return user.getLanguage().getValue();
+    }
+
+    @PreAuthorize("permitAll()")
+    private String generateUniqueUsername(String baseUsername) {
+        String uniqueUsername = baseUsername;
+        int counter = 1;
+        while (userRepository.existsByUsername(uniqueUsername)) {
+            uniqueUsername = baseUsername + counter;
+            counter++;
+        }
+        return uniqueUsername;
     }
 }

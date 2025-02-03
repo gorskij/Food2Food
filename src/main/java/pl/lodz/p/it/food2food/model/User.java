@@ -49,6 +49,11 @@ public class User extends AbstractEntity {
     private UserPreference userPreference;
 
     @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name = "language", nullable = false)
+    private Language language = Language.PL;
+
+    @Setter
     @ManyToMany
     @ToString.Exclude
     @JoinTable(

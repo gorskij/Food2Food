@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useTransition } from "react";
 import { useUserStore } from "@/store/userStore";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,12 +13,13 @@ import { User2, LogOut, Settings, ChevronsUpDown, LogIn } from "lucide-react";
 import SignInGoogleButton from "@/components/SignInGoogleButton";
 import SignInGithubButton from "@/components/SignInGithubButton";
 import { toast } from "@/hooks/use-toast";
-import { t } from "i18next";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 const UserAuth: React.FC = () => {
   const { isAuthenticated, username, clearToken } = useUserStore();
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
   const handleLogout = () => {
     toast({
       variant: "success",

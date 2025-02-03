@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
         try {
             User user = userService.getUserByGoogleId(payload.sub());
             String userToken = jwtService.createToken(user, getUserRoles(user));
-            return new AuthResponse(userToken, null);
+            return new AuthResponse(userToken, null, user.getLanguage().getValue());
         } catch (NotFoundException e) {
             String email = payload.email();
             String username = email.split("@")[0];
@@ -61,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
 
             User user = userService.createUser(newUser);
             String userToken = jwtService.createToken(user, getUserRoles(user));
-            return new AuthResponse(userToken, "true");
+            return new AuthResponse(userToken, "true", user.getLanguage().getValue());
         }
     }
 
@@ -71,12 +71,12 @@ public class AuthServiceImpl implements AuthService {
         try {
             User user = userService.getUserByGithubId(payload.id());
             String userToken = jwtService.createToken(user, getUserRoles(user));
-            return new AuthResponse(userToken, null);
+            return new AuthResponse(userToken, null, user.getLanguage().getValue());
         } catch (NotFoundException e) {
             User newUser = newUserFromGithubTokenPayload(payload);
             User user = userService.createUser(newUser);
             String userToken = jwtService.createToken(user, getUserRoles(user));
-            return new AuthResponse(userToken, "true");
+            return new AuthResponse(userToken, "true", user.getLanguage().getValue());
         }
     }
 

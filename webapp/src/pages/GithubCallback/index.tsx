@@ -1,5 +1,6 @@
 import { api } from "@/data/api";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguageStore } from "@/store/languageStore";
 import { useUserStore } from "@/store/userStore";
 import { AuthenticateResponse } from "@/types/AuthenticateResponse";
 import { AxiosError } from "axios";
@@ -13,6 +14,7 @@ const GithubCallback: FC = () => {
   const { setToken, token } = useUserStore();
   const { toast } = useToast();
   const { t } = useTranslation();
+  const { setLanguage } = useLanguageStore();
 
   useEffect(() => {
     (async () => {
@@ -26,6 +28,7 @@ const GithubCallback: FC = () => {
         );
 
         setToken(result.data.token);
+        setLanguage(result.data.language);
 
         if (result.status === 201) {
           toast({
@@ -66,7 +69,7 @@ const GithubCallback: FC = () => {
         navigate("/");
       }
     })();
-  }, [navigate, setToken, t, toast, token]);
+  }, [navigate, setLanguage, setToken, t, toast, token]);
 
   return <></>;
 };
