@@ -42,7 +42,7 @@ const ProductDetailsPage: FC = () => {
   const { addProduct, removeProduct, replaceProduct, product1, product2 } =
     useComparisonStore();
   const { data, isLoading, isError } = useGetProductDetails(id!);
-  const placeholderImg = "https://via.placeholder.com/150";
+  const placeholderImg = "\\150.png";
   const breadcrumbs = useBreadcrumbs([
     { title: t("productDetails.breadcrumbs.home"), path: "/" },
     { title: t("productDetails.breadcrumbs.productList"), path: "/products" },
