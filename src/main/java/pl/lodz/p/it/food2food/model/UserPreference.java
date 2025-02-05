@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-public class UserPreference extends AbstractEntity {
+public class UserPreference extends AbstractMutableEntity {
 
     @ManyToMany
     @JoinTable(

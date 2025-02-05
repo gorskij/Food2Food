@@ -24,7 +24,7 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "level")
 @ToString
-public abstract class AccessLevel extends AbstractEntity implements Serializable {
+public abstract class AccessLevel extends AbstractMutableEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

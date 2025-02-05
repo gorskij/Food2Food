@@ -19,7 +19,7 @@ import java.util.Set;
 @SecondaryTable(name = "google_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @SecondaryTable(name = "github_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @ToString
-public class User extends AbstractEntity {
+public class User extends AbstractMutableEntity {
     @Setter
     @ToString.Exclude
     @Column(name = "google_id", table = "google_auth", unique = true)
