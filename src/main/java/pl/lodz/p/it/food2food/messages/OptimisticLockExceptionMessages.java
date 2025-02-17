@@ -1,4 +1,4 @@
-package pl.lodz.p.it.food2food.exceptions.messages;
+package pl.lodz.p.it.food2food.messages;
 
 public class OptimisticLockExceptionMessages {
     public static final String USER_ALREADY_MODIFIED_DATA = "User data has been modified.";

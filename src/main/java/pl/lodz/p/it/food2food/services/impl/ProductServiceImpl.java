@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
-import pl.lodz.p.it.food2food.exceptions.messages.ExceptionMessages;
+import pl.lodz.p.it.food2food.messages.ExceptionMessages;
 import pl.lodz.p.it.food2food.model.Product;
 import pl.lodz.p.it.food2food.repositories.ProductRepository;
 import pl.lodz.p.it.food2food.services.ProductService;

@@ -4,7 +4,7 @@ import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-import pl.lodz.p.it.food2food.exceptions.messages.OptimisticLockExceptionMessages;
+import pl.lodz.p.it.food2food.messages.OptimisticLockExceptionMessages;
 
 import java.util.Base64;
 import java.util.Map;

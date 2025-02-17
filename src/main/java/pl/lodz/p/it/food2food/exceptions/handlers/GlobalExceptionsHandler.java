@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.exceptions.ApplicationBaseException;
-import pl.lodz.p.it.food2food.exceptions.messages.ExceptionMessages;
+import pl.lodz.p.it.food2food.messages.ExceptionMessages;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 
 import java.sql.SQLException;

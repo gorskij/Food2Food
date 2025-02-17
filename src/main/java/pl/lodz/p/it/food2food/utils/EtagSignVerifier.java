@@ -6,7 +6,7 @@ import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-import pl.lodz.p.it.food2food.exceptions.messages.OptimisticLockExceptionMessages;
+import pl.lodz.p.it.food2food.messages.OptimisticLockExceptionMessages;
 
 import java.text.ParseException;
 import java.util.Base64;

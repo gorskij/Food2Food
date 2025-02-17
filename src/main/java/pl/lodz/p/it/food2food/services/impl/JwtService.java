@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
-import pl.lodz.p.it.food2food.exceptions.messages.UserExceptionMessages;
+import pl.lodz.p.it.food2food.messages.UserExceptionMessages;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.repositories.UserRepository;
 
