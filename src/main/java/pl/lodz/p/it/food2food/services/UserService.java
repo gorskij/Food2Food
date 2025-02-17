@@ -1,11 +1,13 @@
 package pl.lodz.p.it.food2food.services;
 
-import pl.lodz.p.it.food2food.exceptions.ApplicationOptimisticLockException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import pl.lodz.p.it.food2food.exceptions.CreationException;
 import pl.lodz.p.it.food2food.exceptions.IdenticalFieldValueException;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.model.User;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
@@ -16,4 +18,8 @@ public interface UserService {
     User getUserByGithubId(String githubId) throws NotFoundException;
 
     String changeLanguage(UUID id, String language) throws NotFoundException;
+
+    List<String> getUserRoles(UUID id);
+
+    Page<User> getAllUsers(String username, Pageable pageable);
 }

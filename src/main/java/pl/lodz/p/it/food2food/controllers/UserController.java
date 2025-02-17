@@ -2,25 +2,48 @@ package pl.lodz.p.it.food2food.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.lodz.p.it.food2food.dto.requests.ChangeLanguageRequest;
 import pl.lodz.p.it.food2food.dto.responses.ChangeLanguageResponse;
+import pl.lodz.p.it.food2food.dto.responses.UserResponse;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
+import pl.lodz.p.it.food2food.mappers.UserMapper;
 import pl.lodz.p.it.food2food.services.UserService;
 
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@Transactional(propagation = Propagation.NEVER)
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserMapper userMapper;
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
+    public ResponseEntity<Page<UserResponse>> getAll(@RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "10") int size,
+                                                     @RequestParam(required = false) String username,
+                                                     @RequestParam(defaultValue = "username") String sortBy,
+                                                     @RequestParam(defaultValue = "desc") String sortDirection) {
+        Pageable pageable = PageRequest.of(page, size,
+                sortDirection.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending());
+
+        return ResponseEntity.ok(userService.getAllUsers(username, pageable).map(userMapper::toUserResponse));
+    }
 
     @PostMapping("/me/language")
     @PreAuthorize("isAuthenticated()")

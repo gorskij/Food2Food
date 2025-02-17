@@ -1,5 +1,8 @@
 package pl.lodz.p.it.food2food.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
@@ -18,4 +21,10 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByGithubId(@NonNull String githubId);
     boolean existsByUsername(@NonNull String username);
     boolean existsByEmail(@NonNull String email);
+
+    @EntityGraph(attributePaths = {"username", "email", "blocked", "id", "accessLevels"})
+    Page<User> findByUsernameContainingIgnoreCase(String name, Pageable pageable);
+
+    @EntityGraph(attributePaths = {"username", "email", "blocked", "id", "accessLevels"})
+    Page<User> findAll(Pageable pageable);
 }
