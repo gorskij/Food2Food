@@ -39,6 +39,10 @@ public class User extends AbstractMutableEntity {
     @Column(name = "username", nullable = false, updatable = false, unique = true, length = 50)
     private String username;
 
+    @Setter
+    @Column(name="blocked", nullable = false)
+    private boolean blocked = false;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AccessLevel> accessLevels = new ArrayList<>();
 

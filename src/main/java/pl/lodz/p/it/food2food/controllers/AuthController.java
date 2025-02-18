@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pl.lodz.p.it.food2food.dto.auth.*;
 import pl.lodz.p.it.food2food.exceptions.CreationException;
 import pl.lodz.p.it.food2food.exceptions.IdenticalFieldValueException;
+import pl.lodz.p.it.food2food.exceptions.UserBlockedException;
 import pl.lodz.p.it.food2food.services.AuthService;
 import java.util.Base64;
 import java.util.HashMap;
@@ -116,6 +117,8 @@ public class AuthController {
         AuthResponse response;
         try {
             response = authService.singInGoogleOAuth(payload);
+        } catch (UserBlockedException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage(), e);
         } catch (CreationException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         } catch (IdenticalFieldValueException e) {
@@ -203,6 +206,8 @@ public class AuthController {
         AuthResponse response;
         try {
             response = authService.singInGithubOAuth(payload);
+        } catch (UserBlockedException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage(), e);
         } catch (CreationException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         } catch (IdenticalFieldValueException e) {

@@ -5,18 +5,21 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import pl.lodz.p.it.food2food.dto.auth.AuthResponse; // Import the new record
+import pl.lodz.p.it.food2food.dto.auth.AuthResponse;
 import pl.lodz.p.it.food2food.dto.auth.GithubOAuth2TokenPayload;
 import pl.lodz.p.it.food2food.dto.auth.GoogleOAuth2TokenPayload;
 import pl.lodz.p.it.food2food.exceptions.CreationException;
 import pl.lodz.p.it.food2food.exceptions.IdenticalFieldValueException;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
+import pl.lodz.p.it.food2food.exceptions.UserBlockedException;
+import pl.lodz.p.it.food2food.messages.UserExceptionMessages;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.model.UserPreference;
 import pl.lodz.p.it.food2food.repositories.AdministratorAccessLevelRepository;
 import pl.lodz.p.it.food2food.repositories.UserAccessLevelRepository;
 import pl.lodz.p.it.food2food.services.AuthService;
 import pl.lodz.p.it.food2food.services.UserService;
+import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +46,14 @@ public class AuthServiceImpl implements AuthService {
 
     @PreAuthorize("permitAll()")
     @Override
-    public AuthResponse singInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
+    public AuthResponse singInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException {
         try {
             User user = userService.getUserByGoogleId(payload.sub());
+
+            if (user.isBlocked()) {
+                throw new UserBlockedException(UserExceptionMessages.BLOCKED, ErrorCodes.USER_BLOCKED);
+            }
+
             String userToken = jwtService.createToken(user, getUserRoles(user));
             return new AuthResponse(userToken, null, user.getLanguage().getValue());
         } catch (NotFoundException e) {
@@ -67,9 +75,14 @@ public class AuthServiceImpl implements AuthService {
 
     @PreAuthorize("permitAll()")
     @Override
-    public AuthResponse singInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException {
+    public AuthResponse singInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException {
         try {
             User user = userService.getUserByGithubId(payload.id());
+
+            if (user.isBlocked()) {
+                throw new UserBlockedException(UserExceptionMessages.BLOCKED, ErrorCodes.USER_BLOCKED);
+            }
+
             String userToken = jwtService.createToken(user, getUserRoles(user));
             return new AuthResponse(userToken, null, user.getLanguage().getValue());
         } catch (NotFoundException e) {

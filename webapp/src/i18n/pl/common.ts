@@ -17,9 +17,10 @@ const validation = {
 
 const errors = {
   optimisticLock: "Nie pracujesz na najnowszych danych",
-  registrationError: "Błąd podczas rejestracji",
+  registrationError: "Wystąpił błąd podczas rejestracji. Spróbuj ponownie.",
   invalidData: "Nieprawidłowe dane",
-  identicalEmail: "Użytkownik o podanym adresie email już istnieje",
+  identicalEmail:
+    "Adres email jest już zarejestrowany już w systemie. Spróbuj zalogować się za pomoca innego dostawcy.",
   notFound: "Nie znaleziono",
   userNotFound: "Użytkownik nie znaleziony",
   themeNotFound: "Nie znaleziono motywu",
@@ -34,6 +35,7 @@ const errors = {
   unexpectedRollback: "Nieoczekiwane cofnięcie operacji",
   transaction: "Błąd transakcji",
   unknownError: "Coś poszło nie tak...",
+  userBlocked: "Konto użytkownika jest zablokowane.",
 } satisfies {
   [key in ExceptionCode]: string;
 };
@@ -133,12 +135,6 @@ const login = {
   loggedInDescription: "Zostałeś pomyślnie zalogowany.",
   loginError: "Błąd logowania",
   tryAgain: "Wystąpił błąd podczas logowania. Spróbuj ponownie.",
-  creationError: "Błąd rejestracji",
-  creationErrorDescription:
-    "Wystąpił błąd podczas rejestracji. Spróbuj ponownie.",
-  emailConflict: "Konflikt adresów email",
-  emailConflictDescription:
-    "Adres email jest już zarejestrowany już w systemie. Spróbuj zalogować się za pomoca innego dostawcy.",
 };
 
 const logout = {

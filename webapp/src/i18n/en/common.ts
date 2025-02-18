@@ -17,7 +17,6 @@ const error = {
 
 const errors = {
   optimisticLock: "You are not working on the latest data",
-  registrationError: "Error while registering",
   invalidData: "Invalid data",
   notFound: "Not found",
   userNotFound: "User not found",
@@ -27,7 +26,6 @@ const errors = {
   accessDenied: "Access denied",
   jwtTokenInvalid: "Session expired",
   validationError: "Validation error",
-  identicalEmail: "User with given email address already exists",
   internalServerError:
     "Something went wrong on our end. Please try again later.",
   undefined: "Unexpected error occurred",
@@ -35,6 +33,10 @@ const errors = {
   transaction: "Transaction",
   unexpectedRollback: "Unexpected rollback",
   unknownError: "Something went wrong...",
+  registrationError: "An error occurred during registration. Please try again.",
+  identicalEmail:
+    "The email address is already registered in the system. Please try logging in using a different provider.",
+  userBlocked: "Account blocked.",
 } satisfies {
   [key in ExceptionCode]: string;
 };
@@ -135,13 +137,6 @@ const login = {
   loggedIn: "Logged in successfully",
   loggedInDescription: "You have been logged in successfully.",
   loginError: "Login error",
-  tryAgain: "An error occurred during login. Please try again.",
-  creationError: "Registration error",
-  creationErrorDescription:
-    "An error occurred during registration. Please try again.",
-  emailConflict: "Email conflict",
-  emailConflictDescription:
-    "The email address is already registered in the system. Please try logging in using a different provider.",
 };
 
 const logout = {

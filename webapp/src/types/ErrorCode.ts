@@ -21,4 +21,5 @@ export type ExceptionCode =
   | "rollback"
   | "unexpectedRollback"
   | "transaction"
+  | "userBlocked"
   | "unknownError";

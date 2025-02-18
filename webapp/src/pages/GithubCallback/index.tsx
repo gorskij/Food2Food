@@ -3,6 +3,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useLanguageStore } from "@/store/languageStore";
 import { useUserStore } from "@/store/userStore";
 import { AuthenticateResponse } from "@/types/AuthenticateResponse";
+import { ErrorCode } from "@/types/ErrorCode";
 import { AxiosError } from "axios";
 import { FC, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -47,25 +48,13 @@ const GithubCallback: FC = () => {
         navigate("/");
       } catch (error) {
         const axiosError = error as AxiosError;
-        if (axiosError.status === 400) {
-          toast({
-            variant: "destructive",
-            title: t("login.creationError"),
-            description: t("login.creationErrorDescription"),
-          });
-        } else if (axiosError.status === 409) {
-          toast({
-            variant: "destructive",
-            title: t("login.emailConflict"),
-            description: t("login.emailConflictDescription"),
-          });
-        } else {
-          toast({
-            variant: "destructive",
-            title: t("login.loginError"),
-            description: t("login.tryAgain"),
-          });
-        }
+        toast({
+          variant: "destructive",
+          title: t("login.loginError"),
+          description: t(
+            `errors.${(axiosError.response?.data as ErrorCode).exceptionCode}`
+          ),
+        });
         navigate("/");
       }
     })();

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.exceptions.*;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
+import pl.lodz.p.it.food2food.messages.AdministratorMessages;
 import pl.lodz.p.it.food2food.messages.UserExceptionMessages;
 import pl.lodz.p.it.food2food.model.Language;
 import pl.lodz.p.it.food2food.model.User;
@@ -44,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public Page<User> getAllUsers(String username, Pageable pageable) {
         if (username != null && !username.isEmpty()) {
             return userRepository.findByUsernameContainingIgnoreCase(username, pageable);
@@ -52,36 +54,34 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-//    @Override
-//    @Retryable(maxAttempts = 3, retryFor = {OptimisticLockException.class})
-//    @Transactional(rollbackFor = NotFoundException.class, propagation = Propagation.REQUIRES_NEW)
-//    @PreAuthorize("hasRole('ADMINISTRATOR')")
-//    public void blockUser(UUID id, UUID administratorId) throws NotFoundException, UserAlreadyBlockedException, AdministratorOwnBlockException {
-//        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
-//
-//        if(user.getId().equals(administratorId)) {
-//            throw new AdministratorOwnBlockException(AdministratorMessages.OWN_ADMINISTRATOR_BLOCK, ErrorCodes.ADMINISTRATOR_OWN_BLOCK);
-//        }
-//
-//        if (user.isBlocked()) {
-//            throw new UserAlreadyBlockedException(UserExceptionMessages.ALREADY_BLOCKED, ErrorCodes.USER_ALREADY_BLOCKED);
-//        }
-//        user.setBlocked(true);
-//        userRepository.saveAndFlush(user);
-//    }
-//
-//    @Override
-//    @Retryable(maxAttempts = 3, retryFor = {OptimisticLockException.class})
-//    @Transactional(rollbackFor = NotFoundException.class, propagation = Propagation.REQUIRES_NEW)
-//    @PreAuthorize("hasRole('ADMINISTRATOR')")
-//    public void unblockUser(UUID id) throws NotFoundException, UserAlreadyUnblockedException {
-//        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
-//        if (!user.isBlocked()) {
-//            throw new UserAlreadyUnblockedException(UserExceptionMessages.ALREADY_UNBLOCKED, ErrorCodes.USER_ALREADY_UNBLOCKED);
-//        }
-//        user.setBlocked(false);
-//        userRepository.saveAndFlush(user);
-//    }
+    @Override
+    @Transactional(rollbackFor = NotFoundException.class, propagation = Propagation.REQUIRES_NEW)
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
+    public void blockUser(UUID id, UUID administratorId) throws NotFoundException, UserAlreadyBlockedException, AdministratorOwnBlockException {
+        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+
+        if(user.getId().equals(administratorId)) {
+            throw new AdministratorOwnBlockException(AdministratorMessages.OWN_ADMINISTRATOR_BLOCK, ErrorCodes.ADMINISTRATOR_OWN_BLOCK);
+        }
+
+        if (user.isBlocked()) {
+            throw new UserAlreadyBlockedException(UserExceptionMessages.ALREADY_BLOCKED, ErrorCodes.USER_ALREADY_BLOCKED);
+        }
+        user.setBlocked(true);
+        userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    @Transactional(rollbackFor = NotFoundException.class, propagation = Propagation.REQUIRES_NEW)
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
+    public void unblockUser(UUID id) throws NotFoundException, UserAlreadyUnblockedException {
+        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
+        if (!user.isBlocked()) {
+            throw new UserAlreadyUnblockedException(UserExceptionMessages.ALREADY_UNBLOCKED, ErrorCodes.USER_ALREADY_UNBLOCKED);
+        }
+        user.setBlocked(false);
+        userRepository.saveAndFlush(user);
+    }
 
     @Override
     @PreAuthorize("permitAll()")
