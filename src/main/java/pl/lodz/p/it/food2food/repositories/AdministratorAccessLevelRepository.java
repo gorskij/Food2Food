@@ -15,4 +15,7 @@ import java.util.UUID;
 public interface AdministratorAccessLevelRepository extends JpaRepository<AdministratorAccessLevel, UUID> {
     @PreAuthorize("permitAll()")
     Optional<AdministratorAccessLevel> findByUserIdAndActive(UUID id, boolean active);
+
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
+    Optional<AdministratorAccessLevel> findByUserId(UUID id);
 }
