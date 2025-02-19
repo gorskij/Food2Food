@@ -1,6 +1,7 @@
 package pl.lodz.p.it.food2food.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     private final UserRepository userRepository;
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public Page<Product> getFavoriteProducts(UUID userId, String name, Pageable pageable) throws NotFoundException {
         userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         if (name != null && !name.isEmpty()) {
@@ -37,6 +39,7 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public boolean isFavorite(UUID userId, UUID productId) throws NotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));
@@ -44,6 +47,7 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public void addFavoriteProduct(UUID userId, UUID productId) throws NotFoundException, ProductAlreadyInFavorites {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));
@@ -59,6 +63,7 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public void removeFavoriteProduct(UUID userId, UUID productId) throws NotFoundException, ProductNotInFavorites {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));

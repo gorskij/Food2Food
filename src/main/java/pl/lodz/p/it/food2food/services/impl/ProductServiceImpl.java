@@ -3,6 +3,7 @@ package pl.lodz.p.it.food2food.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
+    @PreAuthorize("permitAll()")
     public Page<Product> getAllProducts(String name, Pageable pageable) {
         if (name != null && !name.isEmpty()) {
             return productRepository.findByProductNameContainingIgnoreCase(name, pageable);
@@ -31,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @PreAuthorize("permitAll()")
     public Product getProduct(UUID id) throws NotFoundException {
 
         return productRepository.findById(id).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));

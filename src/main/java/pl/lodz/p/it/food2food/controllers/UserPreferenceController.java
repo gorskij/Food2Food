@@ -31,7 +31,7 @@ public class UserPreferenceController {
     private final UserPreferenceMapper userPreferenceMapper;
     private final EtagSigner signer;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping()
     public ResponseEntity<UserPreferenceResponse> getUserPreference() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -46,7 +46,7 @@ public class UserPreferenceController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('USER')")
     @PutMapping()
     public ResponseEntity<UserPreferenceResponse> updateUserPreference(
             @RequestBody UserPreferenceRequest newUserPreference,

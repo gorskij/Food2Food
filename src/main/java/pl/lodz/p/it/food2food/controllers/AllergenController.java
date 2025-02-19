@@ -23,7 +23,7 @@ public class AllergenController {
     private final AllergenService allergenService;
     private final AllergenMapper allergenMapper;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<AllergenDto>> getAllAllergens() {
         return ResponseEntity.ok(allergenService.getAllAllergens().stream().map(allergenMapper::toAllergenDto).collect(Collectors.toList()));

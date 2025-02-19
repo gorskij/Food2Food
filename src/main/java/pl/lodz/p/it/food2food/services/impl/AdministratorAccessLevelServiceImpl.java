@@ -47,9 +47,6 @@ public class AdministratorAccessLevelServiceImpl implements AdministratorAccessL
         }
 
         administrator.setActive(false);
-        User user = administrator.getUser();
-
-//        emailService.sendAdministratorPermissionLostEmail(user.getEmail(), user.getFirstName(), user.getLanguage());
 
         return administratorAccessLevelRepository.saveAndFlush(administrator);
     }
@@ -73,9 +70,6 @@ public class AdministratorAccessLevelServiceImpl implements AdministratorAccessL
         }
 
         administrator.setActive(true);
-        User user = administrator.getUser();
-
-//        emailService.sendAdministratorPermissionGainedEmail(user.getEmail(), user.getFirstName(), user.getLanguage());
 
         return administratorAccessLevelRepository.saveAndFlush(administrator);
     }

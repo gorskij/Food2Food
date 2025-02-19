@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,26 +19,31 @@ import java.util.UUID;
 @Transactional(propagation = Propagation.MANDATORY)
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
-
+    @PreAuthorize("permitAll()")
     @EntityGraph(attributePaths = {"label", "packageType", "portion", "producer"})
     Page<Product> findByProductNameContainingIgnoreCase(String name, Pageable pageable);
 
+    @PreAuthorize("permitAll()")
     @EntityGraph(attributePaths = {"label", "packageType", "portion", "producer"})
     Page<Product> findAll(Pageable pageable);
 
+    @PreAuthorize("hasRole('USER')")
     @Query("SELECT p FROM User u JOIN u.favoriteProducts p WHERE u.id = :userId")
     @EntityGraph(attributePaths = {"label", "packageType", "portion", "producer"})
     Page<Product> findFavoriteProductsByUserId(@Param("userId") UUID userId, Pageable pageable);
 
+    @PreAuthorize("hasRole('USER')")
     @Query("SELECT p FROM User u JOIN u.favoriteProducts p WHERE u.id = :userId AND LOWER(p.productName) LIKE LOWER(CONCAT('%', :name, '%'))")
     @EntityGraph(attributePaths = {"label", "packageType", "portion", "producer"})
     Page<Product> findFavoriteProductsByUserIdAndName(@Param("userId") UUID userId, @Param("name") String name, Pageable pageable);
 
     @Modifying
+    @PreAuthorize("hasRole('USER')")
     @Query("UPDATE Product p SET p.favoriteCount = p.favoriteCount + 1 WHERE p.id = :productId")
     void incrementFavoriteCount(@Param("productId") UUID productId);
 
     @Modifying
+    @PreAuthorize("hasRole('USER')")
     @Query("UPDATE Product p SET p.favoriteCount = p.favoriteCount - 1 WHERE p.id = :productId")
     void decrementFavoriteCount(@Param("productId") UUID productId);
 }

@@ -1,6 +1,7 @@
 package pl.lodz.p.it.food2food.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ public class AllergenServiceImpl implements AllergenService {
     private final AllergenRepository allergenRepository;
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public List<Allergen> getAllAllergens() {
         return allergenRepository.findAll();
     }

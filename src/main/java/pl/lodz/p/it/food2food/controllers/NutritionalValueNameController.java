@@ -23,7 +23,7 @@ public class NutritionalValueNameController {
     private final NutritionalValueNameService nutritionalValueNameService;
     private final NutritionalValueNameMapper nutritionalValueNameMapper;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<NutritionalValueNameDto>> getAllNutritionalValueNames() {
         return ResponseEntity.ok(nutritionalValueNameService.getAllNutritionalValueNames().stream().map(nutritionalValueNameMapper::toNutritionalValueNameDto).collect(Collectors.toList()));

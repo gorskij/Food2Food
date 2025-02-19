@@ -23,7 +23,7 @@ public class PackageTypeController {
     private final PackageTypeService packageTypeService;
     private final PackageTypeMapper packageTypeMapper;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<PackageTypeDto>> getAllPackageTypes() {
         return ResponseEntity.ok(packageTypeService.getAllPackageTypes().stream().map(packageTypeMapper::toPackageTypeDto).collect(Collectors.toList()));

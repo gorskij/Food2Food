@@ -1,6 +1,7 @@
 package pl.lodz.p.it.food2food.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,13 +33,15 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
     private final EtagSignVerifier etagSignVerifier;
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public UserPreference getUserPreference(UUID id) throws NotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         return user.getUserPreference();
     }
 
-    @Transactional(rollbackFor = ApplicationOptimisticLockException.class ,propagation = Propagation.REQUIRES_NEW)
     @Override
+    @PreAuthorize("hasRole('USER')")
+    @Transactional(rollbackFor = ApplicationOptimisticLockException.class ,propagation = Propagation.REQUIRES_NEW)
     public UserPreference updateUserPreference(UUID userId, UserPreferenceRequest userPreferenceRequest, String tagValue) throws NotFoundException, ApplicationOptimisticLockException {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         UserPreference userPreference = user.getUserPreference();

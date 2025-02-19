@@ -23,7 +23,7 @@ public class RatingController {
     private final RatingService ratingService;
     private final RatingMapper ratingMapper;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<RatingDto>> getAllAllergens() {
         return ResponseEntity.ok(ratingService.getAllRatings().stream().map(ratingMapper::toRatingDto).collect(Collectors.toList()));
