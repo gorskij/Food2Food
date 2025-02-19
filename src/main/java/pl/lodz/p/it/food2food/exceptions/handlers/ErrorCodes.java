@@ -18,7 +18,6 @@ public class ErrorCodes {
     public static final String ADMINISTRATOR_OWN_ROLE_REMOVAL = "administratorOwnRoleRemoval";
     public static final String NOT_FOUND = "notFound";
     public static final String USER_NOT_FOUND = "userNotFound";
-    public static final String USER_PREFERENCE_NOT_FOUND = "userPreferenceNotFound";
     public static final String PRODUCT_NOT_FOUND = "productNotFound";
     public static final String IDENTICAL_EMAIL = "identicalEmail";
     public static final String PRODUCT_ALREADY_IN_FAVORITES = "productAlreadyInFavorites";
