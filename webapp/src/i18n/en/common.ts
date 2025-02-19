@@ -320,7 +320,7 @@ const appSidebar = {
 };
 
 const userAuth = {
-  settings: "User\u00A0options",
+  adminSettings: "Administrator Options",
   logout: "Sign out",
   signIn: "Sign in",
 };

@@ -319,7 +319,7 @@ const appSidebar = {
 };
 
 const userAuth = {
-  settings: "Opcje\u00A0użytkownika",
+  adminSettings: "Opcje Administratora",
   logout: "Wyloguj się",
   signIn: "Zaloguj się",
 };

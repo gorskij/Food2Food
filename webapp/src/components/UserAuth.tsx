@@ -1,4 +1,4 @@
-import React, { useTransition } from "react";
+import React from "react";
 import { useUserStore } from "@/store/userStore";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,9 +15,10 @@ import SignInGithubButton from "@/components/SignInGithubButton";
 import { toast } from "@/hooks/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
 
 const UserAuth: React.FC = () => {
-  const { isAuthenticated, username, clearToken } = useUserStore();
+  const { isAuthenticated, username, clearToken, roles } = useUserStore();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const handleLogout = () => {
@@ -47,10 +48,16 @@ const UserAuth: React.FC = () => {
               {username}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
-              <Settings />
-              <span>{t("userAuth.settings")}</span>
-            </DropdownMenuItem>
+
+            {roles?.includes("ADMINISTRATOR") && (
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <NavLink to={`/admin/users`} className="flex w-full">
+                  <Settings />
+                  <span>{t("userAuth.adminSettings")}</span>
+                </NavLink>
+              </DropdownMenuItem>
+            )}
+
             <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
               <LogOut />
               <span>{t("userAuth.logout")}</span>
