@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +23,11 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByUsername(@NonNull String username);
     boolean existsByEmail(@NonNull String email);
 
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     @EntityGraph(attributePaths = {"username", "email", "blocked", "id", "accessLevels"})
-    Page<User> findByUsernameContainingIgnoreCase(String name, Pageable pageable);
+    Page<User> findByUsernameContainingIgnoreCase(String username, Pageable pageable);
 
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     @EntityGraph(attributePaths = {"username", "email", "blocked", "id", "accessLevels"})
     Page<User> findAll(Pageable pageable);
 }

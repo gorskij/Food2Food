@@ -10,6 +10,7 @@ import GithubCallback from "./pages/GithubCallback";
 import UserPreferencePage from "./pages/UserPreference";
 import UserLayout from "./layouts/UserLayout";
 import AdminLayout from "./layouts/AdminLayout";
+import UsersListPage from "./pages/UsersListPage";
 
 export const UnprotectedRoutes: RouteObject[] = [
   {
@@ -32,7 +33,10 @@ const UserRoutes: RouteObject[] = [
   { path: "user-preference", Component: UserPreferencePage },
 ];
 
-const AdminRoutes: RouteObject[] = [{ index: true, Component: HomePage }];
+const AdminRoutes: RouteObject[] = [
+  { index: true, Component: HomePage },
+  { path: "users", Component: UsersListPage },
+];
 
 export const ProtectedRoutes: RouteObject[] = [
   {

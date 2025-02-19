@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.lodz.p.it.food2food.exceptions.NotFoundException;
 import pl.lodz.p.it.food2food.exceptions.handlers.ErrorCodes;
 import pl.lodz.p.it.food2food.messages.UserExceptionMessages;
+import pl.lodz.p.it.food2food.model.AccessLevel;
 import pl.lodz.p.it.food2food.model.User;
 import pl.lodz.p.it.food2food.repositories.UserRepository;
 
@@ -56,14 +57,9 @@ public class JwtService {
         DecodedJWT decodedJWT = verifier.verify(token);
         User user = userRepository.findByUsername(decodedJWT.getSubject()).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         List<GrantedAuthority> authorities = user.getAccessLevels().stream()
+                .filter(AccessLevel::isActive)
                 .map(accessLevel -> new SimpleGrantedAuthority("ROLE_" + accessLevel.getLevel().toUpperCase()))
                 .collect(Collectors.toList());
         return new UsernamePasswordAuthenticationToken(user.getId(), null, authorities);
-    }
-
-    public String getUserId(String token) {
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
-        DecodedJWT decodedJWT = verifier.verify(token);
-        return decodedJWT.getClaim("id").asString();
     }
 }

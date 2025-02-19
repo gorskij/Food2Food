@@ -53,8 +53,7 @@ public class UserController {
     @PostMapping("/{id}/block")
     public ResponseEntity<Void> blockUser(@PathVariable UUID id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        UUID administratorId = UUID.fromString(jwt.getSubject());
+        UUID administratorId = (UUID) authentication.getPrincipal();
         try {
             userService.blockUser(id, administratorId);
             return ResponseEntity.ok().build();

@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +22,7 @@ import pl.lodz.p.it.food2food.services.AdministratorAccessLevelService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/admins")
+@RequestMapping("/api/v1/admins")
 @RequiredArgsConstructor
 @Transactional(propagation = Propagation.NEVER)
 public class AdministratorController {
@@ -34,8 +33,7 @@ public class AdministratorController {
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<Void> removeAccessLevel(@PathVariable UUID id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        UUID administratorId = UUID.fromString(jwt.getSubject());
+        UUID administratorId = (UUID) authentication.getPrincipal();
 
         try {
             administratorAccessLevelService.removeAdministratorAccessLevel(id, administratorId);

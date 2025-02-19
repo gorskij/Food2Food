@@ -12,7 +12,6 @@ export type ExceptionCode =
   | "internalServerError"
   | "notFound"
   | "userNotFound"
-  | "themeNotFound"
   | "productNotFound"
   | "somethingWentWrong"
   | "accessDenied"
@@ -22,4 +21,6 @@ export type ExceptionCode =
   | "unexpectedRollback"
   | "transaction"
   | "userBlocked"
+  | "administratorOwnRoleRemoval"
+  | "administratorOwnBlock"
   | "unknownError";

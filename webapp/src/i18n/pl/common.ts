@@ -16,14 +16,16 @@ const validation = {
 };
 
 const errors = {
-  optimisticLock: "Nie pracujesz na najnowszych danych",
+  administratorOwnRoleRemoval:
+    "Nie można odebrać własnego poziomu dostępu administratora.",
+  administratorOwnBlock: "Nie można zablokować samego siebie.",
+  optimisticLock: "Nie pracujesz na najnowszych danych.",
   registrationError: "Wystąpił błąd podczas rejestracji. Spróbuj ponownie.",
-  invalidData: "Nieprawidłowe dane",
+  invalidData: "Nieprawidłowe dane.",
   identicalEmail:
     "Adres email jest już zarejestrowany już w systemie. Spróbuj zalogować się za pomoca innego dostawcy.",
-  notFound: "Nie znaleziono",
-  userNotFound: "Użytkownik nie znaleziony",
-  themeNotFound: "Nie znaleziono motywu",
+  notFound: "Nie znaleziono.",
+  userNotFound: "Użytkownik nie znaleziony.",
   productNotFound: "Nie znaleziono produktu",
   somethingWentWrong: "Coś poszło nie tak...",
   accessDenied: "Brak dostępu",
@@ -635,7 +637,57 @@ const changeLanguage = {
   error: "Błąd podczas zmiany języka",
 };
 
+const usersListPage = {
+  breadcrumbs: {
+    home: "Strona Główna",
+    list: "Lista Użytkowników",
+  },
+  title: "Lista Użytkowników",
+  searchPlaceholder: "Nazwa użytkownika",
+  pageIndicator: "Strona {{currentPage}} z {{totalPages}}",
+  username: "Nazwa Użytkownika",
+  email: "Adres Email",
+  blocked: "Status",
+  roles: "Poziomy Dostępu",
+  options: "Dostępne Operacje",
+  userBlocked: "Zablokowany",
+  userNotBlocked: "Niezablokowany",
+  unblockUser: "Odblokuj Użytkownika",
+  blockUser: "Zablokuj Użytkownika",
+  addAdmin: "Dodaj poziom dostępu Administratora",
+  removeAdmin: "Odbierz poziom dostępu Administratora",
+};
+
+const blockUser = {
+  successTitle: "Użytkownik zablokowany",
+  successDescription: "Użytkownik został pomyślnie zablokowany.",
+  error: "Użytkownik nie został zablokowany",
+};
+
+const unblockUser = {
+  successTitle: "Użytkownik odblokowany",
+  successDescription: "Użytkownik został pomyślnie odblokowany.",
+  error: "Użytkownik nie został odblokowany",
+};
+
+const removeAdministratorRole = {
+  successTitle: "Odebrany poziom dostępu",
+  successDescription: "Pomyślnie odebrano poziom dostępu administratora.",
+  error: "Nie odebrano poziomu dostępu",
+};
+
+const addAdministratorRole = {
+  successTitle: "Nadany poziom dostępu",
+  successDescription: "Pomyślnie nadano poziom dostępu administratora.",
+  error: "Nie nadano poziomu dostępu",
+};
+
 export default {
+  removeAdministratorRole,
+  addAdministratorRole,
+  unblockUser,
+  blockUser,
+  usersListPage,
   changeLanguage,
   homePage,
   nutrientComparison,

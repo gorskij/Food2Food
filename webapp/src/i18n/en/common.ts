@@ -16,11 +16,12 @@ const error = {
 };
 
 const errors = {
+  administratorOwnRoleRemoval: "Cannot remove own administrator role.",
+  administratorOwnBlock: "Cannot block self.",
   optimisticLock: "You are not working on the latest data",
   invalidData: "Invalid data",
   notFound: "Not found",
   userNotFound: "User not found",
-  themeNotFound: "Theme not found",
   productNotFound: "Product not found",
   somethingWentWrong: "Something went wrong...",
   accessDenied: "Access denied",
@@ -626,7 +627,59 @@ const changeLanguage = {
   error: "Error changing language",
 };
 
+const usersListPage = {
+  breadcrumbs: {
+    home: "Home",
+    list: "User List",
+  },
+  title: "User List",
+  searchPlaceholder: "Username",
+  pageIndicator: "Page {{currentPage}} of {{totalPages}}",
+  username: "Username",
+  email: "Email Address",
+  blocked: "Status",
+  roles: "Access Levels",
+  options: "Available Actions",
+  userBlocked: "Blocked",
+  userNotBlocked: "Not Blocked",
+  unblockUser: "Unblock User",
+  blockUser: "Block User",
+  addAdmin: "Grant Administrator Access",
+  removeAdmin: "Revoke Administrator Access",
+};
+
+const blockUser = {
+  successTitle: "User blocked",
+  successDescription: "User has been successfuly blocked.",
+  error: "User was not blocked",
+};
+
+const unblockUser = {
+  successTitle: "User unblocked",
+  successDescription: "User has been successfuly unblocked.",
+  error: "User was not unblocked",
+};
+
+const removeAdministratorRole = {
+  successTitle: "Access Level Revoked",
+  successDescription:
+    "Administrator access level has been successfully revoked.",
+  error: "Failed to Revoke Access Level",
+};
+
+const addAdministratorRole = {
+  successTitle: "Access Level Granted",
+  successDescription:
+    "Administrator access level has been successfully granted.",
+  error: "Failed to Grant Access Level",
+};
+
 export default {
+  removeAdministratorRole,
+  addAdministratorRole,
+  unblockUser,
+  blockUser,
+  usersListPage,
   changeLanguage,
   homePage,
   nutrientComparison,
