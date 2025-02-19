@@ -1,6 +1,6 @@
 import { useGetProducts } from "@/data/products/useGetProducts";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { ChevronsLeft, ChevronsRight, FilterX, Search } from "lucide-react";
 import { LoadingData } from "@/components/LoadingData";
 import RefreshQueryButton from "@/components/RefreshQueryButton";
@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { useTranslation } from "react-i18next";
 import ProductCard from "@/components/ProductCard";
 
-const ProductsPage = () => {
+const ProductsPage: FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchName, setSearchName] = useState("");
   const [pendingSearch, setPendingSearch] = useState("");
