@@ -1,6 +1,6 @@
 import { ProductDetails } from "@/types/ProductDetails";
 import { FC, useState } from "react";
-import { Pie, Sector, Legend, Label, PieChart } from "recharts";
+import { Pie, Sector, Legend, Label, PieChart, PieProps } from "recharts";
 import {
   Card,
   CardHeader,
@@ -29,7 +29,7 @@ const NutritionalChart: FC<NutritionalChartProps> = ({
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const onPieEnter = (_, index) => {
+  const onPieEnter = (_: PieProps, index: number) => {
     setActiveIndex(index);
   };
 

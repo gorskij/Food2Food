@@ -25,7 +25,7 @@ const ProductsPage: FC = () => {
     if (pendingSearch === "") {
       handleSearch();
     }
-  }, [pendingSearch]);
+  });
 
   const handleSearch = () => {
     setSearchName(pendingSearch);

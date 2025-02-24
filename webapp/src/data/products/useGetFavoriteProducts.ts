@@ -9,6 +9,7 @@ interface Product {
   id: string;
   productName: string;
   productDescription: string;
+  favoriteCount: number;
   ean: string;
   labelImage: string | null;
 }

@@ -1,13 +1,40 @@
-import { RadialBarChart, RadialBar, PolarRadiusAxis, Label } from "recharts";
+import {
+  RadialBarChart,
+  RadialBar,
+  PolarRadiusAxis,
+  Label,
+  LabelProps,
+} from "recharts";
 
-const GenericRadialBarChart = ({
+type ChartDataItem = {
+  key: string;
+  value: number;
+};
+
+type ConfigItem = {
+  key: string;
+  color: string;
+};
+
+type ChartProps = {
+  data: ChartDataItem[];
+  config: ConfigItem[];
+  totalKey: string;
+  unit?: string;
+  chartSize?: {
+    innerRadius: number;
+    outerRadius: number;
+  };
+  className?: string;
+};
+
+const GenericRadialBarChart: React.FC<ChartProps> = ({
   data,
   config,
   totalKey,
-  valueKey,
   unit = "",
   chartSize = { innerRadius: 80, outerRadius: 130 },
-  className,
+  className = "",
 }) => {
   // Calculate total and derived data points for chart rendering
   const totalValue = data.find((item) => item.key === totalKey)?.value ?? 0;
@@ -26,7 +53,7 @@ const GenericRadialBarChart = ({
       >
         <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
           <Label
-            content={({ viewBox }) => {
+            content={({ viewBox }: LabelProps) => {
               if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                 return (
                   <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
@@ -47,6 +74,7 @@ const GenericRadialBarChart = ({
                   </text>
                 );
               }
+              return null;
             }}
           />
         </PolarRadiusAxis>

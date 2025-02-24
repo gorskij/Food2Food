@@ -22,6 +22,7 @@ import {
 import { ProductDetails } from "@/types/ProductDetails";
 import { useTranslation } from "react-i18next";
 import { Banana, Carrot } from "lucide-react";
+import { Payload } from "recharts/types/component/DefaultLegendContent";
 
 interface FatSaturationChartProps {
   productDetails: ProductDetails;
@@ -55,7 +56,7 @@ const FatSaturationChart: FC<FatSaturationChartProps> = ({
       unsaturated: unsaturatedFat,
     },
   ];
-  const fatSaturationChartDataForLegend = [
+  const fatSaturationChartDataForLegend: Payload[] = [
     {
       value: t("fatSaturation.unsaturatedFatLabel"),
       color: "hsl(var(--chart-yellow))",

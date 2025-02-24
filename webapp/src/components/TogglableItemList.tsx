@@ -28,6 +28,15 @@ type ToggleableItemListProps = {
   ) => void;
 };
 
+function isNutritionalValueName(
+  item: Allergen | Rating | NutritionalValueName | PackageType
+): item is NutritionalValueName {
+  return (
+    "group" in item &&
+    typeof (item as NutritionalValueName).group.groupName === "string"
+  );
+}
+
 const ToggleableItemList: FC<ToggleableItemListProps> = ({
   data,
   positiveCategory,
@@ -45,10 +54,23 @@ const ToggleableItemList: FC<ToggleableItemListProps> = ({
     <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-2">
       {data
         .filter((item) => {
-          if ("group" in item) {
+          if (isNutritionalValueName(item)) {
             return item.group.groupName === group;
           }
-          return shouldFilterByGroup ? item.groupName === group : true;
+
+          if ("groupName" in item) {
+            console.log(item);
+            if (shouldFilterByGroup) {
+              console.log(item.groupName);
+              return item.groupName === group;
+            }
+          }
+
+          if ((item as PackageType).id && (item as PackageType).name) {
+            return true;
+          }
+
+          return true;
         })
         .map((item) => {
           const isNegative = tempPreferences?.[negativeCategory]?.some(

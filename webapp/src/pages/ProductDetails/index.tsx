@@ -118,7 +118,7 @@ const ProductDetailsPage: FC = () => {
                       <div className="flex font-normal w-full justify-end items-center mb-2">
                         <FavoriteInfo
                           favoriteCount={data.favoriteCount}
-                          id={id}
+                          id={id!}
                         />
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>

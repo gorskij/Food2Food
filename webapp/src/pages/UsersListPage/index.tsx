@@ -65,7 +65,7 @@ const UsersListPage: FC = () => {
     if (pendingSearch === "") {
       handleSearch();
     }
-  }, [pendingSearch]);
+  });
 
   const handleSearch = () => {
     setSearchUsername(pendingSearch);
@@ -78,9 +78,7 @@ const UsersListPage: FC = () => {
 
   const handleAdminToggle = async (user: User) => {
     if (
-      user.roles.some(
-        (role) => role.name === "ADMINISTRATOR" && role.active
-      )
+      user.roles.some((role) => role.name === "ADMINISTRATOR" && role.active)
     ) {
       await removeAdministratorRole(user.id);
     } else {

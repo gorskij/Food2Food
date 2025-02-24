@@ -370,6 +370,8 @@ const UserPreferencePage: FC = () => {
               <div>
                 <ul>
                   {macronutrientsArray.map((value) => {
+                    if (!value) return null;
+
                     const isPositive =
                       tempPreferences?.positiveNutritionalValueNames.some(
                         (item) => item.id === value.id
@@ -381,7 +383,7 @@ const UserPreferencePage: FC = () => {
 
                     return (
                       <li
-                        key={value?.id}
+                        key={value.id}
                         className="flex items-center gap-2 my-2"
                       >
                         <ToggleGroup
@@ -423,7 +425,7 @@ const UserPreferencePage: FC = () => {
                           </ToggleGroupItem>
                         </ToggleGroup>
                         {t(
-                          `macronutrientsInformation.${value?.group.groupName.replace(
+                          `macronutrientsInformation.${value.group.groupName.replace(
                             /\s+/g,
                             ""
                           )}`

@@ -22,6 +22,7 @@ import {
 import { ProductDetails } from "@/types/ProductDetails";
 import { useTranslation } from "react-i18next";
 import { Banana, Carrot } from "lucide-react";
+import { Payload } from "recharts/types/component/DefaultLegendContent";
 
 interface SugarContentChartProps {
   productDetails: ProductDetails;
@@ -67,17 +68,15 @@ const SugarContentChart: FC<SugarContentChartProps> = ({
     },
   ];
 
-  const sugarContentChartDataForLegend = [
+  const sugarContentChartDataForLegend: Payload[] = [
     {
       value: t("sugarChart.labels.nonSugarCarbs"),
       color: "hsl(var(--chart-yellow))",
-      label: t("sugarChart.labels.nonSugarCarbs"),
       type: "square",
     },
     {
       value: t("sugarChart.labels.sugar"),
       color: "hsl(var(--chart-red))",
-      label: t("sugarChart.labels.sugar"),
       type: "square",
     },
   ];
