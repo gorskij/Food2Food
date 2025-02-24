@@ -59,9 +59,7 @@ const ToggleableItemList: FC<ToggleableItemListProps> = ({
           }
 
           if ("groupName" in item) {
-            console.log(item);
             if (shouldFilterByGroup) {
-              console.log(item.groupName);
               return item.groupName === group;
             }
           }
