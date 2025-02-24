@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
@@ -10,27 +8,19 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: database
     volumes:
-      - ./dump_sql_new.sql:/docker-entrypoint-initdb.d/dump_sql_new.sql
+      - ./schema_dump.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./data_dump.sql:/docker-entrypoint-initdb.d/02_data.sql
     ports:
       - "5432:5432"
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: f2f-db-pgadmin
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "5050:80"
-    depends_on:
-      - postgres
+    networks:
+      - my_network
 
   app:
     image: food2food:latest
+    container_name: f2f-app
     build:
       context: ../
-      dockerfile: Dockerfile
+      dockerfile: DockerfileApp
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/database
       SPRING_DATASOURCE_USERNAME: f2fadmin
@@ -39,3 +29,26 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+    networks:
+      - my_network
+
+  nginx:
+    build:
+      context: ..
+      dockerfile: docker-f2f/DockerfileNginx
+    container_name: f2f-nginx
+    restart: always
+    ports:
+      - "443:443"
+    depends_on:
+      - app
+    networks:
+      - my_network
+    volumes:
+      - ./food2food.pl.crt:/etc/cert/food2food.pl.crt
+      - ./food2food.pl.key:/etc/cert/food2food.pl.key
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+
+networks:
+  my_network:
