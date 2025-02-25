@@ -32,7 +32,8 @@ const FavouriteProductsPage: FC = () => {
     if (pendingSearch === "") {
       handleSearch();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingSearch]);
 
   const handleSearch = () => {
     setSearchName(pendingSearch);
