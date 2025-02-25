@@ -1,12 +1,17 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:17-alpine3.21
     container_name: f2f-db
     restart: always
     environment:
       POSTGRES_USER: f2fadmin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: database
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "f2fadmin", "-d", "database" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - ./schema_dump.sql:/docker-entrypoint-initdb.d/01_schema.sql
       - ./data_dump.sql:/docker-entrypoint-initdb.d/02_data.sql
@@ -16,19 +21,18 @@ services:
       - my_network
 
   app:
-    image: food2food:latest
     container_name: f2f-app
+    restart: always
     build:
       context: ../
       dockerfile: DockerfileApp
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/database
-      SPRING_DATASOURCE_USERNAME: f2fadmin
-      SPRING_DATASOURCE_PASSWORD: password
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - my_network
 
