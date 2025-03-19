@@ -20,6 +20,7 @@ public class Composition extends AbstractEntity {
             joinColumns = @JoinColumn(name = "composition_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
+    @ToString.Exclude
     private List<Ingredient> ingredients = new ArrayList<>();
 
     @ManyToMany
@@ -28,9 +29,9 @@ public class Composition extends AbstractEntity {
             joinColumns = @JoinColumn(name = "composition_id"),
             inverseJoinColumns = @JoinColumn(name = "addition_id")
     )
+    @ToString.Exclude
     private List<Addition> additions = new ArrayList<>();
 
     @ManyToOne
     private Flavour flavour;
-
 }
