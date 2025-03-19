@@ -1,0 +1,20 @@
+{
+  "product": [
+    {
+      "id": "b91d5065-8d82-4a1f-9570-badfb6eb0977",
+      "product_name": "Product A",
+      "product_description": "Description for product A",
+      "country": "USA",
+      "version": 1,
+      "favorite_count": 0
+    },
+    {
+      "id": "be0f1a91-61c2-495f-bd70-10ea0d781506",
+      "product_name": "Product B",
+      "product_description": "Description for product B",
+      "country": "UK",
+      "version": 1,
+      "favorite_count": 0
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "package_type": [
+    {
+      "id": "c9b7d8aa-b84b-46a7-9514-df44f7bcd3f4",
+      "name": "Plastic",
+      "version": 1
+    },
+    {
+      "id": "c9b7d8aa-b84b-46a7-9514-df44f7dcb3f1",
+      "name": "Cup",
+      "version": 1
+    }
+  ]
+}

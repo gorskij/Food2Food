@@ -19,7 +19,6 @@ import pl.lodz.p.it.food2food.services.impl.AuthServiceImpl;
 import pl.lodz.p.it.food2food.services.impl.JwtService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;

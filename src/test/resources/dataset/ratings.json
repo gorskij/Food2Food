@@ -1,0 +1,16 @@
+{
+  "rating": [
+    {
+      "id": "c9b7d8aa-b84b-46a7-9514-df42f7bcb3f4",
+      "name": "Bez laktozy",
+      "group_name": "Parametry bez składników",
+      "version": 1
+    },
+    {
+      "id": "c9b7d8aa-b84b-46a7-9514-df41f7bcb3f1",
+      "name": "bez konserwantów",
+      "group_name": "Bez dodatków do żywności",
+      "version": 1
+    }
+  ]
+}

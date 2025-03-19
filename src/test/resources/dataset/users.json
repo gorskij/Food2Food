@@ -1,0 +1,100 @@
+{
+  "users": [
+    {
+      "id": "723e3bf0-8485-45c7-a92b-125eef6f4177",
+      "username": "food2fooduser2",
+      "blocked": false,
+      "language": "EN",
+      "user_preference_id": "550e8400-e29b-41d4-a716-446655440001",
+      "created_at": "2021-01-01 00:00:00",
+      "modified_at": "2021-01-01 00:00:00",
+      "version": 1
+    },
+    {
+      "id": "d8889b61-3122-4ca5-a0d6-1e4daaef94f4",
+      "username": "food2fooduser",
+      "blocked": false,
+      "language": "EN",
+      "user_preference_id": "550e8400-e29b-41d4-a716-446655440011",
+      "created_at": "2021-01-01 00:00:00",
+      "modified_at": "2021-01-01 00:00:00",
+      "version": 1
+    }
+  ],
+  "personal_data": [
+    {
+      "user_id": "723e3bf0-8485-45c7-a92b-125eef6f4177",
+      "email": "food2fooduser2@google.com"
+    },
+    {
+      "user_id": "d8889b61-3122-4ca5-a0d6-1e4daaef94f4",
+      "email": "food2fooduser@google.com"
+    }
+  ],
+  "user_preference": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "version": 1,
+      "created_at": "2021-01-01 00:00:00",
+      "modified_at": "2021-01-01 00:00:00"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440011",
+      "version": 1,
+      "created_at": "2021-01-01 00:00:00",
+      "modified_at": "2021-01-01 00:00:00"
+    }
+  ],
+  "access_level": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440002",
+      "user_id": "723e3bf0-8485-45c7-a92b-125eef6f4177",
+      "active": true,
+      "level": "ADMINISTRATOR",
+      "created_at": "2021-01-01 00:00:00",
+      "modified_at": "2021-01-01 00:00:00",
+      "version": 1
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440003",
+      "user_id": "723e3bf0-8485-45c7-a92b-125eef6f4177",
+      "active": true,
+      "level": "USER",
+      "created_at": "2021-01-01 00:00:00",
+      "modified_at": "2021-01-01 00:00:00",
+      "version": 1
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440033",
+      "user_id": "d8889b61-3122-4ca5-a0d6-1e4daaef94f4",
+      "active": true,
+      "level": "USER",
+      "created_at": "2021-01-01 00:00:00",
+      "modified_at": "2021-01-01 00:00:00",
+      "version": 1
+    }
+  ],
+  "administrator": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440002"
+    }
+  ],
+  "user_access_level": [
+    {
+    "id": "550e8400-e29b-41d4-a716-446655440003"
+    },
+    {
+    "id": "550e8400-e29b-41d4-a716-446655440033"
+    }
+  ],
+  "google_auth": [
+    {
+      "google_id": "100910746609114863653",
+      "user_id": "723e3bf0-8485-45c7-a92b-125eef6f4177"
+    },
+    {
+      "google_id": "100910746609114863654",
+      "user_id": "d8889b61-3122-4ca5-a0d6-1e4daaef94f4"
+    }
+  ]
+}

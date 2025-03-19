@@ -1,0 +1,23 @@
+{
+  "nutritional_value_group": [
+    {
+      "id": "fcb0f674-0ead-4e3e-bc35-170037ea27f6",
+      "version": 1,
+      "group_name": "Energy"
+    }
+  ],
+    "nutritional_value_name": [
+      {
+      "id": "9d73969b-796f-4db7-a7e3-339668bd9f79",
+      "name": "Energy",
+      "version": 1,
+      "group_id": "fcb0f674-0ead-4e3e-bc35-170037ea27f6"
+      },
+      {
+        "id": "9d73969b-796f-4db7-a7e3-331668bd9f79",
+        "name": "NotEnergy",
+        "version": 1,
+        "group_id": "fcb0f674-0ead-4e3e-bc35-170037ea27f6"
+      }
+    ]
+}

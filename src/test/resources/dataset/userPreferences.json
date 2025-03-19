@@ -1,0 +1,14 @@
+{
+  "user_preference_negative_package_type":[
+    {
+      "user_preference_id":"550e8400-e29b-41d4-a716-446655440011",
+      "package_type_id":"c9b7d8aa-b84b-46a7-9514-df44f7bcd3f4"
+    }
+  ],
+    "user_preference_positive_package_type":[
+        {
+        "user_preference_id":"550e8400-e29b-41d4-a716-446655440011",
+        "package_type_id":"c9b7d8aa-b84b-46a7-9514-df44f7dcb3f1"
+        }
+    ]
+}
