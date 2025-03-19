@@ -40,7 +40,7 @@ public class TransactionAspect {
 
         if (attributes != null) {
             HttpServletRequest request = attributes.getRequest();
-            ipAddress = request.getHeader("X-Forwarded-For"); // Check for proxy headers
+            ipAddress = request.getHeader("X-Forwarded-For");
             if (ipAddress == null || ipAddress.isEmpty()) {
                 ipAddress = request.getRemoteAddr();
             }
