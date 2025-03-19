@@ -25,7 +25,7 @@ public class RatingController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping
-    public ResponseEntity<List<RatingDto>> getAllAllergens() {
+    public ResponseEntity<List<RatingDto>> getAllRatings() {
         return ResponseEntity.ok(ratingService.getAllRatings().stream().map(ratingMapper::toRatingDto).collect(Collectors.toList()));
     }
 }
