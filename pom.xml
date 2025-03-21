@@ -28,6 +28,7 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <testcontainers.version>1.20.3</testcontainers.version>
         <rest-assured.version>5.4.0</rest-assured.version>
+        <maven-tests-plugins.version>3.5.2</maven-tests-plugins.version>
     </properties>
     <dependencies>
         <dependency>
@@ -133,6 +134,29 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-tests-plugins.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*Test.java</exclude>
+                    </excludes>
+                    <includes>
+                        <include>**/*IT.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-tests</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
