@@ -28,6 +28,7 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional(rollbackFor = NotFoundException.class)
     @PreAuthorize("hasRole('USER')")
     public Page<Product> getFavoriteProducts(UUID userId, String name, Pageable pageable) throws NotFoundException {
         userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
@@ -39,6 +40,7 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     }
 
     @Override
+    @Transactional(rollbackFor = NotFoundException.class)
     @PreAuthorize("hasRole('USER')")
     public boolean isFavorite(UUID userId, UUID productId) throws NotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
@@ -47,6 +49,7 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     }
 
     @Override
+    @Transactional(rollbackFor = {NotFoundException.class, ProductAlreadyInFavorites.class})
     @PreAuthorize("hasRole('USER')")
     public void addFavoriteProduct(UUID userId, UUID productId) throws NotFoundException, ProductAlreadyInFavorites {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
@@ -63,6 +66,7 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     }
 
     @Override
+    @Transactional(rollbackFor = {NotFoundException.class, ProductNotInFavorites.class})
     @PreAuthorize("hasRole('USER')")
     public void removeFavoriteProduct(UUID userId, UUID productId) throws NotFoundException, ProductNotInFavorites {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));

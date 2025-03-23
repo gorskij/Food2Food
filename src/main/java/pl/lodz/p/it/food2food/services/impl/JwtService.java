@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(propagation = Propagation.MANDATORY)
 @RequiredArgsConstructor
 public class JwtService {
     @Value("${jwt.secret}")
@@ -36,6 +35,7 @@ public class JwtService {
 
     private final UserRepository userRepository;
 
+    @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("permitAll()")
     public String createToken(User user, List<String> roles) {
         LocalDateTime now = LocalDateTime.now();
@@ -51,7 +51,7 @@ public class JwtService {
                 .sign(Algorithm.HMAC256(secretKey));
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = NotFoundException.class)
     public Authentication validateToken(String token) throws NotFoundException {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
         DecodedJWT decodedJWT = verifier.verify(token);

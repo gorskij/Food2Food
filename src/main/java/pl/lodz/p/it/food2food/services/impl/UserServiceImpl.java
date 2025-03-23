@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @PreAuthorize("permitAll()")
-    @Transactional(rollbackFor = {IdenticalFieldValueException.class}, propagation = Propagation.MANDATORY)
+    @Transactional(propagation = Propagation.MANDATORY)
     public User createUser(User newUser) throws CreationException, IdenticalFieldValueException {
         UserAccessLevel newUserAccessLevel = new UserAccessLevel();
         newUserAccessLevel.setActive(true);

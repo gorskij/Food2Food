@@ -33,9 +33,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(rollbackFor = NotFoundException.class)
     @PreAuthorize("permitAll()")
     public Product getProduct(UUID id) throws NotFoundException {
-
         return productRepository.findById(id).orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND, ErrorCodes.PRODUCT_NOT_FOUND));
     }
 }

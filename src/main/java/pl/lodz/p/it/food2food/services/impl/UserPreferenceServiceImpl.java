@@ -34,6 +34,7 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
 
     @Override
     @PreAuthorize("hasRole('USER')")
+    @Transactional(rollbackFor = NotFoundException.class)
     public UserPreference getUserPreference(UUID id) throws NotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         return user.getUserPreference();
@@ -41,7 +42,7 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
 
     @Override
     @PreAuthorize("hasRole('USER')")
-    @Transactional(rollbackFor = ApplicationOptimisticLockException.class ,propagation = Propagation.REQUIRES_NEW)
+    @Transactional(rollbackFor = {ApplicationOptimisticLockException.class, NotFoundException.class})
     public UserPreference updateUserPreference(UUID userId, UserPreferenceRequest userPreferenceRequest, String tagValue) throws NotFoundException, ApplicationOptimisticLockException {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(UserExceptionMessages.NOT_FOUND, ErrorCodes.USER_NOT_FOUND));
         UserPreference userPreference = user.getUserPreference();
