@@ -11,8 +11,8 @@ public record GithubOAuth2TokenPayload(
     @Override
     public String toString() {
         return new StringJoiner(", ", GithubOAuth2TokenPayload.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("username='********'")
+                .add("id='********'")
+                .add("username=" + username)
                 .add("email='********'")
                 .add("name='********'")
                 .toString();
