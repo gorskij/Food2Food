@@ -28,6 +28,8 @@ services:
       dockerfile: DockerfileApp
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/database
+      SPRING_DATASOURCE_USERNAME: f2fadmin
+      SPRING_DATASOURCE_PASSWORD: password
     ports:
       - "8080:8080"
     depends_on:
