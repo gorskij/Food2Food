@@ -73,7 +73,7 @@ class AuthServiceTest {
         user.setBlocked(false);
         when(jwtService.createToken(user, List.of())).thenReturn("token");
 
-        AuthResponse response = authService.singInGoogleOAuth(payload);
+        AuthResponse response = authService.signInGoogleOAuth(payload);
 
         assertNotNull(response);
         assertEquals("token", response.token());
@@ -99,7 +99,7 @@ class AuthServiceTest {
         when(userService.getUserByGoogleId(payload.sub())).thenReturn(user);
         user.setBlocked(true);
 
-        assertThrows(UserBlockedException.class, () -> authService.singInGoogleOAuth(payload));
+        assertThrows(UserBlockedException.class, () -> authService.signInGoogleOAuth(payload));
     }
 
     @Test
@@ -114,7 +114,7 @@ class AuthServiceTest {
         when(userService.createUser(any(User.class))).thenReturn(user);
         when(jwtService.createToken(user, List.of())).thenReturn("token");
 
-        AuthResponse response = authService.singInGithubOAuth(payload);
+        AuthResponse response = authService.signInGithubOAuth(payload);
 
         assertNotNull(response);
         assertEquals("token", response.token());
@@ -132,7 +132,7 @@ class AuthServiceTest {
         user.setBlocked(false);
         when(jwtService.createToken(user, List.of())).thenReturn("token");
 
-        AuthResponse response = authService.singInGithubOAuth(payload);
+        AuthResponse response = authService.signInGithubOAuth(payload);
 
         assertNotNull(response);
         assertEquals("token", response.token());

@@ -10,8 +10,8 @@ import pl.lodz.p.it.food2food.exceptions.UserBlockedException;
 
 public interface AuthService {
     @PreAuthorize("permitAll()")
-    AuthResponse singInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException;
+    AuthResponse signInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException;
 
     @PreAuthorize("permitAll()")
-    AuthResponse singInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException;
+    AuthResponse signInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException;
 }

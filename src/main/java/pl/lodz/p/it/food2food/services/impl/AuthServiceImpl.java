@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
     @PreAuthorize("permitAll()")
     @Transactional(rollbackFor = {IdenticalFieldValueException.class, CreationException.class, UserBlockedException.class})
     @Override
-    public AuthResponse singInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException {
+    public AuthResponse signInGoogleOAuth(GoogleOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException {
         try {
             User user = userService.getUserByGoogleId(payload.sub());
 
@@ -77,7 +77,7 @@ public class AuthServiceImpl implements AuthService {
     @PreAuthorize("permitAll()")
     @Transactional(rollbackFor = {IdenticalFieldValueException.class, CreationException.class, UserBlockedException.class})
     @Override
-    public AuthResponse singInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException {
+    public AuthResponse signInGithubOAuth(GithubOAuth2TokenPayload payload) throws CreationException, IdenticalFieldValueException, UserBlockedException {
         try {
             User user = userService.getUserByGithubId(payload.id());
 

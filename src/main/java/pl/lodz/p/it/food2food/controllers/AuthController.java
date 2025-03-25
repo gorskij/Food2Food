@@ -116,7 +116,7 @@ public class AuthController {
 
         AuthResponse response;
         try {
-            response = authService.singInGoogleOAuth(payload);
+            response = authService.signInGoogleOAuth(payload);
         } catch (UserBlockedException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage(), e);
         } catch (CreationException e) {
@@ -205,7 +205,7 @@ public class AuthController {
 
         AuthResponse response;
         try {
-            response = authService.singInGithubOAuth(payload);
+            response = authService.signInGithubOAuth(payload);
         } catch (UserBlockedException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage(), e);
         } catch (CreationException e) {
