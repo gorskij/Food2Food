@@ -21,7 +21,7 @@ oauth2:
     token:
       url: https://oauth2.googleapis.com/token
     redirect:
-      url: https://localhost/auth/google/callback
+      url: ${OAUTH2_GOOGLE_REDIRECT_URL}
   github:
     registration:
       client-id: Ov23lidF156Dnmqnurjp
@@ -31,7 +31,7 @@ oauth2:
     token:
       url: https://github.com/login/oauth/access_token
     redirect:
-      url: https://localhost/auth/github/callback
+      url: ${OAUTH2_GITHUB_REDIRECT_URL}
 
 jws:
   secret: 6f97ca1e5fdf4a418bf0ad0badd33dd716f63e7f593a4b7f9e4b4304316fd09a
