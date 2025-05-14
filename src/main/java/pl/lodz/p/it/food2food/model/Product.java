@@ -25,7 +25,6 @@ public class Product extends AbstractEntity {
     @ToString.Exclude
     private Producer producer;
 
-    @Setter
     @Column(name = "product_name", nullable = false)
     private String productName;
 

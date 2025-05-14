@@ -32,7 +32,7 @@ public class User extends AbstractMutableEntity {
 
     @Setter
     @ToString.Exclude
-    @Column(name = "email", table = "personal_data", nullable = false, length = 50)
+    @Column(name = "email", table = "personal_data", nullable = false, unique = true, length = 50)
     private String email;
 
     @Setter
