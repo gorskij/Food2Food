@@ -48,5 +48,4 @@ public class AllergenServiceTest {
 
         verify(allergenRepository, times(1)).findAll();
     }
-
 }

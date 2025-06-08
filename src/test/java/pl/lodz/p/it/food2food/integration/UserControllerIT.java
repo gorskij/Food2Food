@@ -10,7 +10,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class UserControllerIT extends IntegrationTestConfig{
 
-
     @Test
     @DataSet(value = "/dataset/users.json", strategy = SeedStrategy.CLEAN_INSERT)
     public void GetAllUsers_WhenAdministrator_ShouldReturnAllUsers() {

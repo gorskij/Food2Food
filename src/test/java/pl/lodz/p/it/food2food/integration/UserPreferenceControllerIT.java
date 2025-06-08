@@ -5,7 +5,6 @@ import com.github.database.rider.core.api.dataset.SeedStrategy;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import pl.lodz.p.it.food2food.dto.requests.UserPreferenceRequest;
-import pl.lodz.p.it.food2food.dto.responses.UserPreferenceResponse;
 
 import java.util.Set;
 

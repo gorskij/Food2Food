@@ -8,10 +8,10 @@ WORKDIR /app
 RUN mvn clean install -U -Dmaven.test.skip=true
 
 FROM openjdk:21
-COPY --from=build /app/target/Food2Food-0.0.1.jar /app/app.jar
+COPY --from=build /app/target/*.jar /run/app/food2food.jar
 
 WORKDIR /app
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "/run/app/food2food.jar"]

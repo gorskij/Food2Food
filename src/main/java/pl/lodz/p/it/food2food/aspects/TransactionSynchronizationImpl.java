@@ -5,7 +5,7 @@ import org.springframework.transaction.support.TransactionSynchronization;
 
 @Slf4j
 public class TransactionSynchronizationImpl implements TransactionSynchronization {
-    private String txKey;
+    private final String txKey;
 
     public TransactionSynchronizationImpl(String txKey) {
         this.txKey = txKey;
@@ -19,6 +19,6 @@ public class TransactionSynchronizationImpl implements TransactionSynchronizatio
             case STATUS_UNKNOWN -> "UNKNOWN";
             default -> throw new IllegalArgumentException("Unexpected transaction status: " + status);
         };
-        log.info("Transaction: " + txKey + " completed with status: " + statusString);
+        log.info("Transaction: {} completed with status: {}", txKey, statusString);
     }
 }

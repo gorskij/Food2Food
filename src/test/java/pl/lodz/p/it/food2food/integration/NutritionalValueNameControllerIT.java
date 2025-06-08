@@ -1,7 +1,6 @@
 package pl.lodz.p.it.food2food.integration;
 
 import com.github.database.rider.core.api.dataset.DataSet;
-import com.github.database.rider.core.api.dataset.SeedStrategy;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 

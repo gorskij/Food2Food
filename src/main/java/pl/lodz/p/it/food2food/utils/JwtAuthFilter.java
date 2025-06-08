@@ -48,7 +48,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     response.getWriter().write(jsonResponse);
                     return;
                 }
-
             }
         }
             filterChain.doFilter(request, response);

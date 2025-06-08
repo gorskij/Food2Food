@@ -31,18 +31,9 @@ import java.sql.SQLException;
 
 @Slf4j
 @RequiredArgsConstructor
-@ControllerAdvice(annotations = RestController.class)
+@ControllerAdvice
 public class GlobalExceptionsHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    ResponseEntity<ExceptionResponse> handleConstraintViolationException(MethodArgumentNotValidException e) {
-        StringBuilder sb = new StringBuilder();
-        for (FieldError error : e.getFieldErrors()) {
-            sb.append(error.getDefaultMessage()).append(", ");
-        }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(ExceptionMessages.VALIDATION_ERROR + sb, ErrorCodes.VALIDATION_ERROR));
-    }
 
     @ExceptionHandler(ConstraintViolationException.class)
     ResponseEntity<ExceptionResponse> handleJakartaConstraintViolationException(ConstraintViolationException e) {
@@ -54,6 +45,15 @@ public class GlobalExceptionsHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(ExceptionMessages.VALIDATION_ERROR + sb, ErrorCodes.VALIDATION_ERROR));
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    ResponseEntity<ExceptionResponse> handleConstraintViolationException(MethodArgumentNotValidException e) {
+        StringBuilder sb = new StringBuilder();
+        for (FieldError error : e.getFieldErrors()) {
+            sb.append(error.getDefaultMessage()).append(", ");
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(ExceptionMessages.VALIDATION_ERROR + sb, ErrorCodes.VALIDATION_ERROR));
+    }
     @ExceptionHandler(GenericJDBCException.class)
     ResponseEntity<ExceptionResponse> handleJDBCException(GenericJDBCException e) {
         log.error("Uncaught exception", e);

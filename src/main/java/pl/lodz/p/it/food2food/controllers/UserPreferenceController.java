@@ -39,8 +39,8 @@ public class UserPreferenceController {
 
         try {
             UserPreference userPreference = userPreferenceService.getUserPreference(userId);
-            UserPreferenceResponse userPreferenceDto = userPreferenceMapper.toUserPreferenceResponse(userPreference);
-            return ResponseEntity.ok().eTag(signer.generateSignature(userPreference.getId(), userPreference.getVersion())).body(userPreferenceDto);
+            UserPreferenceResponse userPreferenceResponse = userPreferenceMapper.toUserPreferenceResponse(userPreference);
+            return ResponseEntity.ok().eTag(signer.generateSignature(userPreference.getId(), userPreference.getVersion())).body(userPreferenceResponse);
         } catch (NotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }

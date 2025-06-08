@@ -7,8 +7,8 @@ import lombok.ToString;
 
 import java.util.UUID;
 
-@Getter
 @Setter
+@Getter
 @ToString
 @MappedSuperclass
 public abstract class AbstractEntity {

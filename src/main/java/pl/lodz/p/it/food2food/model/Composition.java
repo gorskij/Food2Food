@@ -2,14 +2,12 @@ package pl.lodz.p.it.food2food.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @ToString
 @Entity
 public class Composition extends AbstractEntity {
